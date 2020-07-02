@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -x
+set -e
+
+FULL_PATH=$(realpath $0)
+DIR_PATH=$(dirname $FULL_PATH)
+
+$DIR_PATH/update
+
+iex -S mix
