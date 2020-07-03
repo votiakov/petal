@@ -1,0 +1,4 @@
+image: "elixir:1.10"
+
+tests:
+  script: script/cibuild
