@@ -6,5 +6,6 @@ set -e
 FULL_PATH=$(realpath $0)
 DIR_PATH=$(dirname $FULL_PATH)
 
+mix local.hex --force
 mix deps.get
 $DIR_PATH/test
