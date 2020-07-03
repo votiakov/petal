@@ -1,4 +1,10 @@
 image: "elixir:1.10"
 
+variables:
+  DATABASE_URL: "postgres"
+
+services: 
+- name: postgres:12
+
 tests:
   script: script/cibuild
