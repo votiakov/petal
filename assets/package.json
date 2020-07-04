@@ -21,7 +21,7 @@
     "css-loader": "^3.4.2",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^6.0.0",
-    "fomantic-ui-less": "^2.8.6",
+    "fomantic-ui": "^2.8.6",
     "image-webpack-loader": "^6.0.0",
     "less": "^3.11.3",
     "less-loader": "^6.2.0",
