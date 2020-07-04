@@ -9,5 +9,5 @@ DIR_PATH=$(dirname $FULL_PATH)
 $DIR_PATH/bootstrap
 
 mix deps.get
-cd assets && npm install && node node_modules/webpack/bin/webpack.js --mode development
-(cd .. && mix ecto.migrate)
+mix npm.install
+mix ecto.migrate
