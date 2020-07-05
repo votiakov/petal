@@ -5,6 +5,9 @@ config :core, router_forwards: [Content.Router]
 config :content,
   generators: [context_app: false]
 
+config :content, Content.Endpoint,
+  server: false
+
 import_config "../apps/*/config/config.exs"
 
 # Configures Elixir's Logger

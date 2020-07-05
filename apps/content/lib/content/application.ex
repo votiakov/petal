@@ -10,7 +10,7 @@ defmodule Content.Application do
       # Start the Telemetry supervisor
       Content.Telemetry,
       # Start the Endpoint (http/https)
-      # Content.Endpoint
+      Content.Endpoint
       # Start a worker by calling: Content.Worker.start_link(arg)
       # {Content.Worker, arg}
     ]
