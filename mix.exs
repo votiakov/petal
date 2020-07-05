@@ -20,7 +20,7 @@ defmodule Legendary.Mixfile do
       "deps.get": ["cmd mix deps.get"],
       "ecto.migrate": ["cmd mix ecto.migrate"],
       "npm.install": ["cmd npm install --prefix assets"],
-      "test": ["cmd mix test"]
+      test: ["cmd mix test"]
     ]
   end
 end

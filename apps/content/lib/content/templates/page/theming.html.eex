@@ -1,0 +1,28 @@
+<style>
+.ui.container > h2.dividing.header {
+    font-size: 2em;
+    font-weight: normal;
+    margin: 4em 0em 3em;
+}
+</style>
+<div class="ui container">
+  <h1>Theming Examples</h1>
+
+  <h2 class="ui dividing header">Site</h2>
+  <%= render "theming/_site.html", conn: @conn %>
+  
+  <h2 class="ui dividing header">Menu</h2>
+  <%= render "theming/_menu.html", conn: @conn %>
+
+  <h2 class="ui dividing header">Buttons</h2>
+  <%= render "theming/_buttons.html", conn: @conn %>
+
+  <h2 class="ui dividing header">Table</h2>
+  <%= render "theming/_tables.html", conn: @conn %>
+
+  <h2 class="ui dividing header">Input</h2>
+  <%= render "theming/_input.html", conn: @conn %>
+
+  <h2 class="ui dividing header">Card</h2>
+  <%= render "theming/_card.html", conn: @conn %>
+</div>

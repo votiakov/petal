@@ -1,5 +1,5 @@
-defmodule CoreWeb.Router do
-  use CoreWeb, :router
+defmodule Content.Router do
+  use Content, :router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -13,12 +13,8 @@ defmodule CoreWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", CoreWeb do
-    pipe_through :browser
-  end
-
   # Other scopes may use custom stacks.
-  # scope "/api", CoreWeb do
+  # scope "/api", Content do
   #   pipe_through :api
   # end
 
@@ -34,12 +30,14 @@ defmodule CoreWeb.Router do
 
     scope "/" do
       pipe_through :browser
-      live_dashboard "/dashboard", metrics: CoreWeb.Telemetry
+      live_dashboard "/dashboard", metrics: Content.Telemetry
     end
   end
 
-  Application.get_env(:core, :router_forwards, [])
-  |> Enum.map(fn router ->
-    forward "/", router
-  end)
+  scope "/", Content do
+    pipe_through :browser
+
+    get "/", PageController, :index
+    get "/pages/:id", PageController, :show
+  end
 end
