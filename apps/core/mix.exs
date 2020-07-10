@@ -5,12 +5,17 @@ defmodule Core.MixProject do
     [
       app: :core,
       version: "0.1.0",
+      build_path: "../../_build",
+      config_path: "../../config/config.exs",
+      deps_path: "../../deps",
+      lockfile: "../../mix.lock",
       elixir: "~> 1.7",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      test_coverage: [tool: ExCoveralls],
     ]
   end
 
@@ -33,9 +38,14 @@ defmodule Core.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:bamboo, "~> 1.5"},
+      {:excoveralls, "~> 0.10", only: [:dev, :test]},
+      {:credo, "~> 1.4", only: [:dev, :test], runtime: false},
+      {:ex_cldr, "~> 2.13.0"},
       {:phoenix, "~> 1.5.3"},
       {:phoenix_ecto, "~> 4.1"},
       {:ecto_sql, "~> 3.4"},
+      {:linguist, "0.3.0"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
@@ -44,7 +54,7 @@ defmodule Core.MixProject do
       {:telemetry_poller, "~> 0.4"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"}
+      {:plug_cowboy, "~> 2.0"},
     ]
   end
 

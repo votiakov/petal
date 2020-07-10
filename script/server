@@ -8,4 +8,4 @@ DIR_PATH=$(dirname $FULL_PATH)
 
 $DIR_PATH/update
 
-mix phx.server
+iex -S mix phx.server

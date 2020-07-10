@@ -1,4 +1,7 @@
 defmodule CoreWeb.Telemetry do
+  @moduledoc """
+  Collects metrics for the application and allows them to be transmitted using the Telemetry framework.
+  """
   use Supervisor
   import Telemetry.Metrics
 

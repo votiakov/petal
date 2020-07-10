@@ -55,3 +55,5 @@ config :content, Content.Endpoint,
       ~r"lib/content/templates/.*(eex)$"
     ]
   ]
+
+config :core, CoreMailer, adapter: Bamboo.LocalAdapter

@@ -38,6 +38,11 @@ defmodule CoreWeb.Router do
     end
   end
 
+  if Mix.env == :dev do
+    # If using Phoenix
+    forward "/sent_emails", Bamboo.SentEmailViewerPlug
+  end
+
   Application.get_env(:core, :router_forwards, [])
   |> Enum.map(fn router ->
     forward "/", router

@@ -14,7 +14,8 @@ defmodule Content.MixProject do
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      test_coverage: [tool: ExCoveralls],
     ]
   end
 
@@ -37,6 +38,7 @@ defmodule Content.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:excoveralls, "~> 0.10", only: [:dev, :test]},
       {:phoenix, "~> 1.5.3"},
       {:phoenix_ecto, "~> 4.0"},
       {:phoenix_html, "~> 2.11"},
