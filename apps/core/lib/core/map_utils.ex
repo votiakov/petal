@@ -1,4 +1,8 @@
 defmodule Core.MapUtils do
+  @moduledoc """
+  Generic additional utility functions for Maps.
+  """
+
   def deep_merge(base, override) do
     Map.merge(base, override, &deep_value/3)
   end

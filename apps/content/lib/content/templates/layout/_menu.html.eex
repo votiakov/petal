@@ -1,0 +1,23 @@
+<div class="ui container">
+  <div class="ui large secondary inverted pointing menu">
+    <a class="toc item">
+      <i class="sidebar icon"></i>
+    </a>
+    <a class="active item">Home</a>
+    <a class="item">Work</a>
+    <a class="item">Company</a>
+    <a class="item">Careers</a>
+    <div class="right item">
+      <%= if Pow.Plug.current_user(@conn) do %>
+        <%= link "Sign out", to: AuthWeb.Router.Helpers.pow_session_path(@conn, :delete), method: :delete, class: "ui inverted button" %>
+      <% else %>
+        <%= link to: AuthWeb.Router.Helpers.pow_session_path(@conn, :new), class: "ui inverted button" do %>
+          Log in
+        <% end %>
+        <%= link to: AuthWeb.Router.Helpers.pow_registration_path(@conn, :new), class: "ui inverted button" do %>
+          Sign Up
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

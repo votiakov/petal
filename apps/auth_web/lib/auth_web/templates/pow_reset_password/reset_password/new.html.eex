@@ -1,0 +1,25 @@
+<div class="ui middle aligned center aligned grid">
+  <div class="column">
+    <h2 class="ui teal image header">
+      <div class="content">
+        Reset Password
+      </div>
+    </h2>
+    <%= flash_block(@conn) %>
+    <%= changeset_error_block(@changeset) %>
+    <%= form_for @changeset, @action, [as: :user, class: "ui large form"], fn f -> %>
+      <div class="ui stacked left aligned segment">
+        <%= styled_input f, :email, [placeholder: "joe@example.org", icon: "user"] %>
+      </div>
+      <%= submit "Reset My Password", class: "ui fluid large teal submit button" %>
+    <% end %>
+
+    <div class="ui message">
+      Remembered your password? <span><%= link "Sign in", to: Routes.pow_session_path(@conn, :new) %></span>
+    </div>
+
+    <div class="ui message">
+      New to us? <span><%= link "Register", to: Routes.pow_registration_path(@conn, :new) %></span>
+    </div>
+  </div>
+</div>

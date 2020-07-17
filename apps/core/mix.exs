@@ -39,9 +39,9 @@ defmodule Core.MixProject do
   defp deps do
     [
       {:bamboo, "~> 1.5"},
-      {:excoveralls, "~> 0.10", only: [:dev, :test]},
       {:credo, "~> 1.4", only: [:dev, :test], runtime: false},
       {:ex_cldr, "~> 2.13.0"},
+      {:excoveralls, "~> 0.10", only: [:dev, :test]},
       {:phoenix, "~> 1.5.3"},
       {:phoenix_ecto, "~> 4.1"},
       {:ecto_sql, "~> 3.4"},
@@ -50,6 +50,7 @@ defmodule Core.MixProject do
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_dashboard, "~> 0.2.0"},
+      {:pow, "~> 1.0.20"},
       {:telemetry_metrics, "~> 0.4"},
       {:telemetry_poller, "~> 0.4"},
       {:gettext, "~> 0.11"},

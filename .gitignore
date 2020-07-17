@@ -35,3 +35,5 @@ npm-debug.log
 
 # Lock file for Brew, since the versions aren't really stable & isolated anyway
 Brewfile.lock.json
+
+config/*.secret.exs

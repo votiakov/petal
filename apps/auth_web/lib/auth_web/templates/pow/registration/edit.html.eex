@@ -1,0 +1,24 @@
+<div class="ui middle aligned center aligned grid">
+  <div class="column">
+    <h2 class="ui teal image header">
+      <div class="content">
+        Update My Account
+      </div>
+    </h2>
+    <%= flash_block(@conn) %>
+    <%= changeset_error_block(@changeset) %>
+    <%= form_for @changeset, @action, [as: :user, class: "ui large form"], fn f -> %>
+      <div class="ui stacked left aligned segment">
+        <%= styled_input f, :current_password, icon: "lock", type: "password" %>
+
+        <%= styled_input f, Pow.Ecto.Schema.user_id_field(@changeset), icon: "user" %>
+
+        <%= styled_input f, :password, icon: "lock", label: "New Password", type: "password", class: "right labeled" do %>
+          <div class="ui label js-passwordRevealer"><i class="eye icon" style="margin: 0;"></i></div>
+        <% end %>
+
+        <%= submit "Create My Account", class: "ui fluid large teal submit button" %>
+      </div>
+    <% end %>
+  </div>
+</div>

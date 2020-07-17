@@ -1,13 +1,39 @@
 use Mix.Config
 
+# Configure Mix tasks and generators
+config :auth,
+  ecto_repos: [Auth.Repo]
+
+config :auth_web,
+  ecto_repos: [Auth.Repo],
+  generators: [context_app: :auth]
+
+config :auth_web, :pow,
+  user: Auth.Users.User,
+  repo: Auth.Repo,
+  extensions: [PowEmailConfirmation],
+  controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks,
+  mailer_backend: AuthWeb.Pow.Mailer,
+  web_mailer_module: AuthWeb,
+  web_module: AuthWeb
+
+# Configures the endpoint
+config :auth_web, AuthWeb.Endpoint,
+  url: [host: "localhost"],
+  secret_key_base: "cjtU4RvTirW4yJZDkdqZJmaj7bvaQRrX6mevkoGYqzEuMujV/Q0w3utlO5+FUsUj",
+  render_errors: [view: AuthWeb.ErrorView, accepts: ~w(html json), layout: false],
+  pubsub_server: AuthWeb.PubSub,
+  live_view: [signing_salt: "AwljJYaY"]
+
 config :core,
-  router_forwards: [Content.Router],
+  router_forwards: [{Content.Router, "/pages"}, {AuthWeb.Router, "/auth"}],
   email_from: "example@example.org"
 
 config :content,
   generators: [context_app: false]
 
 config :content, Content.Endpoint, server: false
+config :auth_web, AuthWeb.Endpoint, server: false
 
 import_config "../apps/*/config/config.exs"
 
