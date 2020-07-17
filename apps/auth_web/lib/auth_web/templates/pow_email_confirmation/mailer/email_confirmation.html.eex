@@ -1,0 +1,19 @@
+<%= preview do %>
+  Please confirm your email address.
+<% end %>
+
+<%= row do %>
+  <%= col 1, of: 1 do %>
+    <%= h1 do %>
+      Hello there,
+    <% end %>
+
+    <%= p do %>
+      Please use the following link to confirm your e-mail address:
+    <% end %>
+
+    <%= CoreWeb.EmailHelpers.button href: @url do %>
+      Confirm my email address
+    <% end %>
+  <% end %>
+<% end %>

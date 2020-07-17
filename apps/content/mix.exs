@@ -38,6 +38,8 @@ defmodule Content.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:auth_web, in_umbrella: true},
+      {:core, in_umbrella: true},
       {:excoveralls, "~> 0.10", only: [:dev, :test]},
       {:phoenix, "~> 1.5.3"},
       {:phoenix_ecto, "~> 4.0"},
