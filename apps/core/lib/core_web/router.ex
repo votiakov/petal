@@ -27,7 +27,7 @@ defmodule CoreWeb.Router do
     forward "/sent_emails", Bamboo.SentEmailViewerPlug
   end
 
-  scope "/", Content do
+  scope "/", ContentWeb do
     pipe_through :browser
 
     get "/", PageController, :index

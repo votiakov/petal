@@ -1,5 +1,5 @@
-defmodule Content.Endpoint do
-  use Phoenix.Endpoint, otp_app: :content
+defmodule ContentWeb.Endpoint do
+  use Phoenix.Endpoint, otp_app: :content_web
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
@@ -10,7 +10,7 @@ defmodule Content.Endpoint do
     signing_salt: "wfYQp84C"
   ]
 
-  socket "/socket", Content.UserSocket,
+  socket "/socket", ContentWeb.UserSocket,
     websocket: true,
     longpoll: false
 
@@ -22,7 +22,7 @@ defmodule Content.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/",
-    from: :content,
+    from: :content_web,
     gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
@@ -32,7 +32,7 @@ defmodule Content.Endpoint do
     socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
     plug Phoenix.LiveReloader
     plug Phoenix.CodeReloader
-    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :content
+    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :content_web
   end
 
   plug Phoenix.LiveDashboard.RequestLogger,
@@ -50,6 +50,6 @@ defmodule Content.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
-  plug Pow.Plug.Session, otp_app: :content
-  plug Content.Router
+  plug Pow.Plug.Session, otp_app: :content_web
+  plug ContentWeb.Router
 end

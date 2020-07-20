@@ -1,4 +1,4 @@
-defmodule Content.Telemetry do
+defmodule ContentWeb.Telemetry do
   @moduledoc """
   Collects metrics for the application and allows them to be transmitted using the Telemetry framework.
   """
@@ -34,11 +34,11 @@ defmodule Content.Telemetry do
       ),
 
       # Database Metrics
-      summary("content.repo.query.total_time", unit: {:native, :millisecond}),
-      summary("content.repo.query.decode_time", unit: {:native, :millisecond}),
-      summary("content.repo.query.query_time", unit: {:native, :millisecond}),
-      summary("content.repo.query.queue_time", unit: {:native, :millisecond}),
-      summary("content.repo.query.idle_time", unit: {:native, :millisecond}),
+      summary("content_web.repo.query.total_time", unit: {:native, :millisecond}),
+      summary("content_web.repo.query.decode_time", unit: {:native, :millisecond}),
+      summary("content_web.repo.query.query_time", unit: {:native, :millisecond}),
+      summary("content_web.repo.query.queue_time", unit: {:native, :millisecond}),
+      summary("content_web.repo.query.idle_time", unit: {:native, :millisecond}),
 
       # VM Metrics
       summary("vm.memory.total", unit: {:byte, :kilobyte}),
@@ -52,7 +52,7 @@ defmodule Content.Telemetry do
     [
       # A module, function and arguments to be invoked periodically.
       # This function must call :telemetry.execute/3 and a metric must be added above.
-      # {Content, :count_users, []}
+      # {ContentWeb, :count_users, []}
     ]
   end
 end

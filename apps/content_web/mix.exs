@@ -1,9 +1,9 @@
-defmodule Content.MixProject do
+defmodule ContentWeb.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :content,
+      app: :content_web,
       version: "0.1.0",
       build_path: "../../_build",
       config_path: "../../config/config.exs",
@@ -24,7 +24,7 @@ defmodule Content.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {Content.Application, []},
+      mod: {ContentWeb.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end
