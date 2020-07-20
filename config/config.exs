@@ -26,13 +26,13 @@ config :auth_web, AuthWeb.Endpoint,
   live_view: [signing_salt: "AwljJYaY"]
 
 config :core,
-  router_forwards: [{Content.Router, "/pages"}, {AuthWeb.Router, "/auth"}],
+  router_forwards: [{ContentWeb.Router, "/pages"}, {AuthWeb.Router, "/auth"}],
   email_from: "example@example.org"
 
-config :content,
+config :content_web,
   generators: [context_app: false]
 
-config :content, Content.Endpoint, server: false
+config :content_web, ContentWeb.Endpoint, server: false
 config :auth_web, AuthWeb.Endpoint, server: false
 
 import_config "../apps/*/config/config.exs"

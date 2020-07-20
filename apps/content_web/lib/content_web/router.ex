@@ -1,5 +1,5 @@
-defmodule Content.Router do
-  use Content, :router
+defmodule ContentWeb.Router do
+  use ContentWeb, :router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -13,7 +13,7 @@ defmodule Content.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", Content do
+  scope "/", ContentWeb do
     pipe_through :browser
 
     get "/:id", PageController, :show

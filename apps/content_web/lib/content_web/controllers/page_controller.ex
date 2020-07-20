@@ -1,5 +1,5 @@
-defmodule Content.PageController do
-  use Content, :controller
+defmodule ContentWeb.PageController do
+  use ContentWeb, :controller
 
   def index(conn, _params) do
     render(conn, "index.html")

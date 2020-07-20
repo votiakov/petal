@@ -1,12 +1,12 @@
-defmodule Content do
+defmodule ContentWeb do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, views, channels and so on.
 
   This can be used in your application as:
 
-      use Content, :controller
-      use Content, :view
+      use ContentWeb, :controller
+      use ContentWeb, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -19,19 +19,19 @@ defmodule Content do
 
   def controller do
     quote do
-      use Phoenix.Controller, namespace: Content
+      use Phoenix.Controller, namespace: ContentWeb
 
       import Plug.Conn
-      import Content.Gettext
-      alias Content.Router.Helpers, as: Routes
+      import ContentWeb.Gettext
+      alias ContentWeb.Router.Helpers, as: Routes
     end
   end
 
   def view do
     quote do
       use Phoenix.View,
-        root: "lib/content/templates",
-        namespace: Content,
+        root: "lib/content_web/templates",
+        namespace: ContentWeb,
         pattern: "**/*"
 
       # Import convenience functions from controllers
@@ -55,7 +55,7 @@ defmodule Content do
   def channel do
     quote do
       use Phoenix.Channel
-      import Content.Gettext
+      import ContentWeb.Gettext
     end
   end
 
@@ -67,9 +67,9 @@ defmodule Content do
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
 
-      import Content.ErrorHelpers
-      import Content.Gettext
-      alias Content.Router.Helpers, as: Routes
+      import ContentWeb.ErrorHelpers
+      import ContentWeb.Gettext
+      alias ContentWeb.Router.Helpers, as: Routes
     end
   end
 

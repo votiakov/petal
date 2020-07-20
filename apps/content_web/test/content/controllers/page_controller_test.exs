@@ -1,5 +1,5 @@
-defmodule Content.PageControllerTest do
-  use Content.ConnCase
+defmodule ContentWeb.PageControllerTest do
+  use ContentWeb.ConnCase
 
   test "GET /", %{conn: conn} do
     conn = get(conn, "/index")
