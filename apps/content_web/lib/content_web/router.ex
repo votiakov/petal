@@ -16,6 +16,7 @@ defmodule ContentWeb.Router do
   scope "/", ContentWeb do
     pipe_through :browser
 
+    get "/posts/:id", PostsController, :show
     get "/:id", PageController, :show
   end
 end
