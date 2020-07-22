@@ -1,0 +1,5 @@
+<div data-react-component="MenuEditor" data-react-props="<%= %{menu: @menu, posts: @posts, categories: @categories, id: @id} |> Phoenix.json_library().encode!() |> Base.encode64() %>">
+</div>
+
+<%= form_for @conn, Routes.menus_path(@conn, :update, @id), [method: :put], fn _f -> %>
+<% end %>

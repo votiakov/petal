@@ -116,18 +116,5 @@ defmodule Content.Repo.Migrations.CreateWpSchema do
       add :meta_key, :text
       add :meta_value, :text
     end
-
-    create table("wp_users", primary_key: false) do
-      add :ID, :integer, [:primary_key]
-      add :user_login, :text
-      add :user_pass, :text
-      add :user_nicename, :text
-      add :user_email, :text
-      add :user_url, :text
-      add :user_registered, :naive_datetime
-      add :user_activation_key, :text
-      add :user_status, :integer
-      add :display_name, :text
-    end
   end
 end

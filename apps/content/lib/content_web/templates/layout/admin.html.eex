@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title><%= title(@view_module, @view_template, assigns) %></title>
+    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>">
+    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/admin.css") %>">
+  </head>
+
+  <body>
+    <div class="container">
+      <main role="main" class="grid">
+        <nav class="column admin-nav">
+          <menu type="list">
+            <li>
+              <%= link "🏠 Home", to: Routes.admin_home_path(@conn, :index) %>
+            </li>
+            <li>
+              <%= link "📝 Posts", to: Routes.admin_posts_path(@conn, :index) %>
+            </li>
+            <li>
+              <%= link "📄 Pages", to: Routes.admin_posts_path(@conn, :index, post_type: "page") %>
+            </li>
+            <li>
+              <%= link "👋 Logout", to: AuthWeb.Router.Helpers.pow_session_path(@conn, :delete), method: :delete %>
+            </li>
+          </menu>
+        </nav>
+        <section class="column four with-gutters ">
+          <%= if get_flash(@conn, :info) do %>
+            <input type="checkbox" id="dismiss-alert-info" class="alert-dismisser" />
+            <div class="alert alert-info" role="alert">
+              <p class="alert-text">
+                <%= get_flash(@conn, :info) %>
+                <label for="dismiss-alert-info">Dismiss</label>
+              </p>
+            </div>
+          <% end %>
+          <%= if get_flash(@conn, :error) do %>
+            <input type="checkbox" id="dismiss-alert-error" class="alert-dismisser" />
+            <div class="alert alert-error" role="alert">
+              <p class="alert-text">
+                <%= get_flash(@conn, :error) %>
+                <label for="dismiss-alert-error">Dismiss</label>
+              </p>
+            </div>
+          <% end %>
+          <%= @inner_content %>
+        </section>
+      </main>
+
+    </div> <!-- /container -->
+    <script src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+    <script src="<%= Routes.static_path(@conn, "/js/admin.js") %>"></script>
+  </body>
+</html>

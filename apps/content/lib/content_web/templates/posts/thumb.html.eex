@@ -1,0 +1,13 @@
+<%= case @thumbs[@post.'ID'] do %>
+  <% thumb = %Content.Post{} -> %>
+    <%= if thumb |> Content.Attachment.vertical?() do %>
+      <div class="post-thumbnail post-thumbnail--vertical">
+        <%= img_tag thumb.guid %>
+      </div>
+    <% else %>
+      <div class="post-thumbnail">
+        <%= img_tag thumb.guid %>
+      </div>
+    <% end %>
+  <% nil -> %>
+<% end %>

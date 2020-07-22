@@ -1,0 +1,15 @@
+<article class="<%= post_class(@post) %> h-entry">
+  <div class="uHidden">
+    <h1 class="p-name">
+      <%= link to: Routes.posts_path(@conn, :show, @post), class: "u-url" do %>
+        <%= raw @post.post_title %>
+      <% end %>
+    </h1>
+    <%= post_topmatter(@conn, @post) %>
+  </div>
+  <div class="Article-content <%= if @post.post_format, do: @post.post_format.slug %> e-content">
+    <%= render "thumb.html", post: @post, thumbs: @thumbs %>
+    <%= @post |> Content.Post.content_page(@page) |> process_content |> raw %>
+  </div>
+  <%= render "pagination.html", conn: @conn, post: @post, current_page: @page %>
+</article>

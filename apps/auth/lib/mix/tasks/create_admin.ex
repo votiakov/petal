@@ -4,7 +4,7 @@ defmodule Mix.Tasks.Legendary.CreateAdmin do
   """
   use Mix.Task
 
-  alias Auth.Users.User
+  alias Auth.User
   alias Auth.Repo
   alias Ecto.Changeset
 

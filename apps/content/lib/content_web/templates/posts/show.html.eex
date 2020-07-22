@@ -1,0 +1,39 @@
+<article class="<%= post_class(@post) %> h-entry">
+  <div>
+    <h1 class="p-name">
+      <%= link to: Routes.posts_path(@conn, :show, @post), class: "u-url" do %>
+        <%= raw @post.post_title %>
+      <% end %>
+    </h1>
+    <%= post_topmatter(@conn, @post) %>
+  </div>
+  <div class="Article-content <%= if @post.post_format, do: @post.post_format.slug %> e-content">
+    <%= render "thumb.html", post: @post, thumbs: @thumbs %>
+    <%= @post |> Content.Post.content_page(@page) |> process_content |> raw %>
+    <p class="CategoryBlock">
+      Categories:
+      <%= for term <- @post.categories do %>
+        <%= link term.name, to: Routes.category_path(@conn, :index_posts, term.slug), class: "p-category" %>
+      <% end %>
+    </p>
+  </div>
+  <%= render "pagination.html", conn: @conn, post: @post, current_page: @page %>
+  <%= if @post.comment_status == "open" do %>
+    <h3>Comments</h3>
+    <a href="#reply-to-post">
+      ➦ Reply to "<%= @post.post_title %>"
+    </a>
+    <ul class="CommentList">
+      <%= render "comments.html", post: @post, parent_id: 0, conn: @conn %>
+      <li class="Comment" id="reply-to-post">
+        <%=
+          render "reply_form.html",
+            comment_changeset: comment_changeset_for_post(@post),
+            post: @post,
+            conn: @conn
+        %>
+      </li>
+    </ul>
+  <% end %>
+  <hr />
+</article>

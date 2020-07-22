@@ -1,0 +1,24 @@
+
+<%= form_for @comment_changeset, Routes.comment_path(@conn, :create), fn f -> %>
+  <%= hidden_input f, :comment_parent %>
+  <%= hidden_input f, :comment_post_ID %>
+  <%= label f, :comment_author do %>
+    Your Name
+    <%= text_input f, :comment_author %>
+  <% end %>
+  <%= label f, :comment_author_email do %>
+    Your Email
+    <%= email_input f, :comment_author_email %>
+  <% end %>
+  <%= label f, :comment_author_url do %>
+    Your Website
+    <%= text_input f, :comment_author_url %>
+  <% end %>
+  <%= label f, :comment_content do %>
+    Comment
+    <%= textarea f, :comment_content %>
+  <% end %>
+  <div class="form-group">
+    <%= submit "\u27A6 Reply", class: "btn btn-primary" %>
+  </div>
+<% end %>
