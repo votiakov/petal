@@ -1,9 +1,15 @@
 image: "elixir:1.10"
 
+cache:
+  paths:
+    - _build
+    - deps
+
 variables:
   POSTGRES_PASSWORD: "postgres"
   POSTGRES_USER: "postgres"
   DATABASE_URL: "postgres"
+  MIX_ENV: "test"
 
 services: 
 - name: postgres:12

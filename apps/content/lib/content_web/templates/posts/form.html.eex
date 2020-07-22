@@ -1,0 +1,82 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <div class="grid">
+    <div class="column three">
+      <%= if @changeset.action do %>
+        <div class="alert alert-danger">
+          <p>Oops, something went wrong! Please check the errors below.</p>
+        </div>
+        <ul>
+          <%= for {error_key, error} <- @changeset.errors |> Keyword.drop([:post_title, :post_content]) do %>
+            <%= if error do %>
+              <li><%= error_key %>: <%= error_tag f, error_key %></li>
+            <% end %>
+          <% end %>
+        </ul>
+      <% end %>
+
+      <%= label f, :post_title do %>
+        Title
+        <%= text_input f, :post_title %>
+      <% end %>
+
+      <%= label f, :post_content, "data-react-class": "Editor" do %>
+        Content
+        <%= textarea f, :post_content, "data-simplemde": true %>
+      <% end %>
+      <div class="grid">
+        <div class="form-group input-group column uLeft">
+          <%= submit "Delete", class: "btn btn-warning", form: "deleteForm" %>
+        </div>
+        <div class="form-group input-group column">
+          <%= submit "Save", class: "btn btn-primary" %>
+        </div>
+      </div>
+
+    </div>
+    <div class="column post-admin-sidebar">
+      <%= label f, :post_status, class: "column input-group" do %>
+        <div>Status</div>
+        <%= select f, :post_status, [{"Publish", :publish}, {"Draft", :draft}] %>
+      <% end %>
+      <%= label f, :post_author, class: "input-group" do %>
+        <div>Author</div>
+        <%= select f, :post_author, @author_options |> Enum.map(&({&1.display_name, &1."ID"})) %>
+      <% end %>
+      <%= label f, :post_excerpt, class: "input-group" do %>
+        <div>Excerpt</div>
+        <%= textarea f, :post_excerpt %>
+      <% end %>
+      <%= label f, :sticky, class: "input-group" do %>
+        <div>Sticky?</div>
+        <%= checkbox f, :sticky %>
+      <% end %>
+      <%= label f, :comment_status, class: "input-group" do %>
+        <div>Comment Status</div>
+        <%= select f, :comment_status, ["open", "closed"] %>
+      <% end %>
+      <%= label f, :ping_status, class: "input-group" do %>
+        <div>Ping Status</div>
+        <%= select f, :ping_status, ["open", "closed"] %>
+      <% end %>
+      <%= label f, :post_password, class: "input-group" do %>
+        <div>Post Password</div>
+        <%= text_input f, :post_password %>
+      <% end %>
+      <%= label f, :post_name, class: "input-group" do %>
+        <div>Slug</div>
+        <%= text_input f, :post_name %>
+      <% end %>
+      <%= label f, :post_order, class: "input-group" do %>
+        <div>Post Order</div>
+        <%= number_input f, :post_order %>
+      <% end %>
+    </div>
+  </div>
+
+  <%= hidden_input f, :post_type, value: @post_type %>
+<% end %>
+
+<%= if assigns[:posts] do %>
+  <%= form_for @changeset, Routes.posts_path(@conn, :delete, @posts), [method: :delete, id: "deleteForm"], fn _f -> %>
+  <% end %>
+<% end %>

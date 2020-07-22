@@ -1,0 +1,62 @@
+<%= for post <- @posts do %>
+  <article class="<%= post_class(post) %> h-entry">
+    <h2 class="entry-title p-name">
+      <%= link to: Routes.posts_path(@conn, :show, post), class: "u-url" do %>
+        <%= raw post.post_title %>
+      <% end %>
+    </h2>
+    <%= post_topmatter(@conn, post) %>
+    <div class="Article-content <%= if post.post_format, do: post.post_format.slug %> e-content">
+      <%= if authenticated_for_post?(@conn, post) do %>
+        <%= render "thumb.html", post: post, thumbs: @thumbs %>
+        <div class="Article-content-words">
+          <%= raw post |> Content.Post.content_page(1) |> Content.Post.before_more |> process_content |> raw %>
+          <%= if post.post_content =~ "<!--more-->" do %>
+            <p>
+              <%= link "Keep Reading", to: Routes.posts_path(@conn, :show, post) %>
+            </p>
+          <% end %>
+          <%= render "pagination.html", conn: @conn, post: post %>
+        </div>
+      <% else %>
+        <%= render "password_form.html", post: post, conn: @conn %>
+      <% end %>
+    </div>
+    <p class="CategoryBlock">
+      Categories:
+      <%= for term <- post.categories do %>
+        <%= link term.name, to: Routes.category_path(@conn, :index_posts, term.slug), class: "p-category" %>
+      <% end %>
+    </p>
+    <hr />
+  </article>
+<% end %>
+
+<nav class="paginator">
+  Page:
+  <%= if @page > 1 do %>
+    <%= link 1, to: paginated_posts_path(@conn, @category, 1) %>
+  <% end %>
+
+  <%= if @page > 3 do %>
+    <span class="paginator-page">...</span>
+  <% end %>
+
+  <%= if @page > 2 do %>
+    <%= link @page - 1, to: paginated_posts_path(@conn, @category, @page - 1) %>
+  <% end %>
+
+  <span class="paginator-page"><%= @page %></span>
+
+  <%= if @page + 1 < @last_page do %>
+    <%= link @page + 1, to: paginated_posts_path(@conn, @category, @page + 1) %>
+  <% end %>
+
+  <%= if @page + 2 < @last_page do %>
+    <span class="paginator-page">...</span>
+  <% end %>
+
+  <%= if @page < @last_page do %>
+    <%= link @last_page, to: paginated_posts_path(@conn, @category, @last_page) %>
+  <% end %>
+</nav>

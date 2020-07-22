@@ -9,7 +9,7 @@ config :auth_web,
   generators: [context_app: :auth]
 
 config :auth_web, :pow,
-  user: Auth.Users.User,
+  user: Auth.User,
   repo: Auth.Repo,
   extensions: [PowEmailConfirmation],
   controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks,
@@ -25,14 +25,21 @@ config :auth_web, AuthWeb.Endpoint,
   pubsub_server: AuthWeb.PubSub,
   live_view: [signing_salt: "AwljJYaY"]
 
+config :content, Content.Endpoint,
+  url: [host: "localhost"],
+  secret_key_base: "kNJbLKCmuZYSK99S55+DmirA2TlmOxzs/xz3xnlXtOhQCoBMmYRabaRLTXkcsw5d",
+  render_errors: [view: Content.ErrorView, accepts: ~w(html json), layout: false],
+  pubsub_server: Content.PubSub,
+  live_view: [signing_salt: "Nb8V5NUr"]
+
 config :core,
-  router_forwards: [{ContentWeb.Router, "/pages"}, {AuthWeb.Router, "/auth"}],
+  router_forwards: [{Content.Router, "/pages"}, {AuthWeb.Router, "/auth"}],
   email_from: "example@example.org"
 
-config :content_web,
+config :content,
   generators: [context_app: false]
 
-config :content_web, ContentWeb.Endpoint, server: false
+config :content, Content.Endpoint, server: false
 config :auth_web, AuthWeb.Endpoint, server: false
 
 import_config "../apps/*/config/config.exs"

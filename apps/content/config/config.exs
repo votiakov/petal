@@ -18,7 +18,7 @@ config :logger, :console,
 
 config :content, Content.Scheduler,
   jobs: [
-    {"@hourly", {ContentWeb.Sitemaps, :generate, []}}
+    {"@hourly", {Content.Sitemaps, :generate, []}}
   ]
 
 # Import environment specific config. This must remain at the bottom

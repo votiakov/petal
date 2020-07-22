@@ -1,0 +1,21 @@
+<h1>Site Index</h1>
+<h2>Posts and Pages</h2>
+<ul>
+  <%= for post <- @posts do %>
+    <li>
+      <%= link to: Routes.posts_path(@conn, :show, post) do %>
+        <%= raw post.post_title %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+<h2>Categories</h2>
+<ul>
+  <%= for category <- @categories do %>
+    <li>
+      <%= link to: Routes.category_path(@conn, :index_posts, category.slug)do %>
+        <%= raw category.name %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

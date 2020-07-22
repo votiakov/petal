@@ -4,7 +4,7 @@ use Mix.Config
 config :content, Content.Repo,
   username: "postgres",
   password: "postgres",
-  database: "content_dev",
+  database: "legendary_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
@@ -15,7 +15,7 @@ config :content, Content.Repo,
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
-config :content, ContentWeb.Endpoint,
+config :content, Content.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
@@ -55,7 +55,7 @@ config :content, ContentWeb.Endpoint,
 # different ports.
 
 # Watch static and templates for browser reloading.
-config :content, ContentWeb.Endpoint,
+config :content, Content.Endpoint,
   live_reload: [
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",

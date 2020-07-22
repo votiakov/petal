@@ -1,18 +1,18 @@
-defmodule Content.Mixfile do
+defmodule Content.MixProject do
   use Mix.Project
 
   def project do
     [
       app: :content,
-      version: "0.0.1",
+      version: "0.1.0",
       build_path: "../../_build",
       config_path: "../../config/config.exs",
       deps_path: "../../deps",
       lockfile: "../../mix.lock",
-      elixir: "~> 1.8",
-      elixirc_paths: elixirc_paths(Mix.env),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers,
-      start_permanent: Mix.env == :prod,
+      elixir: "~> 1.7",
+      elixirc_paths: elixirc_paths(Mix.env()),
+      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
+      start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
       test_coverage: [tool: ExCoveralls],
@@ -32,39 +32,38 @@ defmodule Content.Mixfile do
 
   # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "test/support"]
-  defp elixirc_paths(_),     do: ["lib"]
+  defp elixirc_paths(_), do: ["lib"]
 
   # Specifies your project dependencies.
   #
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:content_web, in_umbrella: true},
-      {:phoenix, "~> 1.5.3"},
-      {:phoenix_pubsub, "~> 2.0"},
-      {:ecto_sql, "~> 3.4"},
-      {:postgrex, "~> 0.15.0"},
-      {:plug_cowboy, "~> 2.0"},
-      {:phoenix_ecto, "~> 4.0"},
-      {:phoenix_html, "~> 2.10"},
-      {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:gettext, "~> 0.11"},
-      {:cowboy, "~> 2.7"},
-      {:php_serializer, "~> 0.9.0"},
-      {:quantum, "~> 2.3"},
-      {:timex, "~> 3.1"},
-      {:excoveralls, "~> 0.10", only: [:dev, :test]},
-      {:phoenix_html_sanitizer, "~> 1.0.0"},
-      {:bcrypt_elixir, "~> 1.0"},
-      {:comeonin, "~> 4.0"},
+      {:auth, in_umbrella: true},
+      {:auth_web, in_umbrella: true},
+      {:core, in_umbrella: true},
       {:earmark, "~> 1.4.2" },
-      {:slugger, "~> 0.3"},
-      {:ecto, "~> 3.4.3"},
+      {:excoveralls, "~> 0.10", only: [:dev, :test]},
       {:floki, "~> 0.25.0"},
+      {:gettext, "~> 0.11"},
+      {:jason, "~> 1.0"},
       {:mock, "~> 0.3.0", only: :test},
       {:meck, "~> 0.8.13", only: :test},
-      {:sitemap, "~> 1.1"},
       {:neotomex, "~> 0.1.7"},
+      {:phoenix, "~> 1.5.3"},
+      {:phoenix_ecto, "~> 4.0"},
+      {:phoenix_html, "~> 2.11"},
+      {:phoenix_html_sanitizer, "~> 1.0.0"},
+      {:phoenix_live_reload, "~> 1.2", only: :dev},
+      {:phoenix_live_dashboard, "~> 0.2.0"},
+      {:php_serializer, "~> 0.9.0"},
+      {:plug_cowboy, "~> 2.0"},
+      {:quantum, "~> 2.3"},
+      {:sitemap, "~> 1.1"},
+      {:slugger, "~> 0.3"},
+      {:telemetry_metrics, "~> 0.4"},
+      {:telemetry_poller, "~> 0.4"},
+      {:timex, "~> 3.1"},
     ]
   end
 
