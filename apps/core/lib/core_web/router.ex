@@ -30,7 +30,7 @@ defmodule CoreWeb.Router do
   scope "/", Content do
     pipe_through :browser
 
-    get "/", PageController, :index
+    get "/", PostsController, :index
   end
 
   Application.get_env(:core, :router_forwards, [])

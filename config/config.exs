@@ -1,5 +1,17 @@
 use Mix.Config
 
+config :admin,
+  ecto_repos: [Admin.Repo],
+  generators: [context_app: false]
+
+# Configures the endpoint
+config :admin, Admin.Endpoint,
+  url: [host: "localhost"],
+  secret_key_base: "r2eN53mJ9RmlGz9ZQ7xf43P3Or59aaO9rdf5D3hRcsuiH44pGW9kPGfl5mt9N1Gi",
+  render_errors: [view: Admin.ErrorView, accepts: ~w(html json), layout: false],
+  pubsub_server: Admin.PubSub,
+  live_view: [signing_salt: "g5ltUbnQ"]
+
 # Configure Mix tasks and generators
 config :auth,
   ecto_repos: [Auth.Repo]
@@ -32,8 +44,11 @@ config :content, Content.Endpoint,
   pubsub_server: Content.PubSub,
   live_view: [signing_salt: "Nb8V5NUr"]
 
+config :admin,
+  ecto_repos: [Admin.Repo]
+
 config :core,
-  router_forwards: [{Content.Router, "/pages"}, {AuthWeb.Router, "/auth"}],
+  router_forwards: [{Content.Router, "/pages"}, {AuthWeb.Router, "/auth"}, {Admin.Router, "/admin"}],
   email_from: "example@example.org"
 
 config :content,
@@ -41,6 +56,7 @@ config :content,
 
 config :content, Content.Endpoint, server: false
 config :auth_web, AuthWeb.Endpoint, server: false
+config :admin, Admin.Endpoint, server: false
 
 import_config "../apps/*/config/config.exs"
 
@@ -55,6 +71,7 @@ config :phoenix, :json_library, Jason
 config :linguist, pluralization_key: :count
 
 import_config "email_styles.exs"
+import_config "admin.exs"
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

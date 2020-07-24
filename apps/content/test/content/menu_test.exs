@@ -14,7 +14,7 @@ defmodule Content.MenuTest do
   }
 
   @top_nav_item %Post{
-    ID: 123,
+    id: 123,
     post_name: "home",
     post_title: "Home",
     post_content: "",
@@ -61,7 +61,7 @@ defmodule Content.MenuTest do
   ]
 
   @related_page %Post {
-    ID: 456,
+    id: 456,
     post_title: "Test Nav Home",
   }
 

@@ -33,15 +33,15 @@ defmodule Content.PostsView do
 
   def comment_changeset_for_post(%Post{} = post) do
     %Comment{
-      comment_post_ID: post.'ID'
+      comment_post_id: post.id
     }
     |> Comment.changeset()
   end
 
   def comment_changeset_for_parent(%Comment{} = comment) do
     %Comment{
-      comment_parent: comment.comment_ID,
-      comment_post_ID: comment.comment_post_ID
+      comment_parent: comment.comment_id,
+      comment_post_id: comment.comment_post_id
     }
     |> Comment.changeset()
   end
@@ -61,7 +61,7 @@ defmodule Content.PostsView do
       if post.sticky do
         "sticky"
       end
-    "post post-#{post.'ID'} #{sticky}"
+    "post post-#{post.id} #{sticky}"
   end
 
   def post_topmatter(conn, post) do
@@ -78,9 +78,9 @@ defmodule Content.PostsView do
       <div class="Comment-topmatter">
 
         <h4>
-          <%= link to: author.homepage_url, rel: "author", class: "p-author h-card" do %>
-            <%= author.display_name %>
-            <%= img_tag gravatar_url_for_email(author.email), alt: "Photo of #{author.display_name}", class: "Gravatar u-photo" %>
+          <%= link to: author.homepage_url || "#", rel: "author", class: "p-author h-card" do %>
+            <%= img_tag gravatar_url_for_email(author.email), alt: "Photo of #{author.display_name}", class: "Gravatar u-photo ui avatar image" %>
+            <span><%= author.display_name %></span>
           <% end %>
         </h4>
         <h5>

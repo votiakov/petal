@@ -6,10 +6,10 @@ defmodule Content.Comment do
   import Ecto.Changeset
   alias Content.{Post}
 
-  @primary_key {:comment_ID, :id, autogenerate: true}
-  @derive {Phoenix.Param, key: :comment_ID}
+  @primary_key {:comment_id, :id, autogenerate: true}
+  @derive {Phoenix.Param, key: :comment_id}
   schema "wp_comments" do
-    belongs_to :post, Post, foreign_key: :comment_post_ID, references: :ID
+    belongs_to :post, Post, foreign_key: :comment_post_id, references: :id
     field :comment_author, :string
     field :comment_author_email, :string
     field :comment_author_url, :string
@@ -33,8 +33,8 @@ defmodule Content.Comment do
       comment_approved: "1"
     })
     |> cast(params, [
-      :comment_ID,
-      :comment_post_ID,
+      :comment_id,
+      :comment_post_id,
       :comment_author,
       :comment_author_email,
       :comment_author_url,

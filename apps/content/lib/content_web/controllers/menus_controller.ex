@@ -9,7 +9,7 @@ defmodule Content.MenusController do
       Content.Posts.post_scope
       |> Repo.all()
       |> Enum.map(fn post ->
-        post |> Map.take([:ID, :post_title, :post_name])
+        post |> Map.take([:id, :post_title, :post_name])
       end)
     categories =
       Content.Terms.categories

@@ -13,14 +13,14 @@
     <div class="Comment-content">
       <%= sanitize comment.comment_content |> auto_paragraph_tags |> elem(1) |> IO.iodata_to_binary() %>
       <p class="Comment-actions">
-        <a href="#reply-to-<%= comment.comment_ID %>" class="Comment--replyLink">
+        <a href="#reply-to-<%= comment.comment_id %>" class="Comment--replyLink">
           &#x27A6; Reply
         </a>
       </p>
     </div>
     <ul class="CommentList">
-      <%= render "comments.html", post: @post, parent_id: comment.comment_ID, conn: @conn %>
-      <li class="Comment Comment--replyForm" id="reply-to-<%= comment.comment_ID %>">
+      <%= render "comments.html", post: @post, parent_id: comment.comment_id, conn: @conn %>
+      <li class="Comment Comment--replyForm" id="reply-to-<%= comment.comment_id %>">
         <h4>
           Reply to <%= comment.comment_author  || "Anonymous" %>
         </h4>

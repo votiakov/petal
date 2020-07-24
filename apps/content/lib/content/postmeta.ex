@@ -7,7 +7,7 @@ defmodule Content.Postmeta do
 
   @primary_key {:meta_id, :id, autogenerate: true}
   schema "wp_postmeta" do
-    belongs_to :post, Content.Post, references: :ID
+    belongs_to :post, Content.Post
     field :meta_key, :string
     field :meta_value, :string
   end

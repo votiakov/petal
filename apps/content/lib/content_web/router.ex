@@ -1,6 +1,6 @@
 defmodule Content.Router do
   use Content, :router
-  alias Content.{RequireAdmin, RequireAuth}
+  alias AuthWeb.Plugs.{RequireAdmin, RequireAuth}
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -36,15 +36,8 @@ defmodule Content.Router do
   scope "/", Content do
     pipe_through([:browser, :require_auth, :require_admin, :admin_layout])
 
-    get "/wp-admin/", AdminHomeController, :index
-    get "/posts", AdminPostsController, :index, as: :admin_posts
-    post "/posts", PostsController, :create
-    get "/posts/new", PostsController, :new
     put "/posts/preview", PostsController, :preview
     post "/posts/preview", PostsController, :preview
-    get "/posts/:id/edit", PostsController, :edit
-    put "/posts/:id", PostsController, :update
-    delete "/posts/:id", PostsController, :delete
     get "/menus/:id/edit", MenusController, :edit
     put "/menus/:id", MenusController, :update
   end

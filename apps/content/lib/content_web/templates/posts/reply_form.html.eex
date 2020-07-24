@@ -1,7 +1,7 @@
 
 <%= form_for @comment_changeset, Routes.comment_path(@conn, :create), fn f -> %>
   <%= hidden_input f, :comment_parent %>
-  <%= hidden_input f, :comment_post_ID %>
+  <%= hidden_input f, :comment_post_id %>
   <%= label f, :comment_author do %>
     Your Name
     <%= text_input f, :comment_author %>

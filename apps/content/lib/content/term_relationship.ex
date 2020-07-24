@@ -10,7 +10,7 @@ defmodule Content.TermRelationship do
   @primary_key {:term_taxonomy_id, :integer, []}
   schema "wp_term_relationships" do
     field :term_order, :integer
-    belongs_to :post, Post, foreign_key: :object_id, references: :ID
+    belongs_to :post, Post, foreign_key: :object_id, references: :id
     belongs_to :term_taxonomy,
       Content.TermTaxonomy,
       foreign_key: :term_taxonomy_id,

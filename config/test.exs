@@ -1,5 +1,11 @@
 use Mix.Config
 
+# We don't run a server during test. If one is required,
+# you can enable the server option below.
+config :admin, Admin.Endpoint,
+  http: [port: 4002],
+  server: false
+
 # Configure your database
 #
 # The MIX_TEST_PARTITION environment variable can be used
@@ -13,6 +19,13 @@ config :auth, Auth.Repo,
   pool: Ecto.Adapters.SQL.Sandbox
 
 config :content, Content.Repo,
+  username: "postgres",
+  password: "postgres",
+  database: "legendary_test#{System.get_env("MIX_TEST_PARTITION")}",
+  hostname: System.get_env("DATABASE_URL") || "localhost",
+  pool: Ecto.Adapters.SQL.Sandbox
+
+config :admin, Admin.Repo,
   username: "postgres",
   password: "postgres",
   database: "legendary_test#{System.get_env("MIX_TEST_PARTITION")}",

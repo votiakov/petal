@@ -3,10 +3,10 @@
     <a class="toc item">
       <i class="sidebar icon"></i>
     </a>
-    <a class="active item">Home</a>
-    <a class="item">Work</a>
-    <a class="item">Company</a>
-    <a class="item">Careers</a>
+    <a class="item" href="/">Home</a>
+    <%= if Auth.Roles.has_role?(@conn, :admin) do %>
+      <a class="item" href="/admin">Admin</a>
+    <% end %>
     <div class="right item">
       <%= if Pow.Plug.current_user(@conn) do %>
         <%= link "Sign out", to: AuthWeb.Router.Helpers.pow_session_path(@conn, :delete), method: :delete, class: "ui inverted button" %>

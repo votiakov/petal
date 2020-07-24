@@ -7,7 +7,7 @@ defmodule Content.PostsController do
   plug :put_layout, false when action in [:preview]
 
   def index(conn, params) do
-    show_on_front = Options.get_value("show_on_front") || "posts"
+    show_on_front = Options.get_value("show_on_front") || "page"
 
     case show_on_front do
       "posts" ->
@@ -39,12 +39,9 @@ defmodule Content.PostsController do
   end
 
   def index_page(conn, _params) do
-    page_id = Options.get("page_on_front") |> (&(&1.option_value)).()
+    page_id = Options.get_value("page_on_front") || "index"
 
-    post = Posts.get_posts!(page_id)
-    page = String.to_integer("1")
-    thumbs = [post] |> Posts.thumbs_for_posts()
-    render(conn, "front.html", post: post, page: page, thumbs: thumbs)
+    show(conn, %{"id" => page_id})
   end
 
   def new(conn, params) do
@@ -90,7 +87,7 @@ defmodule Content.PostsController do
     if is_nil(post) do
       try_static_post(conn, id)
     else
-      if post.'ID' == page_id_for_posts do
+      if post.id == page_id_for_posts do
         conn |> index_posts(%{"id" => id, "page" => page_string})
       else
         conn |> show_one(post, page_string)
@@ -100,11 +97,20 @@ defmodule Content.PostsController do
   def show(conn, %{"id" => id}), do: show(conn, %{"id" => id, "page" => "1"})
 
   defp try_static_post(conn, id) do
+    path = "static_pages/#{id}.html"
     try do
-      render(conn, "static_pages/#{id}.html")
+      render(conn, path)
     rescue
-      Phoenix.Template.UndefinedError ->
-      raise Phoenix.Router.NoRouteError.exception(conn: conn, router: Content.Router)
+      e in Phoenix.Template.UndefinedError ->
+        case e do
+          %{template: ^path} ->
+            # The static page we're looking for is missing, so this is just a 404
+            raise Phoenix.Router.NoRouteError.exception(conn: conn, router: Content.Router)
+          _ ->
+            # We aren't missing the static page, we're missing a partial. This is probably
+            # a developer error, so bubble it up
+            raise e
+        end
     end
   end
 
@@ -112,7 +118,7 @@ defmodule Content.PostsController do
     {front_page_id, _} = Options.get_value_as_int("page_on_front")
 
     template =
-      if post.'ID' == front_page_id do
+      if post.id == front_page_id do
         "front.html"
       else
         "show.html"

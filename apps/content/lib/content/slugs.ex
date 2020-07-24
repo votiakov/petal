@@ -18,7 +18,7 @@ defmodule Content.Slugs do
           |> Kernel.||(NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second))
           |> Timex.format!("%F", :strftime)
           |> Slugger.slugify_downcase()
-          |> unique_slug(changeset |> get_field(:ID))
+          |> unique_slug(changeset |> get_field(:id))
         )
       true ->
         changeset
@@ -27,7 +27,7 @@ defmodule Content.Slugs do
           changeset
           |> get_field(:post_title)
           |> Slugger.slugify_downcase()
-          |> unique_slug(changeset |> get_field(:ID))
+          |> unique_slug(changeset |> get_field(:id))
         )
     end
   end
@@ -48,7 +48,7 @@ defmodule Content.Slugs do
           |> post_id_match(post_id)
         ),
         :count,
-        :ID
+        :id
       )
 
     if competition_count == 0 do
@@ -63,6 +63,6 @@ defmodule Content.Slugs do
   end
 
   defp post_id_match(query, id) when is_number(id) do
-    from p in query, where: p.'ID' != ^id
+    from p in query, where: p.id != ^id
   end
 end

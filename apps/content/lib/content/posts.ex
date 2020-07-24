@@ -90,7 +90,7 @@ defmodule Content.Posts do
     sticky_posts =
       params
       |> post_scope_for_params()
-      |> where([p], p.'ID' in ^sticky_ids())
+      |> where([p], p.id in ^sticky_ids())
       |> Repo.all()
 
     sticky_posts
@@ -117,7 +117,7 @@ defmodule Content.Posts do
     post_count =
       params
       |> post_scope_for_params()
-      |> Repo.aggregate(:count, :ID)
+      |> Repo.aggregate(:count, :id)
 
     post_count
     |> (&(&1 / @page_size)).()
@@ -128,15 +128,15 @@ defmodule Content.Posts do
   def thumbs_for_posts(posts) do
     post_to_thumbnail_id =
       posts
-      |> Enum.map(fn post -> {post.'ID', (post |>  Post.metas_map)["_thumbnail_id"]} end)
+      |> Enum.map(fn post -> {post.id, (post |>  Post.metas_map)["_thumbnail_id"]} end)
       |> Enum.reject(&(elem(&1, 1) == nil))
 
     thumbs =
       Post
       |> preload(:metas)
-      |> where([thumb], thumb.'ID' in ^Enum.map(post_to_thumbnail_id, &(elem(&1, 1))))
+      |> where([thumb], thumb.id in ^Enum.map(post_to_thumbnail_id, &(elem(&1, 1))))
       |> Repo.all()
-      |> Enum.map(fn thumb -> {thumb.'ID', thumb} end)
+      |> Enum.map(fn thumb -> {thumb.id, thumb} end)
       |> Map.new
 
     post_to_thumbnail_id
@@ -177,7 +177,7 @@ defmodule Content.Posts do
         :error ->
           scope |> where([p], p.post_name == ^id)
         {int_id, _} ->
-          scope |> where([p], p.'ID' == ^int_id)
+          scope |> where([p], p.id == ^int_id)
       end
     end
 
@@ -207,7 +207,7 @@ defmodule Content.Posts do
         :error ->
           scope |> where([p], p.post_name == ^id)
         {int_id, ""} ->
-          scope |> where([p], p.'ID' == ^int_id)
+          scope |> where([p], p.id == ^int_id)
         {_int_id, _} ->
           scope |> where([p], p.post_name == ^id)
       end

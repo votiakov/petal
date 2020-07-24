@@ -2,10 +2,10 @@ defmodule Content.PostsControllerTest do
   use Content.ConnCase
 
   alias Content
-  alias Content.{Comment, Posts, Repo, Term, TermRelationship, TermTaxonomy}
+  alias Content.{Comment, Options, Posts, Repo, Term, TermRelationship, TermTaxonomy}
 
   @create_attrs %{
-    ID: 123,
+    id: 123,
     post_name: "my-post",
     post_title: "My Post",
     post_content: "Page One <!--nextpage--> Page Two",
@@ -15,7 +15,7 @@ defmodule Content.PostsControllerTest do
     comment_status: "open",
   }
   @blog_post_attrs %{
-    ID: 456,
+    id: 456,
     post_name: "my-blog-post",
     post_title: "My Blog Post",
     post_content: "Page One <!--nextpage--> Page Two",
@@ -33,7 +33,7 @@ defmodule Content.PostsControllerTest do
     post_date: "2018-01-01T00:00:00Z"
   }
   @thumb_attrs %{
-    ID: 124,
+    id: 124,
     post_name: "my-thumb",
     post_title: "My Thumb",
     post_content: "",
@@ -43,7 +43,7 @@ defmodule Content.PostsControllerTest do
     guid: "http://placekitten.com/200/300"
   }
   @attachment_attrs %{
-    ID: 123,
+    id: 123,
     post_name: "attachment.txt",
     post_title: "",
     post_content: "my text attachment" |> Base.encode64,
@@ -78,7 +78,7 @@ defmodule Content.PostsControllerTest do
   def fixture(:posts) do
     {:ok, post} = Posts.create_posts(@create_attrs)
     {:ok, thumb} = Posts.create_posts(@thumb_attrs)
-    {:ok, _meta} = %Content.Postmeta{post_id: post.'ID', meta_key: "_thumbnail_id", meta_value: Integer.to_string(thumb.'ID')} |> Repo.insert()
+    {:ok, _meta} = %Content.Postmeta{post_id: post.id, meta_key: "_thumbnail_id", meta_value: Integer.to_string(thumb.id)} |> Repo.insert()
     {:ok, _option} = %Content.Option{option_name: "sticky_posts", option_value: "a:1:{i:0;i:123;}"} |> Repo.insert()
 
     post
@@ -86,7 +86,7 @@ defmodule Content.PostsControllerTest do
 
   def fixture(:single_post) do
     {:ok, post} = Posts.create_posts(@create_attrs)
-    {:ok, _comment} = %Comment{comment_post_ID: post.'ID', comment_parent: 0, comment_date: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)} |> Repo.insert()
+    {:ok, _comment} = %Comment{comment_post_id: post.id, comment_parent: 0, comment_date: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)} |> Repo.insert()
     post
   end
 
@@ -100,7 +100,7 @@ defmodule Content.PostsControllerTest do
   def fixture(:front_post) do
     {:ok, post} = Posts.create_posts(@create_attrs)
     {:ok, _option} = %Content.Option{option_name: "show_on_front", option_value: "page"} |> Repo.insert()
-    {:ok, _option} = %Content.Option{option_name: "page_on_front", option_value: post.'ID' |> Integer.to_string(10)} |> Repo.insert()
+    {:ok, _option} = %Content.Option{option_name: "page_on_front", option_value: post.id |> Integer.to_string(10)} |> Repo.insert()
 
     post
   end
@@ -108,7 +108,7 @@ defmodule Content.PostsControllerTest do
   def fixture(:blog_page) do
     {:ok, post} = Posts.create_posts(@create_attrs)
     {:ok, _blog} = Posts.create_posts(@blog_post_attrs)
-    {:ok, _option} = %Content.Option{option_name: "page_for_posts", option_value: post.'ID' |> Integer.to_string(10)} |> Repo.insert()
+    {:ok, _option} = %Content.Option{option_name: "page_for_posts", option_value: post.id |> Integer.to_string(10)} |> Repo.insert()
 
     post
   end
@@ -120,7 +120,8 @@ defmodule Content.PostsControllerTest do
   end
 
   describe "index" do
-    test "lists all posts", %{conn: conn} do
+    test "lists all posts when posts on front is set", %{conn: conn} do
+      Options.put("show_on_front", "posts")
       fixture(:posts)
 
       conn = get conn, Routes.posts_path(conn, :index)
@@ -150,105 +151,6 @@ defmodule Content.PostsControllerTest do
     end
   end
 
-  describe "new posts" do
-    test "renders form", %{conn: conn} do
-      conn =
-        as_admin do
-          get conn, Routes.posts_path(conn, :new)
-        end
-      assert html_response(conn, 200) =~ "Posts"
-    end
-
-    test "renders form with post_type", %{conn: conn} do
-      conn =
-        as_admin do
-          get conn, Routes.posts_path(conn, :new), post_type: "page"
-        end
-      assert html_response(conn, 200) =~ "Posts"
-    end
-  end
-
-  describe "create wp_posts" do
-    test "redirects to show when data is valid", %{conn: conn} do
-      conn =
-        as_admin do
-          post conn, Routes.posts_path(conn, :create), post: @create_attrs
-        end
-
-      assert %{id: id} = redirected_params(conn)
-      assert redirected_to(conn) == Routes.posts_path(conn, :show, id)
-
-      conn = get conn, Routes.posts_path(conn, :show, id)
-      assert html_response(conn, 200)
-    end
-
-    test "renders errors when data is invalid", %{conn: conn} do
-      conn =
-        as_admin do
-          post conn, Routes.posts_path(conn, :create), post: @invalid_attrs
-        end
-      assert html_response(conn, 200) =~ "be blank"
-    end
-
-    test "renders errors when data is invalid & post_type is missing", %{conn: conn} do
-      conn =
-        as_admin do
-          post conn, Routes.posts_path(conn, :create), post: @invalid_attrs |> Map.drop([:post_type])
-        end
-      assert html_response(conn, 200) =~ "be blank"
-    end
-  end
-
-  describe "edit posts" do
-    setup [:create_posts]
-
-    test "renders form for editing chosen posts", %{conn: conn, posts: posts} do
-      conn =
-        as_admin do
-          get conn, Routes.posts_path(conn, :edit, posts)
-        end
-      assert html_response(conn, 200) =~ "My Post"
-    end
-  end
-
-  describe "update posts" do
-    setup [:create_posts]
-
-    test "redirects when data is valid", %{conn: conn, posts: posts} do
-      conn =
-        as_admin do
-          put conn, Routes.posts_path(conn, :update, posts), post: @update_attrs
-        end
-      assert redirected_to(conn) == Routes.posts_path(conn, :edit, posts)
-
-      conn = get conn, Routes.posts_path(conn, :show, posts)
-      assert html_response(conn, 200)
-    end
-
-    test "renders errors when data is invalid", %{conn: conn, posts: posts} do
-      conn =
-        as_admin do
-          put conn, Routes.posts_path(conn, :update, posts), post: @invalid_attrs
-        end
-      assert html_response(conn, 200) =~ "be blank"
-    end
-  end
-
-  describe "delete posts" do
-    setup [:create_posts]
-
-    test "deletes chosen posts", %{conn: conn, posts: posts} do
-      conn =
-        as_admin do
-          delete conn, Routes.posts_path(conn, :delete, posts)
-        end
-      assert redirected_to(conn) == Routes.admin_posts_path(conn, :index)
-      assert_error_sent 404, fn ->
-        get conn, Routes.posts_path(conn, :show, posts)
-      end
-    end
-  end
-
   describe "show a post" do
     setup [:create_a_post]
 
@@ -258,8 +160,8 @@ defmodule Content.PostsControllerTest do
       assert html_response(conn, 200) =~ posts.post_title
     end
 
-    test "shows the post by ID", %{conn: conn, posts: posts} do
-      conn = get conn, Routes.posts_path(conn, :show, posts.'ID')
+    test "shows the post by id", %{conn: conn, posts: posts} do
+      conn = get conn, Routes.posts_path(conn, :show, posts.id)
 
       assert html_response(conn, 200) =~ posts.post_title
     end

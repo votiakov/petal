@@ -5,7 +5,7 @@ defmodule Content.SlugsTest do
   alias Ecto.Changeset
 
   @create_attrs %{
-    ID: 123,
+    id: 123,
     post_name: "my-post",
     post_title: "My Post",
     post_content: "",
@@ -15,7 +15,7 @@ defmodule Content.SlugsTest do
   }
 
   @dupe_title_attrs %{
-    ID: 456,
+    id: 456,
     post_title: "My Post",
     post_content: "",
     post_status: "publish",
@@ -60,7 +60,7 @@ defmodule Content.SlugsTest do
 
     test "ensures uniqueness of the slug" do
       {:ok, og_post} = Posts.create_posts(@create_attrs)
-      assert Post |> Repo.aggregate(:count, :ID) == 1
+      assert Post |> Repo.aggregate(:count, :id) == 1
 
       new_post =
         %Post{
@@ -76,7 +76,7 @@ defmodule Content.SlugsTest do
 
     test "ensures uniqueness of the slug on update" do
       {:ok, og_post} = Posts.create_posts(@create_attrs)
-      assert Post |> Repo.aggregate(:count, :ID) == 1
+      assert Post |> Repo.aggregate(:count, :id) == 1
 
       new_post =
         %Post{}

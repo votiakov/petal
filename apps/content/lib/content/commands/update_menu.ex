@@ -9,12 +9,12 @@ defmodule Content.UpdateMenu do
     post_ids_in_new_menu = recursive_post_ids(new_menu_params)
     deleted_post_ids =
       current_posts
-      |> Enum.reject(& &1."ID" in post_ids_in_new_menu)
-      |> Enum.map(& &1."ID")
+      |> Enum.reject(& &1.id in post_ids_in_new_menu)
+      |> Enum.map(& &1.id)
 
     Multi.new()
     |> process_nodes(id, 0, new_menu_params |> add_order())
-    |> Multi.delete_all(:stale_nodes, from(p in Post, where: p."ID" in ^deleted_post_ids))
+    |> Multi.delete_all(:stale_nodes, from(p in Post, where: p.id in ^deleted_post_ids))
     |> Repo.transaction()
   end
 
@@ -75,7 +75,7 @@ defmodule Content.UpdateMenu do
         TermRelationship.changeset(
           %TermRelationship{},
           %{
-            object_id: post."ID",
+            object_id: post.id,
             term_taxonomy_id: menu_id,
             term_order: 0,
           }
@@ -89,33 +89,33 @@ defmodule Content.UpdateMenu do
     end)
     |> Multi.merge(fn %{^step_name => post} ->
       Multi.new()
-      |> process_nodes(menu_id, post."ID", node["children"])
+      |> process_nodes(menu_id, post.id, node["children"])
     end)
   end
 
   defp insert_metas(multi, "post", post, parent_id, node) do
     multi
-    |> update_meta(post."ID", "_menu_item_type", "post_type")
-    |> update_meta(post."ID", "_menu_item_object", "page")
-    |> update_meta(post."ID", "_menu_item_object_id", node["target_id"])
-    |> update_meta(post."ID", "_menu_item_menu_item_parent", parent_id)
+    |> update_meta(post.id, "_menu_item_type", "post_type")
+    |> update_meta(post.id, "_menu_item_object", "page")
+    |> update_meta(post.id, "_menu_item_object_id", node["target_id"])
+    |> update_meta(post.id, "_menu_item_menu_item_parent", parent_id)
   end
 
   defp insert_metas(multi, "category", post, parent_id, node) do
     multi
-    |> update_meta(post."ID", "_menu_item_type", "taxonomy")
-    |> update_meta(post."ID", "_menu_item_object", "category")
-    |> update_meta(post."ID", "_menu_item_object_id", node["target_id"])
-    |> update_meta(post."ID", "_menu_item_menu_item_parent", parent_id)
+    |> update_meta(post.id, "_menu_item_type", "taxonomy")
+    |> update_meta(post.id, "_menu_item_object", "category")
+    |> update_meta(post.id, "_menu_item_object_id", node["target_id"])
+    |> update_meta(post.id, "_menu_item_menu_item_parent", parent_id)
   end
 
   defp insert_metas(multi, "link", post, parent_id, node) do
     multi
-    |> update_meta(post."ID", "_menu_item_type", "custom")
-    |> update_meta(post."ID", "_menu_item_object", "custom")
-    |> update_meta(post."ID", "_menu_item_object_id", post."ID")
-    |> update_meta(post."ID", "_menu_item_url", node["url"])
-    |> update_meta(post."ID", "_menu_item_menu_item_parent", parent_id)
+    |> update_meta(post.id, "_menu_item_type", "custom")
+    |> update_meta(post.id, "_menu_item_object", "custom")
+    |> update_meta(post.id, "_menu_item_object_id", post.id)
+    |> update_meta(post.id, "_menu_item_url", node["url"])
+    |> update_meta(post.id, "_menu_item_menu_item_parent", parent_id)
   end
 
   defp type_of_node(%{"url" => url}) when url != nil, do: "link"
@@ -168,7 +168,7 @@ defmodule Content.UpdateMenu do
     step_name = "#{post_id}.update_order"
 
     multi
-    |> Multi.update_all(step_name, from(p in Post, where: p."ID" == ^post_id), [set: [menu_order: new_order]])
+    |> Multi.update_all(step_name, from(p in Post, where: p.id == ^post_id), [set: [menu_order: new_order]])
   end
 
   defp recursive_post_ids(params) do

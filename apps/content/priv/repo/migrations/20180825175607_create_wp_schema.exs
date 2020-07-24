@@ -9,8 +9,8 @@ defmodule Content.Repo.Migrations.CreateWpSchema do
     end
 
     create table("wp_comments", primary_key: false) do
-      add :comment_ID, :serial, primary_key: true
-      add :comment_post_ID, :integer
+      add :comment_id, :serial, primary_key: true
+      add :comment_post_id, :integer
       add :comment_author, :text
       add :comment_author_email, :text
       add :comment_author_url, :text
@@ -56,7 +56,7 @@ defmodule Content.Repo.Migrations.CreateWpSchema do
     end
 
     create table("wp_posts", primary_key: false) do
-      add :ID, :integer, [:primary_key]
+      add :id, :serial, primary_key: true
       add :post_author, :integer
       add :post_date, :naive_datetime
       add :post_date_gmt, :naive_datetime

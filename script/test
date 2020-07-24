@@ -6,6 +6,10 @@ set -e
 FULL_PATH=$(realpath $0)
 DIR_PATH=$(dirname $FULL_PATH)
 
-$DIR_PATH/update
+$DIR_PATH/bootstrap
+
+MIX_ENV=test mix deps.get
+MIX_ENV=test mix ecto.create
+MIX_ENV=test mix ecto.migrate
 
 mix test

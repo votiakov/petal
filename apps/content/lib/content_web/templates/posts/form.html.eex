@@ -40,7 +40,7 @@
       <% end %>
       <%= label f, :post_author, class: "input-group" do %>
         <div>Author</div>
-        <%= select f, :post_author, @author_options |> Enum.map(&({&1.display_name, &1."ID"})) %>
+        <%= select f, :post_author, @author_options |> Enum.map(&({&1.display_name, &1.id})) %>
       <% end %>
       <%= label f, :post_excerpt, class: "input-group" do %>
         <div>Excerpt</div>

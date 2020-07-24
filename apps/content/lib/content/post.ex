@@ -6,7 +6,7 @@ defmodule Content.Post do
   import Ecto.Changeset
   alias Content.Slugs
 
-  @primary_key {:ID, :id, autogenerate: true}
+  @primary_key {:id, :id, autogenerate: true}
   @derive {Phoenix.Param, key: :post_name}
   schema "wp_posts" do
     field :post_date, :naive_datetime
@@ -32,7 +32,7 @@ defmodule Content.Post do
     field :comment_count, :integer
     field :sticky, :boolean, [virtual: true, default: false]
     has_many :metas, Content.Postmeta, foreign_key: :post_id
-    has_many :comments, Content.Comment, foreign_key: :comment_post_ID
+    has_many :comments, Content.Comment, foreign_key: :comment_post_id
     has_many :term_relationships, Content.TermRelationship, foreign_key: :object_id
     has_many :categories, through: [:term_relationships, :category, :term]
     has_many :tags, through: [:term_relationships, :tag, :term]
@@ -45,7 +45,7 @@ defmodule Content.Post do
     |> cast(
       params,
       [
-        :ID,
+        :id,
         :post_author,
         :post_date,
         :post_date_gmt,
@@ -112,7 +112,7 @@ defmodule Content.Post do
   def metas_map(list) when is_list(list) do
     list
     |> Enum.map(fn post ->
-      {post."ID", metas_map(post)}
+      {post.id, metas_map(post)}
     end)
     |> Map.new
   end

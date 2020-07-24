@@ -4,7 +4,7 @@ defmodule Content.AttachmentTest do
   alias Content.{Attachment, Postmeta, Posts, Repo}
 
   @create_attrs %{
-    ID: 123,
+    id: 123,
     post_name: "my-attachment",
     post_title: "My Attachment",
     post_content: "",
@@ -17,34 +17,34 @@ defmodule Content.AttachmentTest do
     {:ok, attachment} = Posts.create_posts(@create_attrs)
     {:ok, _meta} =
       %Postmeta{
-        post_id: attachment."ID",
+        post_id: attachment.id,
         meta_key: "_wp_attachment_metadata",
         meta_value: "a:2:{s:5:\"width\";i:640;s:6:\"height\";i:480;}"
       } |> Repo.insert()
 
     Content.Post
     |> preload([:metas])
-    |> Repo.get!(attachment."ID")
+    |> Repo.get!(attachment.id)
   end
 
   def fixture(:tall_attachment) do
     {:ok, attachment} = Posts.create_posts(@create_attrs)
     {:ok, _meta} =
       %Postmeta{
-        post_id: attachment."ID",
+        post_id: attachment.id,
         meta_key: "_wp_attachment_metadata",
         meta_value: "a:2:{s:5:\"width\";i:480;s:6:\"height\";i:640;}"
       } |> Repo.insert()
     Content.Post
     |> preload([:metas])
-    |> Repo.get!(attachment."ID")
+    |> Repo.get!(attachment.id)
   end
 
   def fixture(:unknown_dimensions) do
     {:ok, attachment} = Posts.create_posts(@create_attrs)
     Content.Post
     |> preload([:metas])
-    |> Repo.get!(attachment."ID")
+    |> Repo.get!(attachment.id)
   end
 
   describe "dimensions" do

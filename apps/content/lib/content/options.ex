@@ -5,6 +5,15 @@ defmodule Content.Options do
   alias Content.Option
   alias Content.Repo
 
+  def put(key, value) do
+    %Option{}
+    |> Option.changeset(%{
+      option_name: key,
+      option_value: value,
+    })
+    |> Repo.insert()
+  end
+
   def get(key), do: Option |> Repo.get_by(option_name: key)
 
   def get_value(key) do

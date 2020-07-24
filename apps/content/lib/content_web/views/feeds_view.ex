@@ -31,7 +31,7 @@ defmodule Content.FeedsView do
       if post.sticky do
         "sticky"
       end
-    "post post-#{post.'ID'} #{sticky}"
+    "post post-#{post.id} #{sticky}"
   end
 
   def post_topmatter(conn, post) do
@@ -48,7 +48,7 @@ defmodule Content.FeedsView do
       <div class="Comment-topmatter">
 
         <h4>
-          <%= link to: author.homepage_url, rel: "author", class: "p-author h-card" do %>
+          <%= link to: author.homepage_url || "#", rel: "author", class: "p-author h-card" do %>
             <%= author.display_name %>
             <%= img_tag gravatar_url_for_email(author.email), alt: "Photo of #{author.display_name}", class: "Gravatar u-photo" %>
           <% end %>

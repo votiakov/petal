@@ -32,8 +32,8 @@ defmodule Content.ConnCase do
 
       defmacro as_admin(do: expression) do
         quote do
-          with_mock Content.RequireAuth, [call: fn(conn, _opts) -> conn end] do
-            with_mock Content.RequireAdmin, [call: fn(conn, _opts) -> conn end] do
+          with_mock AuthWeb.Plugs.RequireAuth, [call: fn(conn, _opts) -> conn end] do
+            with_mock AuthWeb.Plugs.RequireAdmin, [call: fn(conn, _opts) -> conn end] do
               unquote(expression)
             end
           end

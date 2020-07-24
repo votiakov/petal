@@ -74,7 +74,7 @@ defmodule Content.Menu do
       :inner,
       [p],
       tr in TermRelationship,
-      on: p."ID" == tr.object_id
+      on: p.id == tr.object_id
     )
     |> order_by(:menu_order)
     |> preload(:metas)
@@ -112,13 +112,13 @@ defmodule Content.Menu do
         end
 
       %{
-        post_id: post."ID",
+        post_id: post.id,
         type: meta_map["_menu_item_object"],
         target_id: meta_map["_menu_item_object_id"],
         parent_id: meta_map["_menu_item_menu_item_parent"],
         url: meta_map["_menu_item_url"],
         related_item: related_item,
-        children: arrange_menu_item_posts(nav_posts, Integer.to_string(post."ID"), nav_to_post_map),
+        children: arrange_menu_item_posts(nav_posts, Integer.to_string(post.id), nav_to_post_map),
       }
     end)
   end
@@ -137,10 +137,10 @@ defmodule Content.Menu do
 
     nav_to_post_map =
       Post
-      |> where([p], p."ID" in ^linked_post_ids)
+      |> where([p], p.id in ^linked_post_ids)
       |> Repo.all()
       |> Enum.map(fn post ->
-        {"post/#{post."ID"}", post}
+        {"post/#{post.id}", post}
       end)
       |> Map.new
 
