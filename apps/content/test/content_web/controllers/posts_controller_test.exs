@@ -105,14 +105,6 @@ defmodule Content.PostsControllerTest do
     post
   end
 
-  def fixture(:blog_page) do
-    {:ok, post} = Posts.create_posts(@create_attrs)
-    {:ok, _blog} = Posts.create_posts(@blog_post_attrs)
-    {:ok, _option} = %Content.Option{option_name: "page_for_posts", option_value: post.id |> Integer.to_string(10)} |> Repo.insert()
-
-    post
-  end
-
   def fixture(:attachment) do
     {:ok, post} = Posts.create_posts(@attachment_attrs)
 
@@ -184,10 +176,10 @@ defmodule Content.PostsControllerTest do
 
   describe "show the blog_page" do
     test "shows the post if it is the front post", %{conn: conn} do
-      page = fixture(:blog_page)
-      conn = get conn, Routes.posts_path(conn, :show, page)
+      post = fixture(:single_post)
+      conn = get conn, Routes.posts_path(conn, :show, "blog")
 
-      assert html_response(conn, 200) =~ "My Blog Post"
+      assert html_response(conn, 200) =~ post.post_title
     end
   end
 

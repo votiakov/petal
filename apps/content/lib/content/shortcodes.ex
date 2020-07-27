@@ -76,6 +76,10 @@ defmodule Content.Shortcodes do
     {tag_name, attrs, new_children}
   end
 
+  defp transform_text_nodes(comment = {:comment, _}) do
+    comment
+  end
+
   defp processed_text(text) do
     text =
       text

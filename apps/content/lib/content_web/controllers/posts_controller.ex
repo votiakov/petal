@@ -79,6 +79,10 @@ defmodule Content.PostsController do
     |> render("show.html", post: post, page: 1, thumbs: [])
   end
 
+  def show(conn, %{"id" => "blog", "page" => page_string}) do
+    conn |> index_posts(%{"id" => "blog", "page" => page_string})
+  end
+
   def show(conn, %{"id" => id, "page" => page_string}) do
     {page_id_for_posts, _} = Options.get_value_as_int("page_for_posts")
 
@@ -87,11 +91,7 @@ defmodule Content.PostsController do
     if is_nil(post) do
       try_static_post(conn, id)
     else
-      if post.id == page_id_for_posts do
-        conn |> index_posts(%{"id" => id, "page" => page_string})
-      else
-        conn |> show_one(post, page_string)
-      end
+      conn |> show_one(post, page_string)
     end
   end
   def show(conn, %{"id" => id}), do: show(conn, %{"id" => id, "page" => "1"})
