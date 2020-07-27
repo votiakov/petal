@@ -1,6 +1,5 @@
-<article class="ui <%= post_class(@post) %> h-entry">
+<article class="ui <%= post_class(@post) %> h-entry text container">
   <div class="ui main padded text container">
-
     <h1 class="ui header p-name">
       <%= link to: Routes.posts_path(@conn, :show, @post), class: "u-url" do %>
         <%= raw @post.post_title %>
@@ -8,33 +7,35 @@
     </h1>
     <%= post_topmatter(@conn, @post) %>
   </div>
-  <div class="ui text container <%= if @post.post_format, do: @post.post_format.slug %> e-content">
+  <div class="ui text container <%= if @post.post_format, do: @post.post_format.slug %> e-content" style="padding-bottom: 4em; padding-top: 4em;">
     <%= render "thumb.html", post: @post, thumbs: @thumbs %>
     <%= @post |> Content.Post.content_page(@page) |> process_content |> raw %>
-    <p class="CategoryBlock">
-      Categories:
-      <%= for term <- @post.categories do %>
-        <%= link term.name, to: Routes.category_path(@conn, :index_posts, term.slug), class: "p-category" %>
-      <% end %>
-    </p>
+    <div class="ui grid">
+      <div class="ui center aligned one column row CategoryBlock" style="padding-top: 2rem;">
+        <div class="ui column">
+          <%= case @post.categories || [] do %>
+            <% [] -> %>
+              <%= "" %>
+            <% categories -> %>
+              <%= for term <- categories do %>
+                <div class="ui label">
+                  <%= link term.name, to: Routes.category_path(@conn, :index_posts, term.slug), class: "p-category" %>
+                </div>
+              <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
   <%= render "pagination.html", conn: @conn, post: @post, current_page: @page %>
   <%= if @post.comment_status == "open" do %>
     <h3>Comments</h3>
-    <a href="#reply-to-post">
-      ➦ Reply to "<%= @post.post_title %>"
-    </a>
-    <ul class="CommentList">
-      <%= render "comments.html", post: @post, parent_id: 0, conn: @conn %>
-      <li class="Comment" id="reply-to-post">
-        <%=
-          render "reply_form.html",
-            comment_changeset: comment_changeset_for_post(@post),
-            post: @post,
-            conn: @conn
-        %>
-      </li>
-    </ul>
+    <%= render "comments.html", post: @post, parent_id: 0, conn: @conn %>
+    <%=
+      render "reply_form.html",
+        comment_changeset: comment_changeset_for_post(@post),
+        post: @post,
+        conn: @conn
+    %>
   <% end %>
-  <hr />
 </article>

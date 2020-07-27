@@ -81,15 +81,14 @@ defmodule Content.PostsView do
           <%= link to: author.homepage_url || "#", rel: "author", class: "p-author h-card" do %>
             <%= img_tag gravatar_url_for_email(author.email), alt: "Photo of #{author.display_name}", class: "Gravatar u-photo ui avatar image" %>
             <span><%= author.display_name %></span>
+            &#8226;
+            <%= link to: Routes.posts_path(conn, :show, post) do %>
+              <time class="dt-published" datetime="<%= post.post_date %>">
+                <%= post.post_date |> Timex.format!("%F", :strftime) %>
+              </time>
+            <% end %>
           <% end %>
         </h4>
-        <h5>
-          <%= link to: Routes.posts_path(conn, :show, post) do %>
-            <time class="dt-published" datetime="<%= post.post_date %>">
-              <%= post.post_date |> Timex.format!("%F", :strftime) %>
-            </time>
-          <% end %>
-        </h5>
       </div>
     """
   end
