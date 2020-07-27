@@ -5,13 +5,23 @@ defmodule CoreWeb.ErrorHelpers do
 
   use Phoenix.HTML
 
+  def error_class(form, field) do
+    if Keyword.get_values(form.errors, field) |> Enum.any?() do
+      "error"
+    else
+      ""
+    end
+  end
+
   @doc """
   Generates tag for inlined form input errors.
   """
-  def error_tag(form, field) do
+  def error_tag(form, field, opts \\ []) do
+    {extra_classes, _rest_opts} = Keyword.pop(opts, :class, "")
+
     Enum.map(Keyword.get_values(form.errors, field), fn error ->
       content_tag(:span, translate_error(error),
-        class: "invalid-feedback",
+        class: "invalid-feedback #{extra_classes}",
         phx_feedback_for: input_id(form, field)
       )
     end)

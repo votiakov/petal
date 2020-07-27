@@ -1,24 +1,35 @@
-
-<%= form_for @comment_changeset, Routes.comment_path(@conn, :create), fn f -> %>
-  <%= hidden_input f, :comment_parent %>
-  <%= hidden_input f, :comment_post_id %>
-  <%= label f, :comment_author do %>
-    Your Name
-    <%= text_input f, :comment_author %>
-  <% end %>
-  <%= label f, :comment_author_email do %>
-    Your Email
-    <%= email_input f, :comment_author_email %>
-  <% end %>
-  <%= label f, :comment_author_url do %>
-    Your Website
-    <%= text_input f, :comment_author_url %>
-  <% end %>
-  <%= label f, :comment_content do %>
-    Comment
-    <%= textarea f, :comment_content %>
-  <% end %>
-  <div class="form-group">
-    <%= submit "\u27A6 Reply", class: "btn btn-primary" %>
+<div class="ui middle aligned grid" style="padding-top: 2em;">
+  <div class="column">
+    <h2 class="ui teal image header">
+      <div class="content">
+        Leave My Comment
+      </div>
+    </h2>
+    <%= changeset_error_block(@comment_changeset) %>
+    <div class="ui stacked left aligned segment">
+      <%= form_for @comment_changeset, Routes.comment_path(@conn, :create), [class: "ui form"], fn f -> %>
+        <%= hidden_input f, :comment_parent %>
+        <%= hidden_input f, :comment_post_id %>
+        <%= label f, :comment_author do %>
+          Your Name
+          <%= text_input f, :comment_author %>
+        <% end %>
+        <%= label f, :comment_author_email do %>
+          Your Email
+          <%= email_input f, :comment_author_email %>
+        <% end %>
+        <%= label f, :comment_author_url do %>
+          Your Website
+          <%= text_input f, :comment_author_url %>
+        <% end %>
+        <%= label f, :comment_content do %>
+          Comment
+          <%= textarea f, :comment_content %>
+        <% end %>
+        <div class="form-group">
+          <%= submit "Leave My Comment", class: "ui fluid large teal submit button" %>
+        </div>
+      <% end %>
+    </div>
   </div>
-<% end %>
+</div>

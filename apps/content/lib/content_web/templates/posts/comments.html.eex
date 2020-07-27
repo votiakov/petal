@@ -1,35 +1,22 @@
-<%= Enum.map(Content.Comments.children(@parent_id, @post.comments), fn comment -> %>
-  <li class="Comment">
-    <div class="Comment-topmatter">
-      <span class="Gravatar" style="background-image: url(<%= comment.comment_author_email |> gravatar_url_for_email %>)">
-      </span>
-      <h4>
-        <%= comment.comment_author  || "Anonymous" %>
-      </h4>
-      <h5>
-        <%= comment.comment_date |> Timex.format!("%F", :strftime) %>
-      </h5>
+<div class="ui feed">
+  <%= Enum.map(Content.Comments.children(@parent_id, @post.comments), fn comment -> %>
+    <div class="event">
+      <div class="label">
+        <img src="<%= comment.comment_author_email |> gravatar_url_for_email %>" />
+      </div>
+      <div class="content">
+        <div class="summary">
+          <span class="user">
+            <%= comment.comment_author  || "Anonymous" %>
+          </span>
+          <div class="date">
+            <%= comment.comment_date |> Timex.format!("%F", :strftime) %>
+          </div>
+        </div>
+        <div class="extra text">
+          <%= sanitize comment.comment_content |> auto_paragraph_tags |> elem(1) |> IO.iodata_to_binary() %>
+        </div>
+      </div>
     </div>
-    <div class="Comment-content">
-      <%= sanitize comment.comment_content |> auto_paragraph_tags |> elem(1) |> IO.iodata_to_binary() %>
-      <p class="Comment-actions">
-        <a href="#reply-to-<%= comment.comment_id %>" class="Comment--replyLink">
-          &#x27A6; Reply
-        </a>
-      </p>
-    </div>
-    <ul class="CommentList">
-      <%= render "comments.html", post: @post, parent_id: comment.comment_id, conn: @conn %>
-      <li class="Comment Comment--replyForm" id="reply-to-<%= comment.comment_id %>">
-        <h4>
-          Reply to <%= comment.comment_author  || "Anonymous" %>
-        </h4>
-        <%=
-          render "reply_form.html",
-            comment_changeset: comment_changeset_for_parent(comment),
-            conn: @conn
-        %>
-      </li>
-    </ul>
-  </li>
-<% end) %>
+  <% end) %>
+</div>

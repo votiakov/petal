@@ -46,6 +46,7 @@ defmodule Content do
         |> Earmark.as_html!()
       end
 
+      import CoreWeb.Helpers
       # Include shared imports and aliases for views
       unquote(view_helpers())
     end

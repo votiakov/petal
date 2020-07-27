@@ -17,7 +17,7 @@ config :admin, Admin,
     content: [
       name: "Content",
       resources: [
-        post: [schema: Content.Post, admin: Content.PostAdmin, label: "Posts and Pages"]
+        post: [schema: Content.Post, admin: Content.PostAdmin, label: "Posts and Pages", id_column: :post_name]
       ]
     ]
   ]

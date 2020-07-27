@@ -66,8 +66,8 @@ defmodule AuthWeb do
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
 
-      import AuthWeb.ErrorHelpers
-      import AuthWeb.Helpers
+      import CoreWeb.ErrorHelpers
+      import CoreWeb.Helpers
       import AuthWeb.Gettext
       alias AuthWeb.Router.Helpers, as: Routes
     end
