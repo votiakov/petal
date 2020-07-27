@@ -20,7 +20,7 @@ defmodule Content.LayoutView do
       opt = %Option{} ->
         opt.option_value
       _ ->
-        "Hello"
+        I18n.t! "en", "site.title"
     end
   end
 
@@ -38,7 +38,7 @@ defmodule Content.LayoutView do
       opt = %Option{} ->
         opt.option_value
       _ ->
-        "Yet another website"
+        I18n.t! "en", "site.excerpt"
     end
   end
 
