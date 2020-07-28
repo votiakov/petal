@@ -17,6 +17,18 @@ defmodule Content.PostAdmin do
     Content.Post.changeset(schema, attrs)
   end
 
+  def index(_) do
+    [
+      id: nil,
+      post_type: nil,
+      post_name: nil,
+      post_title: nil,
+      post_status: nil,
+      post_date_gmt: nil,
+      post_modified_gmt: nil,
+    ]
+  end
+
   def form_fields(_) do
     authors_query =
       from u in Auth.User,
