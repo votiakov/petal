@@ -8,23 +8,23 @@
     <%= changeset_error_block(@comment_changeset) %>
     <div class="ui stacked left aligned segment">
       <%= form_for @comment_changeset, Routes.comment_path(@conn, :create), [class: "ui form"], fn f -> %>
-        <%= hidden_input f, :comment_parent %>
-        <%= hidden_input f, :comment_post_id %>
-        <%= label f, :comment_author do %>
+        <%= hidden_input f, :parent %>
+        <%= hidden_input f, :post_id %>
+        <%= label f, :author do %>
           Your Name
-          <%= text_input f, :comment_author %>
+          <%= text_input f, :author %>
         <% end %>
-        <%= label f, :comment_author_email do %>
+        <%= label f, :author_email do %>
           Your Email
-          <%= email_input f, :comment_author_email %>
+          <%= email_input f, :author_email %>
         <% end %>
-        <%= label f, :comment_author_url do %>
+        <%= label f, :author_url do %>
           Your Website
-          <%= text_input f, :comment_author_url %>
+          <%= text_input f, :author_url %>
         <% end %>
-        <%= label f, :comment_content do %>
+        <%= label f, :content do %>
           Comment
-          <%= textarea f, :comment_content %>
+          <%= textarea f, :content %>
         <% end %>
         <div class="form-group">
           <%= submit "Leave My Comment", class: "ui fluid large teal submit button" %>

@@ -7,14 +7,14 @@ defmodule Content.Slugs do
 
   def ensure_post_has_slug(changeset) do
     cond do
-      !is_nil(changeset |> get_field(:post_name)) ->
+      !is_nil(changeset |> get_field(:name)) ->
         changeset
-      is_nil(changeset |> get_field(:post_title)) ->
+      is_nil(changeset |> get_field(:title)) ->
         changeset
         |> put_change(
-          :post_name,
+          :name,
           changeset
-          |> get_field(:post_date)
+          |> get_field(:date)
           |> Kernel.||(NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second))
           |> Timex.format!("%F", :strftime)
           |> Slugger.slugify_downcase()
@@ -23,16 +23,16 @@ defmodule Content.Slugs do
       true ->
         changeset
         |> put_change(
-          :post_name,
+          :name,
           changeset
-          |> get_field(:post_title)
+          |> get_field(:title)
           |> Slugger.slugify_downcase()
           |> unique_slug(changeset |> get_field(:id))
         )
     end
   end
 
-  defp unique_slug(proposed_slug, post_id, postfix_number \\ 0) do
+  defp unique_slug(proposed_slug, id, postfix_number \\ 0) do
     proposed_slug_with_postfix =
       if postfix_number == 0 do
         proposed_slug
@@ -44,8 +44,8 @@ defmodule Content.Slugs do
       Repo.aggregate(
         (
           Post
-          |> where([post], post.post_name == ^proposed_slug_with_postfix)
-          |> post_id_match(post_id)
+          |> where([post], post.name == ^proposed_slug_with_postfix)
+          |> post_id_match(id)
         ),
         :count,
         :id
@@ -54,7 +54,7 @@ defmodule Content.Slugs do
     if competition_count == 0 do
       proposed_slug_with_postfix
     else
-      unique_slug(proposed_slug, post_id, postfix_number + 1)
+      unique_slug(proposed_slug, id, postfix_number + 1)
     end
   end
 

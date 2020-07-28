@@ -10,4 +10,5 @@ $DIR_PATH/bootstrap
 
 mix deps.get
 mix npm.install
+mix ecto.create
 mix ecto.migrate

@@ -9,7 +9,7 @@ defmodule Content.Terms do
   def categories do
     from t in Content.Term,
       join: tt in Content.TermTaxonomy,
-      on: t.term_id == tt.term_id,
+      on: t.id == tt.term_id,
       where: tt.taxonomy ==  "category"
   end
 end

@@ -6,38 +6,37 @@ defmodule Content.Post do
   import Ecto.Changeset
   alias Content.Slugs
 
-  @primary_key {:id, :id, autogenerate: true}
-  @derive {Phoenix.Param, key: :post_name}
-  schema "wp_posts" do
-    field :post_date, :naive_datetime
-    field :post_date_gmt, :naive_datetime
-    field :post_content, :string, default: ""
-    field :post_title, :string
-    field :post_excerpt, :string
-    field :post_status, :string
+  @derive {Phoenix.Param, key: :name}
+  schema "posts" do
+    field :date, :naive_datetime
+    field :date_gmt, :naive_datetime
+    field :content, :string, default: ""
+    field :title, :string
+    field :excerpt, :string
+    field :status, :string
     field :comment_status, :string
     field :ping_status, :string
-    field :post_password, :string, default: ""
-    field :post_name, :string
+    field :password, :string, default: ""
+    field :name, :string
     field :to_ping, :string, default: ""
     field :pinged, :string, default: ""
-    field :post_modified, :naive_datetime
-    field :post_modified_gmt, :naive_datetime
-    field :post_content_filtered, :string, default: ""
-    field :post_parent, :integer
+    field :modified, :naive_datetime
+    field :modified_gmt, :naive_datetime
+    field :content_filtered, :string, default: ""
+    field :parent, :integer
     field :guid, :string
     field :menu_order, :integer
-    field :post_type, :string
-    field :post_mime_type, :string
+    field :type, :string
+    field :mime_type, :string
     field :comment_count, :integer
     field :sticky, :boolean, [virtual: true, default: false]
-    has_many :metas, Content.Postmeta, foreign_key: :post_id
-    has_many :comments, Content.Comment, foreign_key: :comment_post_id
+    has_many :metas, Content.Postmeta
+    has_many :comments, Content.Comment
     has_many :term_relationships, Content.TermRelationship, foreign_key: :object_id
     has_many :categories, through: [:term_relationships, :category, :term]
     has_many :tags, through: [:term_relationships, :tag, :term]
-    has_one :post_format, through: [:term_relationships, :post_format, :term]
-    belongs_to :author, Auth.User, foreign_key: :post_author
+    has_one :format, through: [:term_relationships, :format, :term]
+    belongs_to :author, Auth.User
   end
 
   def changeset(struct, params \\ %{}) do
@@ -46,35 +45,35 @@ defmodule Content.Post do
       params,
       [
         :id,
-        :post_author,
-        :post_date,
-        :post_date_gmt,
-        :post_content,
-        :post_title,
-        :post_excerpt,
-        :post_status,
+        :author_id,
+        :date,
+        :date_gmt,
+        :content,
+        :title,
+        :excerpt,
+        :status,
         :comment_status,
         :ping_status,
-        :post_password,
-        :post_name,
+        :password,
+        :name,
         :to_ping,
         :pinged,
-        :post_content_filtered,
-        :post_parent,
+        :content_filtered,
+        :parent,
         :menu_order,
-        :post_type,
-        :post_mime_type,
+        :type,
+        :mime_type,
         :comment_count,
         :sticky,
     ])
-    |> put_default(:post_date, NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second))
-    |> put_default(:post_date_gmt, NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second))
-    |> put_change(:post_modified, NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second))
-    |> put_change(:post_modified_gmt, NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second))
+    |> put_default(:date, NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second))
+    |> put_default(:date_gmt, NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second))
+    |> put_change(:modified, NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second))
+    |> put_change(:modified_gmt, NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second))
     |> Slugs.ensure_post_has_slug()
     |> maybe_put_guid()
-    |> validate_required([:post_name, :post_status])
-    |> validate_inclusion(:post_status, ["publish", "future", "draft", "pending", "private", "trash", "auto-draft", "inherit"])
+    |> validate_required([:name, :status])
+    |> validate_inclusion(:status, ["publish", "future", "draft", "pending", "private", "trash", "auto-draft", "inherit"])
   end
 
   def put_default(changeset, key, value) do
@@ -93,14 +92,14 @@ defmodule Content.Post do
   end
 
   def content_page(struct, page) do
-    (struct.post_content || "")
+    (struct.content || "")
     |> String.split("<!--nextpage-->")
     |> Enum.at(page - 1)
     |> Kernel.||("")
   end
 
   def content_page_count(struct) do
-    (struct.post_content || "")
+    (struct.content || "")
     |> String.split("<!--nextpage-->")
     |> Enum.count
   end
@@ -118,13 +117,13 @@ defmodule Content.Post do
   end
   def metas_map(%Content.Post{} = struct) do
     struct.metas
-    |> Enum.map(&({&1.meta_key, &1.meta_value}))
+    |> Enum.map(&({&1.key, &1.value}))
     |> Map.new
   end
 
   def maybe_put_guid(changeset) do
     import Content.Router.Helpers, only: [posts_url: 3]
-    slug = changeset |> get_field(:post_name)
+    slug = changeset |> get_field(:name)
 
     case slug do
       nil -> changeset

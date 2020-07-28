@@ -10,12 +10,6 @@
   </head>
   <body>
     <main role="main" class="container">
-      <%= for level <- [:info, :danger] do %>
-        <%= if get_flash(@conn, level) do %>
-          <p class="alert alert-<%= level %>" role="alert"><%= get_flash(@conn, level) %></p>
-        <% end %>
-      <% end %>
-
       <%= render "_side_menu.html", assigns %>
 
       <!-- Page Contents -->
@@ -24,6 +18,8 @@
           <%= render "_menu.html", assigns %>
         </div>
       </div>
+
+      <%= flash_block(@conn) %>
 
       <%= @inner_content %>
     </main>

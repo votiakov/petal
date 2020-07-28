@@ -1,8 +1,7 @@
 defmodule Content.PostsController do
   use Content, :controller
 
-  alias Auth.User
-  alias Content.{Options, Post, Posts, Repo}
+  alias Content.{Options, Posts}
 
   plug :put_layout, false when action in [:preview]
 
@@ -44,34 +43,6 @@ defmodule Content.PostsController do
     show(conn, %{"id" => page_id})
   end
 
-  def new(conn, params) do
-    changeset = Posts.change_posts(%Post{})
-    render(
-      conn,
-      "new.html",
-      changeset: changeset,
-      post_type: params["post_type"] || "post",
-      author_options: User |> Repo.all()
-    )
-  end
-
-  def create(conn, %{"post" => post_params}) do
-    case Posts.create_posts(post_params) do
-      {:ok, post} ->
-        conn
-        |> put_flash(:info, "Posts created successfully.")
-        |> redirect(to: Routes.posts_path(conn, :show, post))
-      {:error, %Ecto.Changeset{} = changeset} ->
-        render(
-          conn,
-          "new.html",
-          changeset: changeset,
-          post_type: post_params["post_type"] || "post",
-          author_options: User |> Repo.all()
-        )
-    end
-  end
-
   def preview(conn, %{"post" => post_params}) do
     post = Posts.preview_post(post_params)
 
@@ -84,8 +55,6 @@ defmodule Content.PostsController do
   end
 
   def show(conn, %{"id" => id, "page" => page_string}) do
-    {page_id_for_posts, _} = Options.get_value_as_int("page_for_posts")
-
     post = Posts.get_post(id)
 
     if is_nil(post) do
@@ -126,57 +95,15 @@ defmodule Content.PostsController do
 
     page = String.to_integer(page_string)
     thumbs = [post] |> Posts.thumbs_for_posts()
-    case post.post_type do
+    case post.type do
       "attachment" ->
-        {:ok, decoded} = post.post_content |> Base.decode64
+        {:ok, decoded} = post.content |> Base.decode64
 
         conn
-        |> put_resp_content_type(post.post_mime_type, "binary")
+        |> put_resp_content_type(post.mime_type, "binary")
         |> send_resp(conn.status || 200, decoded)
       _ ->
         render(conn, template, post: post, page: page, thumbs: thumbs)
     end
-  end
-
-  def edit(conn, %{"id" => id}) do
-    posts = Posts.get_post_with_drafts!(id)
-    changeset = Posts.change_posts(posts)
-    render(
-      conn,
-      "edit.html",
-      posts: posts,
-      changeset: changeset,
-      post_type: posts.post_type || "post",
-      author_options: User |> Repo.all()
-    )
-  end
-
-  def update(conn, %{"id" => id, "post" => posts_params}) do
-    posts = Posts.get_post_with_drafts!(id)
-
-    case Posts.update_posts(posts, posts_params) do
-      {:ok, posts} ->
-        conn
-        |> put_flash(:info, "Posts updated successfully.")
-        |> redirect(to: Routes.posts_path(conn, :edit, posts))
-      {:error, %Ecto.Changeset{} = changeset} ->
-        render(
-          conn,
-          "edit.html",
-          posts: posts,
-          changeset: changeset,
-          post_type: posts.post_type || "post",
-          author_options: User |> Repo.all()
-        )
-    end
-  end
-
-  def delete(conn, %{"id" => id}) do
-    posts = Posts.get_post_with_drafts!(id)
-    {:ok, _posts} = Posts.delete_posts(posts)
-
-    conn
-    |> put_flash(:info, "Posts deleted successfully.")
-    |> redirect(to: Routes.admin_posts_path(conn, :index))
   end
 end

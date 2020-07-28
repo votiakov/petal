@@ -20,12 +20,12 @@ defmodule Content.PostAdmin do
   def index(_) do
     [
       id: nil,
-      post_type: nil,
-      post_name: nil,
-      post_title: nil,
-      post_status: nil,
-      post_date_gmt: nil,
-      post_modified_gmt: nil,
+      type: nil,
+      name: nil,
+      title: nil,
+      status: nil,
+      date_gmt: nil,
+      modified_gmt: nil,
     ]
   end
 
@@ -43,17 +43,17 @@ defmodule Content.PostAdmin do
       end)
 
     [
-      post_type: %{choices: [{"Blog Post", :post}, {"Page", :page}]},
-      post_name: %{label: "Slug"},
-      post_title: nil,
-      post_content: %{type: :textarea, rows: 32},
-      post_status: %{choices: [{"Publish", :publish}, {"Draft", :draft}]},
-      post_author: %{choices: authors},
-      post_excerpt: %{type: :textarea, rows: 4},
+      type: %{choices: [{"Blog Post", :post}, {"Page", :page}]},
+      name: %{label: "Slug"},
+      title: nil,
+      content: %{type: :textarea, rows: 32},
+      status: %{choices: [{"Publish", :publish}, {"Draft", :draft}]},
+      author_id: %{choices: authors},
+      excerpt: %{type: :textarea, rows: 4},
       sticky: nil,
       comment_status: %{choices: [{"open", :open}, {"closed", :closed}]},
       ping_status: %{choices: [{"open", :open}, {"closed", :closed}]},
-      post_password: nil,
+      password: nil,
       menu_order: nil,
     ]
   end

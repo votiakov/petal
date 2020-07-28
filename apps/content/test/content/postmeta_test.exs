@@ -7,8 +7,8 @@ defmodule Content.PostmetaTest do
     %Postmeta{}
     |> Postmeta.changeset(%{
       post_id: 123,
-      meta_key: "testpostmeta",
-      meta_value: "some value",
+      key: "testpostmeta",
+      value: "some value",
     })
     |> Repo.insert!()
   end

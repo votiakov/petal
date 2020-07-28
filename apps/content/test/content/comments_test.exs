@@ -6,19 +6,19 @@ defmodule Content.CommentsTest do
 
   def fixture(:parent_comment) do
     %Comment{
-      comment_id: 123,
-      comment_content: "Hello world",
-      comment_post_id: 456,
+      id: 123,
+      content: "Hello world",
+      post_id: 456,
     }
     |> Repo.insert!()
   end
 
   def fixture(:child_comment) do
     %Comment{
-      comment_id: 456,
-      comment_parent: 123,
-      comment_content: "Hello back",
-      comment_post_id: 456,
+      id: 456,
+      parent: 123,
+      content: "Hello back",
+      post_id: 456,
     }
     |> Repo.insert!()
   end
@@ -28,14 +28,14 @@ defmodule Content.CommentsTest do
       parent = fixture(:parent_comment)
       kid = fixture(:child_comment)
 
-      kids = Comments.children(parent.comment_id, Comments.list_comments)
+      kids = Comments.children(parent.id, Comments.list_comments)
       assert kids == [kid]
     end
 
     test "returns an empty list if the comment has no children " do
       parent = fixture(:parent_comment)
 
-      kids = Comments.children(parent.comment_id, Comments.list_comments)
+      kids = Comments.children(parent.id, Comments.list_comments)
       assert kids == []
     end
   end
@@ -45,8 +45,8 @@ defmodule Content.CommentsTest do
       changeset = fixture(:parent_comment) |> Comments.change_comment
       changed_value =
         changeset
-        |> Changeset.put_change(:comment_content, "woops")
-        |> Changeset.get_change(:comment_content)
+        |> Changeset.put_change(:content, "woops")
+        |> Changeset.get_change(:content)
       assert changed_value == "woops"
     end
   end

@@ -8,7 +8,7 @@ defmodule Content.SitemapController do
   def index(conn, _params) do
     posts =
       Posts.post_scope
-      |> where([p], p.post_type not in ["nav_menu_item", "attachment"])
+      |> where([p], p.type not in ["nav_menu_item", "attachment"])
       |> Repo.all()
 
     categories =

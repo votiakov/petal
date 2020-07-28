@@ -2,19 +2,19 @@
   <%= Enum.map(Content.Comments.children(@parent_id, @post.comments), fn comment -> %>
     <div class="event">
       <div class="label">
-        <img src="<%= comment.comment_author_email |> gravatar_url_for_email %>" />
+        <img src="<%= comment.author_email |> gravatar_url_for_email %>" />
       </div>
       <div class="content">
         <div class="summary">
           <span class="user">
-            <%= comment.comment_author  || "Anonymous" %>
+            <%= comment.author  || "Anonymous" %>
           </span>
           <div class="date">
-            <%= comment.comment_date |> Timex.format!("%F", :strftime) %>
+            <%= comment.date |> Timex.format!("%F", :strftime) %>
           </div>
         </div>
         <div class="extra text">
-          <%= sanitize comment.comment_content |> auto_paragraph_tags |> elem(1) |> IO.iodata_to_binary() %>
+          <%= sanitize comment.content |> auto_paragraph_tags |> elem(1) |> IO.iodata_to_binary() %>
         </div>
       </div>
     </div>

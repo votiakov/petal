@@ -17,7 +17,7 @@ defmodule Content.PostsView do
   end
 
   def authenticated_for_post?(conn, post) do
-    post.post_password == nil || String.length(post.post_password) == 0 || get_session(conn, :post_password) == post.post_password
+    post.password == nil || String.length(post.password) == 0 || get_session(conn, :post_password) == post.password
   end
 
   def gravatar_url_for_email(email) do
@@ -33,15 +33,15 @@ defmodule Content.PostsView do
 
   def comment_changeset_for_post(%Post{} = post) do
     %Comment{
-      comment_post_id: post.id
+      post_id: post.id
     }
     |> Comment.changeset()
   end
 
   def comment_changeset_for_parent(%Comment{} = comment) do
     %Comment{
-      comment_parent: comment.comment_id,
-      comment_post_id: comment.comment_post_id
+      parent: comment.id,
+      post_id: comment.post_id
     }
     |> Comment.changeset()
   end
@@ -83,8 +83,8 @@ defmodule Content.PostsView do
             <span><%= author.display_name %></span>
             &#8226;
             <%= link to: Routes.posts_path(conn, :show, post) do %>
-              <time class="dt-published" datetime="<%= post.post_date %>">
-                <%= post.post_date |> Timex.format!("%F", :strftime) %>
+              <time class="dt-published" datetime="<%= post.date %>">
+                <%= post.date |> Timex.format!("%F", :strftime) %>
               </time>
             <% end %>
           <% end %>

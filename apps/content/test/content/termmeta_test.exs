@@ -7,8 +7,8 @@ defmodule Content.TermmetaTest do
     %Termmeta{}
     |> Termmeta.changeset(%{
       term_id: 123,
-      meta_key: "testtermmeta",
-      meta_value: "some value",
+      key: "testtermmeta",
+      value: "some value",
     })
     |> Repo.insert!()
   end

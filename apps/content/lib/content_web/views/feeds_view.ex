@@ -55,8 +55,8 @@ defmodule Content.FeedsView do
         </h4>
         <h5>
           <%= link to: Routes.posts_path(conn, :show, post) do %>
-            <time class="dt-published" datetime="<%= post.post_date %>">
-              <%= post.post_date |> Timex.format!("%F", :strftime) %>
+            <time class="dt-published" datetime="<%= post.post %>">
+              <%= post.post |> Timex.format!("%F", :strftime) %>
             </time>
           <% end %>
         </h5>
@@ -65,6 +65,6 @@ defmodule Content.FeedsView do
   end
 
   def unauthenticated_post?(_conn, post) do
-    post.post_password == nil || String.length(post.post_password) == 0
+    post.password == nil || String.length(post.password) == 0
   end
 end

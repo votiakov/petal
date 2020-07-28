@@ -5,15 +5,14 @@ defmodule Content.Postmeta do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @primary_key {:meta_id, :id, autogenerate: true}
-  schema "wp_postmeta" do
+  schema "postmeta" do
     belongs_to :post, Content.Post
-    field :meta_key, :string
-    field :meta_value, :string
+    field :key, :string
+    field :value, :string
   end
 
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:meta_id, :post_id, :meta_key, :meta_value])
+    |> cast(params, [:id, :post_id, :key, :value])
   end
 end

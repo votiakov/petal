@@ -5,15 +5,14 @@ defmodule Content.Commentmeta do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @primary_key {:meta_id, :id, autogenerate: true}
-  schema "wp_commentmeta" do
+  schema "commentmeta" do
     field :comment_id, :integer
-    field :meta_key, :string
-    field :meta_value, :string
+    field :key, :string
+    field :value, :string
   end
 
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:meta_id, :comment_id, :meta_key, :meta_value])
+    |> cast(params, [:id, :comment_id, :key, :value])
   end
 end

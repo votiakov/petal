@@ -6,9 +6,9 @@ defmodule Content.Comments do
   alias Content.Comment
   alias Content.Repo
 
-  def children(parent_comment_id, array_of_comments) do
+  def children(parent_id, array_of_comments) do
     array_of_comments
-    |> Enum.filter(&(&1.comment_parent == parent_comment_id))
+    |> Enum.filter(&(&1.parent == parent_id))
   end
 
   @doc """
