@@ -21,6 +21,16 @@ defmodule Auth.User do
     timestamps()
   end
 
+  def admin_changeset(user_or_changeset, attrs) do
+    role_list = Phoenix.json_library().decode!(Map.get(attrs, "roles"))
+    attrs = Map.put(attrs, "roles", role_list)
+
+    user_or_changeset
+    |> pow_user_id_field_changeset(attrs)
+    |> Changeset.cast(attrs, [:roles])
+    |> pow_extension_changeset(attrs)
+  end
+
   def changeset(user_or_changeset, attrs) do
     user_or_changeset
     |> pow_user_id_field_changeset(attrs)
