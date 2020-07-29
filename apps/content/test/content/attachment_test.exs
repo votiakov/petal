@@ -5,12 +5,12 @@ defmodule Content.AttachmentTest do
 
   @create_attrs %{
     id: 123,
-    post_name: "my-attachment",
-    post_title: "My Attachment",
-    post_content: "",
-    post_status: "publish",
-    post_type: "attachment",
-    post_date: "2018-01-01T00:00:00Z"
+    name: "my-attachment",
+    title: "My Attachment",
+    content: "",
+    status: "publish",
+    type: "attachment",
+    date: "2018-01-01T00:00:00Z"
   }
 
   def fixture(:wide_attachment) do
@@ -18,8 +18,8 @@ defmodule Content.AttachmentTest do
     {:ok, _meta} =
       %Postmeta{
         post_id: attachment.id,
-        meta_key: "_wp_attachment_metadata",
-        meta_value: "a:2:{s:5:\"width\";i:640;s:6:\"height\";i:480;}"
+        key: "attachment_metadata",
+        value: "a:2:{s:5:\"width\";i:640;s:6:\"height\";i:480;}"
       } |> Repo.insert()
 
     Content.Post
@@ -32,8 +32,8 @@ defmodule Content.AttachmentTest do
     {:ok, _meta} =
       %Postmeta{
         post_id: attachment.id,
-        meta_key: "_wp_attachment_metadata",
-        meta_value: "a:2:{s:5:\"width\";i:480;s:6:\"height\";i:640;}"
+        key: "attachment_metadata",
+        value: "a:2:{s:5:\"width\";i:480;s:6:\"height\";i:640;}"
       } |> Repo.insert()
     Content.Post
     |> preload([:metas])

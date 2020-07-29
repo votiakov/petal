@@ -6,8 +6,8 @@ defmodule Content.OptionsTest do
   def fixture(:option) do
     %Option{}
     |> Option.changeset(%{
-      option_name: "test_up",
-      option_value: "1",
+      name: "test_up",
+      value: "1",
     })
     |> Repo.insert!()
   end

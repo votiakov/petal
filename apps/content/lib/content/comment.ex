@@ -6,49 +6,47 @@ defmodule Content.Comment do
   import Ecto.Changeset
   alias Content.{Post}
 
-  @primary_key {:comment_id, :id, autogenerate: true}
-  @derive {Phoenix.Param, key: :comment_id}
-  schema "wp_comments" do
-    belongs_to :post, Post, foreign_key: :comment_post_id, references: :id
-    field :comment_author, :string
-    field :comment_author_email, :string
-    field :comment_author_url, :string
-    field :comment_author_IP, :string
-    field :comment_date, :naive_datetime
-    field :comment_date_gmt, :naive_datetime
-    field :comment_content, :string
-    field :comment_karma, :integer
-    field :comment_approved, :string
-    field :comment_agent, :string
-    field :comment_type, :string
-    field :comment_parent, :integer, default: 0
+  schema "comments" do
+    belongs_to :post, Post
+    field :author, :string
+    field :author_email, :string
+    field :author_url, :string
+    field :author_IP, :string
+    field :date, :naive_datetime
+    field :date_gmt, :naive_datetime
+    field :content, :string
+    field :karma, :integer
+    field :approved, :string
+    field :agent, :string
+    field :type, :string
+    field :parent, :integer, default: 0
     field :user_id, :integer
   end
 
   def changeset(struct, params \\ %{}) do
     struct
     |> Map.merge(%{
-      comment_date: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second),
-      comment_date_gmt: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second),
-      comment_approved: "1"
+      date: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second),
+      date_gmt: NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second),
+      approved: "1"
     })
     |> cast(params, [
-      :comment_id,
-      :comment_post_id,
-      :comment_author,
-      :comment_author_email,
-      :comment_author_url,
-      :comment_author_IP,
-      :comment_date,
-      :comment_date_gmt,
-      :comment_content,
-      :comment_karma,
-      :comment_approved,
-      :comment_agent,
-      :comment_type,
-      :comment_parent,
+      :id,
+      :post_id,
+      :author,
+      :author_email,
+      :author_url,
+      :author_IP,
+      :date,
+      :date_gmt,
+      :content,
+      :karma,
+      :approved,
+      :agent,
+      :type,
+      :parent,
       :user_id
     ])
-    |> validate_required([:comment_content])
+    |> validate_required([:content])
   end
 end

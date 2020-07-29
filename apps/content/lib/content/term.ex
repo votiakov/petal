@@ -5,8 +5,7 @@ defmodule Content.Term do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @primary_key {:term_id, :id, autogenerate: true}
-  schema "wp_terms" do
+  schema "terms" do
     field :name, :string
     field :slug, :string
     field :term_group, :integer
@@ -14,6 +13,6 @@ defmodule Content.Term do
 
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:term_id, :name, :slug, :term_group])
+    |> cast(params, [:id, :name, :slug, :term_group])
   end
 end

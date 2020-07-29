@@ -5,20 +5,19 @@ defmodule Content.Option do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @primary_key {:option_id, :id, autogenerate: true}
-  schema "wp_options" do
-    field :option_name, :string
+  schema "options" do
+    field :name, :string
     field :autoload, :string
-    field :option_value, :string
+    field :value, :string
   end
 
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:option_id, :option_name, :option_value, :autoload])
+    |> cast(params, [:id, :name, :value, :autoload])
   end
 
-  def parse_option_value(struct) do
-    case PhpSerializer.unserialize(struct.option_value) do
+  def parse_value(struct) do
+    case PhpSerializer.unserialize(struct.value) do
       {:ok, values} ->
         values
     end
@@ -26,6 +25,6 @@ defmodule Content.Option do
 
   def put_new_value(struct, value) do
     struct
-    |> change(%{option_value: PhpSerializer.serialize(value)})
+    |> change(%{value: PhpSerializer.serialize(value)})
   end
 end

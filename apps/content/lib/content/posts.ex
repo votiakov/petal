@@ -12,7 +12,7 @@ defmodule Content.Posts do
   alias Content.Post
   alias Ecto.Changeset
 
-  @preloads [:metas, :author, :categories, :tags, :comments, :post_format]
+  @preloads [:metas, :author, :categories, :tags, :comments, :format]
 
   @doc """
   Returns the lisdpt of posts for admin interface.
@@ -23,14 +23,14 @@ defmodule Content.Posts do
       [%Post{}, ...]
 
   """
-  def list_admin_posts(page, post_type \\ "post") do
-    post_type = post_type || "post"
+  def list_admin_posts(page, type \\ "post") do
+    type = type || "post"
     Repo.all(
       from p in Post,
-        where: p.post_type == ^post_type,
-        where: p.post_status in ["publish", "future", "draft", "pending", "private", "inherit"],
+        where: p.type == ^type,
+        where: p.status in ["publish", "future", "draft", "pending", "private", "inherit"],
         preload: ^@preloads,
-        order_by: [desc: p.post_date],
+        order_by: [desc: p.date],
         limit: @page_size,
         offset: ^(@page_size * (String.to_integer(page) - 1))
     )
@@ -59,12 +59,12 @@ defmodule Content.Posts do
   end
 
   def post_scope_for_params(params) do
-    post_type = params |> Map.get("post_type", "post")
+    type = params |> Map.get("type", "post")
     category = params |> Map.get("category")
 
     query =
       post_scope()
-      |> where([p], p.post_type == ^post_type)
+      |> where([p], p.type == ^type)
 
     if category do
       query |> join(:inner, [p], term in assoc(p, :categories), on: term.slug == ^category)
@@ -75,15 +75,15 @@ defmodule Content.Posts do
 
   def post_scope do
     from p in Post,
-      where: p.post_status == "publish",
+      where: p.status == "publish",
       preload: ^@preloads,
-      order_by: [desc: p.post_date]
+      order_by: [desc: p.date]
   end
 
   def post_scope_with_drafts do
     from p in Post,
       preload: ^@preloads,
-      order_by: [desc: p.post_date]
+      order_by: [desc: p.date]
   end
 
   def sticky_posts_for_page(%{"page" => "1"} = params) do
@@ -103,12 +103,12 @@ defmodule Content.Posts do
   def sticky_posts_for_page(_), do: []
 
   defp sticky_ids do
-    case Repo.one(from opt in Option, where: opt.option_name == "sticky_posts") do
+    case Repo.one(from opt in Option, where: opt.name == "sticky_posts") do
       nil ->
         []
       option ->
         option
-        |> Option.parse_option_value
+        |> Option.parse_value
         |> Enum.map(&(elem(&1, 1)))
     end
   end
@@ -175,14 +175,14 @@ defmodule Content.Posts do
 
       case Integer.parse(id, 10) do
         :error ->
-          scope |> where([p], p.post_name == ^id)
+          scope |> where([p], p.name == ^id)
         {int_id, _} ->
           scope |> where([p], p.id == ^int_id)
       end
     end
 
     post_scope()
-    |> where([p], p.post_type != "nav_menu_item")
+    |> where([p], p.type != "nav_menu_item")
     |> id_filter.(slug)
   end
 
@@ -205,16 +205,16 @@ defmodule Content.Posts do
 
       case Integer.parse(id, 10) do
         :error ->
-          scope |> where([p], p.post_name == ^id)
+          scope |> where([p], p.name == ^id)
         {int_id, ""} ->
           scope |> where([p], p.id == ^int_id)
         {_int_id, _} ->
-          scope |> where([p], p.post_name == ^id)
+          scope |> where([p], p.name == ^id)
       end
     end
 
     post_scope_with_drafts()
-    |> where([p], p.post_type != "nav_menu_item")
+    |> where([p], p.type != "nav_menu_item")
     |> id_filter.(slug)
     |> Repo.one!()
   end
@@ -244,7 +244,7 @@ defmodule Content.Posts do
     %Post{}
     |> Repo.preload(@preloads)
     |> Post.changeset(attrs)
-    |> Changeset.put_change(:post_name, "preview")
+    |> Changeset.put_change(:name, "preview")
     |> Changeset.apply_changes()
   end
 

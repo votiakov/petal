@@ -15,7 +15,7 @@ defmodule Content.CommentController do
       {:ok, comment} ->
         post =
           Post
-          |> where([p], p.id == ^comment.comment_post_id)
+          |> where([p], p.id == ^comment.post_id)
           |> Repo.one()
 
         conn
@@ -24,7 +24,7 @@ defmodule Content.CommentController do
       {:error, _} ->
         post =
           Post
-          |> where([p], p.id == ^comment_params["comment_post_id"])
+          |> where([p], p.id == ^comment_params["post_id"])
           |> Repo.one()
 
         conn
@@ -39,7 +39,7 @@ defmodule Content.CommentController do
       {:ok, comment} ->
         post =
           Post
-          |> where([p], p.id == ^comment.comment_post_id)
+          |> where([p], p.id == ^comment.post_id)
           |> Repo.one()
 
         conn
@@ -48,7 +48,7 @@ defmodule Content.CommentController do
       {:error, _} ->
         post =
           Post
-          |> where([p], p.id == ^comment_params["comment_post_id"])
+          |> where([p], p.id == ^comment_params["post_id"])
           |> Repo.one()
 
         conn
@@ -61,7 +61,7 @@ defmodule Content.CommentController do
     {:ok, comment} = Comments.delete_comment(comment)
     post =
       Post
-      |> where([p], p.id == ^comment.comment_post_id)
+      |> where([p], p.id == ^comment.post_id)
       |> Repo.one()
 
     conn

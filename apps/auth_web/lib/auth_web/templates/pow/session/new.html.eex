@@ -23,6 +23,7 @@
           </div>
           <%= error_tag f, :password, class: "ui error message" %>
         </div>
+        <%= hidden_input f, :persistent_session, value: "true" %>
         <%= submit "Login", class: "ui fluid large teal submit button" %>
       </div>
     <% end %>

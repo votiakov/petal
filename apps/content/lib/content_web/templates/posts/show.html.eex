@@ -2,12 +2,12 @@
   <div class="ui main padded text container">
     <h1 class="ui header p-name">
       <%= link to: Routes.posts_path(@conn, :show, @post), class: "u-url" do %>
-        <%= raw @post.post_title %>
+        <%= raw @post.title %>
       <% end %>
     </h1>
     <%= post_topmatter(@conn, @post) %>
   </div>
-  <div class="ui text container <%= if @post.post_format, do: @post.post_format.slug %> e-content" style="padding-bottom: 4em; padding-top: 4em;">
+  <div class="ui text container <%= if @post.format, do: @post.format.slug %> e-content" style="padding-bottom: 4em; padding-top: 4em;">
     <%= render "thumb.html", post: @post, thumbs: @thumbs %>
     <%= @post |> Content.Post.content_page(@page) |> process_content |> raw %>
     <div class="ui grid">

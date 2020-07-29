@@ -7,8 +7,8 @@ defmodule Content.CommentmetaTest do
     %Commentmeta{}
     |> Commentmeta.changeset(%{
       comment_id: 123,
-      meta_key: "testcommentmeta",
-      meta_value: "some value",
+      key: "testcommentmeta",
+      value: "some value",
     })
     |> Repo.insert!()
   end

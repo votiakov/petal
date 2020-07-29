@@ -4,10 +4,10 @@ defmodule Content.CommentControllerTest do
   alias Content.Comments
   alias Content.Posts
 
-  @post_attrs %{id: 456, post_name: "blergh", post_status: "publish"}
-  @create_attrs %{comment_id: 123, comment_content: "Hello world", comment_post_id: 456}
-  @update_attrs %{comment_id: 123, comment_content: "Goodbye", comment_post_id: 456}
-  @invalid_attrs %{comment_id: 123, comment_content: "", comment_post_id: 456}
+  @post_attrs %{id: 456, name: "blergh", status: "publish"}
+  @create_attrs %{id: 123, content: "Hello world", post_id: 456}
+  @update_attrs %{id: 123, content: "Goodbye", post_id: 456}
+  @invalid_attrs %{id: 123, content: "", post_id: 456}
 
   def fixture(:post) do
     {:ok, post} = Posts.create_posts(@post_attrs)

@@ -4,7 +4,7 @@
   <%= for post <- @posts do %>
     <li>
       <%= link to: Routes.posts_path(@conn, :show, post) do %>
-        <%= raw post.post_title %>
+        <%= raw post.title %>
       <% end %>
     </li>
   <% end %>

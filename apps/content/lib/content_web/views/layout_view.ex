@@ -12,20 +12,20 @@ defmodule Content.LayoutView do
   end
 
   def title(Content.PostsView, "show.html", assigns) do
-    (assigns.post.post_title |> HtmlSanitizeEx.strip_tags()) <> " | " <> title(nil, nil, nil)
+    (assigns.post.title |> HtmlSanitizeEx.strip_tags()) <> " | " <> title(nil, nil, nil)
   end
 
   def title(_, _, _) do
     case Options.get("blogname") do
       opt = %Option{} ->
-        opt.option_value
+        opt.value
       _ ->
         I18n.t! "en", "site.title"
     end
   end
 
   def excerpt(Content.PostsView, "show.html", assigns) do
-    assigns.post.post_excerpt
+    assigns.post.excerpt
     |> HtmlSanitizeEx.strip_tags()
   end
 
@@ -36,7 +36,7 @@ defmodule Content.LayoutView do
   def excerpt(_, _, _) do
     case Options.get("blogdescription") do
       opt = %Option{} ->
-        opt.option_value
+        opt.value
       _ ->
         I18n.t! "en", "site.excerpt"
     end

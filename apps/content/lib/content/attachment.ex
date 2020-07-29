@@ -11,7 +11,7 @@ defmodule Content.Attachment do
       |> Post.metas_map
 
     deserialization_results =
-      meta["_wp_attachment_metadata"]
+      meta["attachment_metadata"]
       |> PhpSerializer.unserialize
 
     case deserialization_results do
