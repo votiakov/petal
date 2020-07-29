@@ -17,11 +17,11 @@
         <div class="ui inverted vertical masthead center aligned segment">
           <%= render "_menu.html", assigns %>
         </div>
+
+        <%= flash_block(@conn) %>
+
+        <%= @inner_content %>
       </div>
-
-      <%= flash_block(@conn) %>
-
-      <%= @inner_content %>
     </main>
   </body>
 </html>

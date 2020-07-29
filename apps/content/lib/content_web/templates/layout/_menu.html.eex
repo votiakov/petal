@@ -1,6 +1,6 @@
 <div class="ui container">
   <div class="ui large secondary inverted pointing menu">
-    <a class="toc item">
+    <a class="toc item js-SidebarOpener">
       <i class="sidebar icon"></i>
     </a>
     <a class="item" href="/">Home</a>
