@@ -38,8 +38,18 @@ function togglePasswordFieldVisibility()
   })
 }
 
+const toggleSidebar = (event) => {
+  document.querySelectorAll('.sidebar').forEach((el) => {
+    el.classList.toggle('visible')
+  })
+}
+
 ready(() => {
   document.querySelectorAll('.js-passwordRevealer').forEach((el) => {
     el.addEventListener('click', togglePasswordFieldVisibility)
+  })
+
+  document.querySelectorAll('.js-SidebarOpener').forEach((el) => {
+    el.addEventListener('click', toggleSidebar)
   })
 })
