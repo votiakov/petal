@@ -1,8 +1,23 @@
 use Mix.Config
 
+config :app,
+  ecto_repos: [App.Repo],
+  generators: [context_app: false]
+
+# Configures the endpoint
+config :app, App.Endpoint,
+  url: [host: "localhost"],
+  secret_key_base: "TOB3UL0s6bHCiBoCnflb5GZTHlA6gvvq2BlRurVQca0WcK8Lf+b2xq/KahpWSvJs",
+  render_errors: [view: App.ErrorView, accepts: ~w(html json), layout: false],
+  pubsub_server: App.PubSub,
+  live_view: [signing_salt: "H9ynuZL0"]
+
 config :admin,
   ecto_repos: [Admin.Repo],
   generators: [context_app: false]
+
+config :app,
+  ecto_repos: [App.Repo]
 
 # Configures the endpoint
 config :admin, Admin.Endpoint,
@@ -48,7 +63,12 @@ config :admin,
   ecto_repos: [Admin.Repo]
 
 config :core,
-  router_forwards: [{Content.Router, "/pages"}, {AuthWeb.Router, "/auth"}, {Admin.Router, "/admin"}],
+  router_forwards: [
+    {Content.Router, "/pages"},
+    {AuthWeb.Router, "/auth"},
+    {Admin.Router, "/admin"},
+    {App.Router, "/app"},
+  ],
   email_from: "example@example.org"
 
 config :content,
@@ -57,6 +77,7 @@ config :content,
 config :content, Content.Endpoint, server: false
 config :auth_web, AuthWeb.Endpoint, server: false
 config :admin, Admin.Endpoint, server: false
+config :app, App.Endpoint, server: false
 
 import_config "../apps/*/config/config.exs"
 
