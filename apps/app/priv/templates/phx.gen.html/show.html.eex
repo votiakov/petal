@@ -1,13 +1,26 @@
-<h1>Show <%= schema.human_singular %></h1>
+<div class="ui top padded container">
+  <div class="ui grid">
+    <div class="row">
+      <div class="eight wide column">
+        <h1 class="ui header"><%= schema.human_singular %></h1>
+      </div>
+      <div class="eight wide right aligned column">
+        <%%= link "Edit", to: Routes.<%= schema.route_helper %>_path(@conn, :edit, @<%= schema.singular %>), class: "ui button primary" %>
+        <span><%%= link "Back", to: Routes.<%= schema.route_helper %>_path(@conn, :index), class: "ui button" %></span>
+      </div>
+    </div>
+  </div>
 
-<ul>
-<%= for {k, _} <- schema.attrs do %>
-  <li>
-    <strong><%= Phoenix.Naming.humanize(Atom.to_string(k)) %>:</strong>
-    <%%= @<%= schema.singular %>.<%= k %> %>
-  </li>
-<% end %>
-</ul>
-
-<span><%%= link "Edit", to: Routes.<%= schema.route_helper %>_path(@conn, :edit, @<%= schema.singular %>) %></span>
-<span><%%= link "Back", to: Routes.<%= schema.route_helper %>_path(@conn, :index) %></span>
+  <div class="ui segment">
+    <div class="ui list">
+      <%= for {k, _} <- schema.attrs do %>
+        <div class="item">
+          <div class="content">
+            <strong><%= Phoenix.Naming.humanize(Atom.to_string(k)) %>:</strong>
+            <%%= @<%= schema.singular %>.<%= k %> %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

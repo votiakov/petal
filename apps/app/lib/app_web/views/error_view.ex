@@ -1,5 +1,5 @@
-defmodule App.ErrorView do
-  use App, :view
+defmodule AppWeb.ErrorView do
+  use AppWeb, :view
 
   # If you want to customize a particular status code
   # for a certain format, you may uncomment below.

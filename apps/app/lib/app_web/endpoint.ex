@@ -1,4 +1,4 @@
-defmodule App.Endpoint do
+defmodule AppWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :app
 
   # The session will be stored in the cookie and signed,
@@ -10,7 +10,7 @@ defmodule App.Endpoint do
     signing_salt: "VQMRz57g"
   ]
 
-  socket "/socket", App.UserSocket,
+  socket "/socket", AppWeb.UserSocket,
     websocket: true,
     longpoll: false
 
@@ -50,5 +50,5 @@ defmodule App.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
-  plug App.Router
+  plug AppWeb.Router
 end

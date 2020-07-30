@@ -27,16 +27,17 @@ defmodule CoreWeb.Helpers do
     """
   end
 
-  def styled_input(f, field, opts \\ []) do
-    styled_input(f, field, opts) do
+  def styled_input(f, field, opts \\ [], options \\ nil) do
+    styled_input(f, field, opts, options) do
       ""
     end
   end
 
-  def styled_input(f, field, opts, do: content) do
+  def styled_input(f, field, opts, options, do: content) do
     {icon, rest_opts} = Keyword.pop(opts, :icon, "")
     {classes, rest_opts} = Keyword.pop(rest_opts, :class, "")
     {label_text, rest_opts} = Keyword.pop(rest_opts, :label)
+    {input_helper, rest_opts} = Keyword.pop(rest_opts, :input_helper, :text_input)
     ~E"""
     <div class="field <%= error_class(f, field) %>">
       <%= if label_text do %>
@@ -47,7 +48,11 @@ defmodule CoreWeb.Helpers do
 
       <div class="ui left icon <%= classes %> input">
         <i class="<%= icon %> icon"></i>
-        <%= text_input f, field, rest_opts %>
+        <%= if options == nil do %>
+          <%= apply(Phoenix.HTML.Form, input_helper, [f, field, rest_opts]) %>
+        <% else %>
+          <%= apply(Phoenix.HTML.Form, input_helper, [f, field, options, rest_opts]) %>
+        <% end %>
         <%= content %>
       </div>
       <%= error_tag f, field, class: "ui pointing red basic label" %>

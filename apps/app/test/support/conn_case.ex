@@ -27,7 +27,7 @@ defmodule App.ConnCase do
       alias App.Router.Helpers, as: Routes
 
       # The default endpoint for testing
-      @endpoint App.Endpoint
+      @endpoint AppWeb.Endpoint
     end
   end
 

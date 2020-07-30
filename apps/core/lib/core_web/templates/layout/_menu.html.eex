@@ -9,12 +9,12 @@
     <% end %>
     <div class="right item">
       <%= if Pow.Plug.current_user(@conn) do %>
-        <%= link "Sign out", to: AuthWeb.Router.Helpers.pow_session_path(@conn, :delete), method: :delete, class: "ui inverted button" %>
+        <%= link "Sign out", to: AuthWeb.Router.Helpers.pow_session_path(%URI{path: "/auth"}, :delete), method: :delete, class: "ui inverted button" %>
       <% else %>
-        <%= link to: AuthWeb.Router.Helpers.pow_session_path(@conn, :new), class: "ui inverted button" do %>
+        <%= link to: AuthWeb.Router.Helpers.pow_session_path(%URI{path: "/auth"}, :new), class: "ui inverted button" do %>
           Log in
         <% end %>
-        <%= link to: AuthWeb.Router.Helpers.pow_registration_path(@conn, :new), class: "ui inverted button" do %>
+        <%= link to: AuthWeb.Router.Helpers.pow_registration_path(%URI{path: "/auth"}, :new), class: "ui inverted button" do %>
           Sign Up
         <% end %>
       <% end %>

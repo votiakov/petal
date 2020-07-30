@@ -1,5 +1,5 @@
-defmodule App.Router do
-  use App, :router
+defmodule AppWeb.Router do
+  use AppWeb, :router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -7,20 +7,21 @@ defmodule App.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug :put_layout, {CoreWeb.LayoutView, :app}
   end
 
   pipeline :api do
     plug :accepts, ["json"]
   end
 
-  scope "/", App do
+  scope "/", AppWeb do
     pipe_through :browser
 
     get "/", PageController, :index
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", App do
+  # scope "/api", AppWeb do
   #   pipe_through :api
   # end
 
@@ -36,7 +37,7 @@ defmodule App.Router do
 
     scope "/" do
       pipe_through :browser
-      live_dashboard "/dashboard", metrics: App.Telemetry
+      live_dashboard "/dashboard", metrics: AppWeb.Telemetry
     end
   end
 end

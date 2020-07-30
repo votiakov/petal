@@ -1,5 +1,5 @@
 defmodule <%= module %>Channel do
-  use <%= web_module %>, :channel
+  use <%= module %>, :channel
 
   @impl true
   def join("<%= singular %>:lobby", payload, socket) do

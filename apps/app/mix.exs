@@ -37,6 +37,7 @@ defmodule App.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:core, in_umbrella: true},
       {:ecto_sql, "~> 3.4"},
       {:phoenix, "~> 1.5.3"},
       {:phoenix_ecto, "~> 4.0"},

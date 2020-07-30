@@ -24,7 +24,7 @@ defmodule App.ChannelCase do
       import App.ChannelCase
 
       # The default endpoint for testing
-      @endpoint App.Endpoint
+      @endpoint AppWeb.Endpoint
     end
   end
 

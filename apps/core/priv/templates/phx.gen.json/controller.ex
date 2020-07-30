@@ -1,10 +1,10 @@
-defmodule <%= inspect context.web_module %>.<%= inspect Module.concat(schema.web_namespace, schema.alias) %>Controller do
-  use <%= inspect context.web_module %>, :controller
+defmodule <%= inspect context.module %>.<%= inspect Module.concat(schema.web_namespace, schema.alias) %>Controller do
+  use <%= inspect context.module %>, :controller
 
   alias <%= inspect context.module %>
   alias <%= inspect schema.module %>
 
-  action_fallback <%= inspect context.web_module %>.FallbackController
+  action_fallback <%= inspect context.module %>.FallbackController
 
   def index(conn, _params) do
     <%= schema.plural %> = <%= inspect context.alias %>.list_<%= schema.plural %>()

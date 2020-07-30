@@ -8,6 +8,7 @@ defmodule Content.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug :put_layout, {CoreWeb.LayoutView, :app}
   end
 
   pipeline :api do
@@ -38,8 +39,6 @@ defmodule Content.Router do
 
     put "/posts/preview", PostsController, :preview
     post "/posts/preview", PostsController, :preview
-    get "/menus/:id/edit", MenusController, :edit
-    put "/menus/:id", MenusController, :update
   end
 
   scope "/", Content do
