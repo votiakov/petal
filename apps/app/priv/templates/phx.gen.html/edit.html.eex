@@ -1,5 +1,19 @@
-<h1>Edit <%= schema.human_singular %></h1>
+<div class="ui top padded container">
+  <div class="ui grid">
+    <div class="row">
+      <div class="eight wide column">
+        <h1 class="ui header">Edit <%= schema.human_singular %></h1>
+      </div>
+      <div class="eight wide right aligned column">
+        <span><%%= link "Back", to: Routes.<%= schema.route_helper %>_path(@conn, :index), class: "ui button" %></span>
+      </div>
+    </div>
 
-<%%= render "form.html", Map.put(assigns, :action, Routes.<%= schema.route_helper %>_path(@conn, :update, @<%= schema.singular %>)) %>
-
-<span><%%= link "Back", to: Routes.<%= schema.route_helper %>_path(@conn, :index) %></span>
+    <div class="centered row">
+      <div class="center aligned column">
+        <%%= changeset_error_block(@changeset) %>
+        <%%= render "form.html", Map.put(assigns, :action, Routes.<%= schema.route_helper %>_path(@conn, :update, @<%= schema.singular %>)) %>
+      </div>
+    </div>
+  </div>
+</div>

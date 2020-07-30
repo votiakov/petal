@@ -1,9 +1,5 @@
 use Mix.Config
 
-config :app,
-  ecto_repos: [App.Repo],
-  generators: [context_app: false]
-
 # Configures the endpoint
 config :app, App.Endpoint,
   url: [host: "localhost"],
@@ -17,7 +13,8 @@ config :admin,
   generators: [context_app: false]
 
 config :app,
-  ecto_repos: [App.Repo]
+  ecto_repos: [App.Repo],
+  generators: [context_app: :app]
 
 # Configures the endpoint
 config :admin, Admin.Endpoint,
@@ -25,6 +22,14 @@ config :admin, Admin.Endpoint,
   secret_key_base: "r2eN53mJ9RmlGz9ZQ7xf43P3Or59aaO9rdf5D3hRcsuiH44pGW9kPGfl5mt9N1Gi",
   render_errors: [view: Admin.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Admin.PubSub,
+  live_view: [signing_salt: "g5ltUbnQ"]
+
+# Configures the endpoint
+config :app, AppWeb.Endpoint,
+  url: [host: "localhost"],
+  secret_key_base: "r2eN53mJ9RmlGz9ZQ7xf43P3Or59aaO9rdf5D3hRcsuiH44pGW9kPGfl5mt9N1Gi",
+  render_errors: [view: AppWeb.ErrorView, accepts: ~w(html json), layout: false],
+  pubsub_server: AppWeb.PubSub,
   live_view: [signing_salt: "g5ltUbnQ"]
 
 # Configure Mix tasks and generators
@@ -67,7 +72,7 @@ config :core,
     {Content.Router, "/pages"},
     {AuthWeb.Router, "/auth"},
     {Admin.Router, "/admin"},
-    {App.Router, "/app"},
+    {AppWeb.Router, "/app"},
   ],
   email_from: "example@example.org"
 
@@ -77,7 +82,7 @@ config :content,
 config :content, Content.Endpoint, server: false
 config :auth_web, AuthWeb.Endpoint, server: false
 config :admin, Admin.Endpoint, server: false
-config :app, App.Endpoint, server: false
+config :app, AppWeb.Endpoint, server: false
 
 import_config "../apps/*/config/config.exs"
 

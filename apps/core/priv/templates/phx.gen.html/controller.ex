@@ -1,5 +1,5 @@
-defmodule <%= inspect context.web_module %>.<%= inspect Module.concat(schema.web_namespace, schema.alias) %>Controller do
-  use <%= inspect context.web_module %>, :controller
+defmodule <%= inspect context.module %>.<%= inspect Module.concat(schema.web_namespace, schema.alias) %>Controller do
+  use <%= inspect context.module %>, :controller
 
   alias <%= inspect context.module %>
   alias <%= inspect schema.module %>

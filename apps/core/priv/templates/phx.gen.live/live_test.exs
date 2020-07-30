@@ -1,5 +1,5 @@
-defmodule <%= inspect context.web_module %>.<%= inspect Module.concat(schema.web_namespace, schema.alias) %>LiveTest do
-  use <%= inspect context.web_module %>.ConnCase
+defmodule <%= inspect context.module %>.<%= inspect Module.concat(schema.web_namespace, schema.alias) %>LiveTest do
+  use <%= inspect context.module %>.ConnCase
 
   import Phoenix.LiveViewTest
   import <%= inspect context.module %>Fixtures

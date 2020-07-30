@@ -68,6 +68,7 @@ defmodule CoreWeb do
       import Phoenix.View
 
       import CoreWeb.ErrorHelpers
+      import CoreWeb.Helpers
       import CoreWeb.Gettext
       alias CoreWeb.Router.Helpers, as: Routes
     end

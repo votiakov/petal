@@ -1,5 +1,5 @@
-defmodule <%= inspect context.web_module %>.<%= inspect Module.concat(schema.web_namespace, schema.alias) %>Live.Index do
-  use <%= inspect context.web_module %>, :live_view
+defmodule <%= inspect context.module %>.<%= inspect Module.concat(schema.web_namespace, schema.alias) %>Live.Index do
+  use <%= inspect context.module %>, :live_view
 
   alias <%= inspect context.module %>
   alias <%= inspect schema.module %>

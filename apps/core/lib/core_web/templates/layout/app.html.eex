@@ -10,9 +10,18 @@
   </head>
   <body>
     <main role="main" class="container">
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-      <%= @inner_content %>
+      <%= render "_side_menu.html", assigns %>
+
+      <!-- Page Contents -->
+      <div class="pusher">
+        <div class="ui inverted vertical masthead center aligned segment">
+          <%= render "_menu.html", assigns %>
+        </div>
+
+        <%= flash_block(@conn) %>
+
+        <%= @inner_content %>
+      </div>
     </main>
   </body>
 </html>
