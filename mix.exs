@@ -19,6 +19,7 @@ defmodule Legendary.Mixfile do
   defp aliases do
     [
       "deps.get": ["cmd mix deps.get"],
+      "coveralls.html": ["cmd MIX_ENV=test mix coveralls.html"],
       "ecto.migrate": ["cmd mix ecto.migrate"],
       "npm.install": ["cmd npm install --prefix assets"],
       test: ["cmd mix test"]

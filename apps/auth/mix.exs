@@ -13,7 +13,8 @@ defmodule Auth.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      test_coverage: [tool: ExCoveralls],
     ]
   end
 
@@ -37,6 +38,7 @@ defmodule Auth.MixProject do
   defp deps do
     [
       {:ex_prompt, "~> 0.1.5"},
+      {:excoveralls, "~> 0.10", only: [:dev, :test]},
       {:phoenix_pubsub, "~> 2.0"},
       {:pow, "~> 1.0.20"},
       {:ecto_sql, "~> 3.4"},

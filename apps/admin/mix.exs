@@ -14,7 +14,8 @@ defmodule Admin.MixProject do
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      test_coverage: [tool: ExCoveralls],
     ]
   end
 
@@ -39,6 +40,7 @@ defmodule Admin.MixProject do
     [
       {:auth_web, in_umbrella: true},
       {:ecto_sql, "~> 3.4"},
+      {:excoveralls, "~> 0.10", only: [:dev, :test]},
       {:kaffy, path: "kaffy"},
       {:phoenix, "~> 1.5.3"},
       {:phoenix_ecto, "~> 4.0"},

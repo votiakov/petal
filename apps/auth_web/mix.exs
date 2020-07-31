@@ -14,7 +14,8 @@ defmodule AuthWeb.MixProject do
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      test_coverage: [tool: ExCoveralls],
     ]
   end
 
@@ -39,6 +40,7 @@ defmodule AuthWeb.MixProject do
     [
       {:auth, in_umbrella: true},
       {:core, in_umbrella: true},
+      {:excoveralls, "~> 0.10", only: [:dev, :test]},
       {:phoenix, "~> 1.5.3"},
       {:phoenix_ecto, "~> 4.0"},
       {:phoenix_html, "~> 2.11"},
