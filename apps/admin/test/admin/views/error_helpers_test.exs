@@ -11,7 +11,7 @@ defmodule Admin.ErrorHelpersTest do
     |> form_for(
       "/example",
       as: :test_params,
-      errors: [error_field: {"is an error", []}],
+      errors: [error_field: {"is an error", []}]
     )
   end
 
