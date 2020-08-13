@@ -116,6 +116,14 @@ defmodule Content.PostsControllerTest do
       assert html_response(conn, 200) =~ "My Post"
     end
 
+    test "lists all posts by category page", %{conn: conn} do
+      fixture(:posts)
+      fixture(:category)
+
+      conn = get conn, Routes.category_page_path(conn, :index, @post_category.slug, "2")
+      assert html_response(conn, 200)
+    end
+
     test "lists all posts for page", %{conn: conn} do
       fixture(:posts)
 
@@ -150,6 +158,18 @@ defmodule Content.PostsControllerTest do
       conn = get conn, Routes.paged_post_path(conn, :show, posts, "2")
 
       assert html_response(conn, 200) =~ posts.title
+    end
+
+    test "show a static page", %{conn: conn} do
+      conn = get conn, Routes.posts_path(conn, :show, "index")
+
+      assert html_response(conn, 200)
+    end
+
+    test "show a 404 if there's no match", %{conn: conn} do
+      assert_raise Phoenix.Router.NoRouteError, fn ->
+        get conn, Routes.posts_path(conn, :show, "blooper")
+      end
     end
   end
 

@@ -7,6 +7,12 @@ defmodule CoreWeb.Helpers do
   import Phoenix.Controller, only: [get_flash: 2]
   import CoreWeb.ErrorHelpers
 
+  def has_role?(conn = %Plug.Conn{}, role) do
+    conn
+    |> Pow.Plug.current_user()
+    |> Auth.Roles.has_role?(role)
+  end
+
   def changeset_error_block(changeset) do
     ~E"""
     <%= if changeset.action do %>
@@ -21,7 +27,7 @@ defmodule CoreWeb.Helpers do
     ~E"""
     <%= [info: "info", error: "negative"] |> Enum.map(fn {level, class} ->  %>
       <%= if get_flash(conn, level) do %>
-        <p class="ui message <%= class %>" role="alert"><%= get_flash(conn, level) %></p>
+        <p class="ui <%= class %> message" role="alert"><%= get_flash(conn, level) %></p>
       <% end %>
     <% end) %>
     """
@@ -63,6 +69,6 @@ defmodule CoreWeb.Helpers do
   def pow_extension_enabled?(extension) do
     {extensions, _rest} = Application.get_env(:auth_web, :pow) |> Keyword.pop(:extensions, [])
 
-    Enum.any?(extensions, & &1 == PowResetPassword)
+    Enum.any?(extensions, & &1 == extension)
   end
 end

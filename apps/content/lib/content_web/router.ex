@@ -1,6 +1,6 @@
 defmodule Content.Router do
   use Content, :router
-  alias AuthWeb.Plugs.{RequireAdmin, RequireAuth}
+  alias AuthWeb.Plugs.{RequireAdmin}
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -23,7 +23,7 @@ defmodule Content.Router do
   end
 
   pipeline :require_auth do
-    plug(RequireAuth)
+    plug Pow.Plug.RequireAuthenticated, error_handler: Pow.Phoenix.PlugErrorHandler
   end
 
   pipeline :require_admin do

@@ -9,6 +9,7 @@ defmodule Legendary.Mixfile do
       deps: deps(),
       aliases: aliases(),
       test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [coveralls: :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test],
     ]
   end
 
@@ -19,7 +20,7 @@ defmodule Legendary.Mixfile do
   defp aliases do
     [
       "deps.get": ["cmd mix deps.get"],
-      "coveralls.html": ["cmd MIX_ENV=test mix coveralls.html"],
+      "coveralls.html": ["cmd mix coveralls.html"],
       "ecto.migrate": ["cmd mix ecto.migrate"],
       "npm.install": ["cmd npm install --prefix assets"],
       test: ["cmd mix test"]
