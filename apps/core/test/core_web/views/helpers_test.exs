@@ -12,7 +12,7 @@ defmodule CoreWeb.HelpersTest do
     |> form_for(
       "/example",
       as: :test_params,
-      errors: [error_field: {"is an error", []}],
+      errors: [error_field: {"is an error", []}]
     )
   end
 
@@ -78,7 +78,7 @@ defmodule CoreWeb.HelpersTest do
   end
 
   test "styled_input/4 (without error)" do
-    markup = safe_to_string(styled_input(form, :no_error_field))
+    markup = safe_to_string(styled_input(form(), :no_error_field))
 
     assert markup =~ ~S{<div class="field "}
     assert markup =~ "<input"
@@ -86,7 +86,7 @@ defmodule CoreWeb.HelpersTest do
   end
 
   test "styled_input/4 (with error)" do
-    markup = safe_to_string(styled_input(form, :error_field))
+    markup = safe_to_string(styled_input(form(), :error_field))
 
     assert markup =~ ~S{<div class="field error"}
     assert markup =~ "<input"
@@ -99,7 +99,7 @@ defmodule CoreWeb.HelpersTest do
     options = [{"Test", 1}]
 
     markup =
-      styled_input(form, :no_error_field, config, options) do
+      styled_input(form(), :no_error_field, config, options) do
 
       end
       |> safe_to_string()

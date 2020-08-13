@@ -158,8 +158,9 @@ defmodule CoreWeb.EmailHelpers do
     """
   end
 
+  @spec col(number, keyword, [{:do, any}, ...]) :: {:safe, [...]}
   def col(n, opts, do: content) do
-    {of, opts} = Keyword.pop!(opts, :of)
+    {of, _opts} = Keyword.pop!(opts, :of)
     width = n * 100.0 / of
 
     ~E"""
@@ -225,6 +226,8 @@ defmodule CoreWeb.EmailHelpers do
     """
   end
 
+  def styled_button(opts, do: content), do: button(opts, do: content)
+
   def button(opts, do: content) do
     {overrides, opts_without_style} = Keyword.pop(opts, :style, %{})
     {href, _rest_opts} = Keyword.pop!(opts_without_style, :href)
@@ -285,9 +288,10 @@ defmodule CoreWeb.EmailHelpers do
   end
 
   defp li_for_ul(index, list_length, content) do
-    last_styles = if index == list_length - 1, do: map_style(effective_styles(:last_li))
+    style_type = if index == list_length - 1, do: :last_li, else: :li
+
     ~E"""
-      <li style="<%= map_style(effective_styles(:li)) %>">
+      <li style="<%= map_style(effective_styles(style_type)) %>">
         <%= content %>
       </li>
     """

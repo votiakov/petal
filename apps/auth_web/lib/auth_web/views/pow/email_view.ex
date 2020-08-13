@@ -4,6 +4,6 @@ defmodule AuthWeb.EmailView do
     namespace: AuthWeb,
     pattern: "**/*"
 
-  import CoreWeb.EmailHelpers
   import Phoenix.HTML, only: [raw: 1]
+  import CoreWeb.EmailHelpers
 end

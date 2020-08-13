@@ -1,8 +1,6 @@
 defmodule Content.LayoutView do
   use Content, :view
 
-  alias Content.{Option, Options}
-
   def title(Content.PostsView, "index.html", assigns) do
     "Page #{assigns.page} | #{title(nil, nil, nil)}"
   end

@@ -40,7 +40,7 @@ defmodule Mix.LegendaryTest do
       integer_array_input,
       array_input,
       other_input,
-    ] = inputs(schema)
+    ] = inputs(schema())
 
     assert reference_input == nil
     assert integer_input =~ ~s(number_input)
