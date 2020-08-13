@@ -16,12 +16,7 @@ defmodule Content.LayoutView do
   end
 
   def title(_, _, _) do
-    case Options.get("blogname") do
-      opt = %Option{} ->
-        opt.value
-      _ ->
-        I18n.t! "en", "site.title"
-    end
+    I18n.t! "en", "site.title"
   end
 
   def excerpt(Content.PostsView, "show.html", assigns) do
@@ -34,12 +29,7 @@ defmodule Content.LayoutView do
   end
 
   def excerpt(_, _, _) do
-    case Options.get("blogdescription") do
-      opt = %Option{} ->
-        opt.value
-      _ ->
-        I18n.t! "en", "site.excerpt"
-    end
+    I18n.t! "en", "site.excerpt"
   end
 
   def author(Content.PostsView, "show.html", assigns) do
@@ -65,28 +55,5 @@ defmodule Content.LayoutView do
 
   def corresponding_feed_url(conn, _, _, _) do
     Routes.index_feed_url(conn, :index)
-  end
-
-  def menu_markup(menu_items, conn), do: menu_markup(menu_items, conn, 0)
-  def menu_markup(nil, _, _), do: ""
-  def menu_markup([], _, _), do: ""
-  def menu_markup(menu_items, conn, level) do
-    ~E"""
-      <ul style="--menu-level: <%= level %>;">
-        <%= for item <- menu_items do %>
-          <li>
-            <label>
-            <%= case item[:type] do %>
-              <% "category" -> %>
-              <%= link item[:related_item].title, to: Routes.category_path(conn, :index_posts, item[:related_item].slug) %>
-              <% _ -> %>
-              <%= link item[:related_item].title, to: Routes.posts_path(conn, :show, item[:related_item].slug) %>
-            <% end %>
-            <%= menu_markup(item[:children], conn, level + 1) %>
-            </label>
-          </li>
-        <% end %>
-      </ul>
-    """
   end
 end

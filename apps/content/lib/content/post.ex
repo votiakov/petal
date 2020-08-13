@@ -108,13 +108,6 @@ defmodule Content.Post do
     content_page_count(struct) > 1
   end
 
-  def metas_map(list) when is_list(list) do
-    list
-    |> Enum.map(fn post ->
-      {post.id, metas_map(post)}
-    end)
-    |> Map.new
-  end
   def metas_map(%Content.Post{} = struct) do
     struct.metas
     |> Enum.map(&({&1.key, &1.value}))

@@ -22,9 +22,4 @@ defmodule Content.Option do
         values
     end
   end
-
-  def put_new_value(struct, value) do
-    struct
-    |> change(%{value: PhpSerializer.serialize(value)})
-  end
 end

@@ -67,5 +67,9 @@ defmodule Content.ShortcodesTest do
     test "handles mangled shortcodes gracefully" do
       assert expand_shortcodes("[[unclosed shortcode") == "[[unclosed shortcode"
     end
+
+    test "handles comments in html" do
+      assert expand_shortcodes("<!-- comment -->") == "<!-- comment -->"
+    end
   end
 end

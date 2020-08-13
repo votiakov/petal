@@ -4,7 +4,7 @@
       <i class="sidebar icon"></i>
     </a>
     <a class="item" href="/">Home</a>
-    <%= if Auth.Roles.has_role?(@conn, :admin) do %>
+    <%= if has_role?(@conn, :admin) do %>
       <a class="item" href="/admin">Admin</a>
     <% end %>
     <div class="right item">

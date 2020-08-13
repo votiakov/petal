@@ -16,6 +16,7 @@ defmodule Admin.MixProject do
       aliases: aliases(),
       deps: deps(),
       test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [coveralls: :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test],
     ]
   end
 
@@ -39,6 +40,7 @@ defmodule Admin.MixProject do
   defp deps do
     [
       {:auth_web, in_umbrella: true},
+      {:core, in_umbrella: true},
       {:ecto_sql, "~> 3.4"},
       {:excoveralls, "~> 0.10", only: [:dev, :test]},
       {:kaffy, path: "kaffy"},

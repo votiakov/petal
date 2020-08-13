@@ -38,14 +38,6 @@ defmodule Content.PostsView do
     |> Comment.changeset()
   end
 
-  def comment_changeset_for_parent(%Comment{} = comment) do
-    %Comment{
-      parent: comment.id,
-      post_id: comment.post_id
-    }
-    |> Comment.changeset()
-  end
-
   def auto_paragraph_tags(string) do
     string
     |> Kernel.||("")

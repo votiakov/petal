@@ -40,7 +40,7 @@ defmodule Auth.User do
     |> pow_extension_changeset(attrs)
   end
 
-  def reset_password_changeset(user = %user_mod{}, params) do
+  def reset_password_changeset(user = %Auth.User{}, params) do
     user
     |> new_password_changeset(params, @pow_config)
     |> Changeset.validate_required([:password])

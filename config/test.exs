@@ -56,3 +56,6 @@ config :auth_web, AuthWeb.Endpoint,
 config :content, Content.Endpoint,
   http: [port: 4002],
   server: false
+
+
+config :core, CoreMailer, adapter: Bamboo.TestAdapter

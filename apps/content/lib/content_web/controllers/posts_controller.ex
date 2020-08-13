@@ -5,6 +5,10 @@ defmodule Content.PostsController do
 
   plug :put_layout, false when action in [:preview]
 
+  def index(conn, %{"category" => _} = params) do
+    conn |> index_posts(params)
+  end
+
   def index(conn, params) do
     show_on_front = Options.get_value("show_on_front") || "page"
 

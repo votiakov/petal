@@ -16,6 +16,7 @@ defmodule Core.MixProject do
       aliases: aliases(),
       deps: deps(),
       test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [coveralls: :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test],
     ]
   end
 
@@ -38,6 +39,7 @@ defmodule Core.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:auth, in_umbrella: true},
       {:bamboo, "~> 1.5"},
       {:credo, "~> 1.4", only: [:dev, :test], runtime: false},
       {:ex_cldr, "~> 2.13.0"},
