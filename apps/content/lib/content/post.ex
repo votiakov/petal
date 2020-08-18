@@ -4,13 +4,13 @@ defmodule Content.Post do
   """
   use Ecto.Schema
   import Ecto.Changeset
-  alias Content.Slugs
+  alias Content.{MarkupField, Slugs}
 
   @derive {Phoenix.Param, key: :name}
   schema "posts" do
     field :date, :naive_datetime
     field :date_gmt, :naive_datetime
-    field :content, :string, default: ""
+    field :content, MarkupField, default: ""
     field :title, :string
     field :excerpt, :string
     field :status, :string

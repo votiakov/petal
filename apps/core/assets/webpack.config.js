@@ -18,7 +18,8 @@ module.exports = (env, options) => {
       ]
     },
     entry: {
-      'app': glob.sync('./vendor/**/*.js').concat(['./js/app.js'])
+      'app': glob.sync('./vendor/**/*.js').concat(['./js/app.js']),
+      'content-editor': ['./js/content-editor.js'],
     },
     output: {
       filename: '[name].js',
@@ -77,7 +78,10 @@ module.exports = (env, options) => {
       ]
     },
     plugins: [
-      new MiniCssExtractPlugin({ filename: '../css/app.css' }),
+      new MiniCssExtractPlugin({
+        filename: 'css/[name].css',
+        chunkFilename: '[id].css',
+      }),
       new CopyWebpackPlugin([{ from: 'static/', to: '../' }])
     ],
     resolve: {
