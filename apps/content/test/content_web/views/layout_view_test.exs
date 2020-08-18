@@ -1,10 +1,5 @@
 defmodule Content.LayoutViewTest do
-  use Content.ConnCase
-
-  # When testing helpers, you may want to import Phoenix.HTML and
-  # use functions such as safe_to_string() to convert the helper
-  # result into an HTML string.
-  # import Phoenix.HTML
+  use Content.ConnCase, async: true
 
   import Content.LayoutView
 
@@ -24,10 +19,6 @@ defmodule Content.LayoutViewTest do
     test "for category" do
       assert title(Content.PostsView, "show.html", %{post: %{title: "Test"}}) =~ "Test | #{default_title()}"
     end
-
-    test "for nil" do
-      title(nil, nil, nil)
-    end
   end
 
   describe "excerpt/3" do
@@ -37,16 +28,6 @@ defmodule Content.LayoutViewTest do
 
     test "for a category" do
       assert excerpt(Content.FeedsView, "index.rss", %{category: "category-test"}) =~ "category-test |"
-    end
-  end
-
-  describe "author/3" do
-    test "with a display name" do
-      assert author(Content.PostsView, "show.html", %{author: %{display_name: "Rufus"}}) =~ "Rufus"
-    end
-
-    test "without a display name" do
-      assert author(Content.PostsView, "show.html", %{}) =~ "Anonymous"
     end
   end
 

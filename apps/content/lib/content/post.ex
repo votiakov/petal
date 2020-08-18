@@ -115,14 +115,16 @@ defmodule Content.Post do
   end
 
   def maybe_put_guid(changeset) do
-    import Content.Router.Helpers, only: [posts_url: 3]
+    import Content.Router.Helpers, only: [url: 1, posts_url: 3]
     slug = changeset |> get_field(:name)
 
     case slug do
       nil -> changeset
       _ ->
+        base = url(CoreWeb.Endpoint)
+
         changeset
-        |> put_default(:guid, posts_url(CoreWeb.Endpoint, :show, slug))
+        |> put_default(:guid, posts_url(URI.merge(base, "/pages"), :show, slug))
     end
   end
 end
