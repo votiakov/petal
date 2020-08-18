@@ -3,6 +3,9 @@ use Mix.Config
 config :kaffy,
   otp_app: :admin,
   ecto_repo: Admin.Repo,
+  extensions: [
+    Admin.Kaffy.EditorExtension,
+  ],
   router: Admin.Router,
   resources: &Admin.Kaffy.Config.create_resources/1
 

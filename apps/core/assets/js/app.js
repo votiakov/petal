@@ -14,14 +14,7 @@ import "../css/app.scss"
 //     import socket from "./socket"
 //
 import "phoenix_html"
-
-function ready(fn) {
-  if (document.readyState != 'loading'){
-    fn();
-  } else {
-    document.addEventListener('DOMContentLoaded', fn);
-  }
-}
+import { ready } from "./utils"
 
 function togglePasswordFieldVisibility()
 {
