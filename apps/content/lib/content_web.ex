@@ -46,7 +46,6 @@ defmodule Content do
         |> Earmark.as_html!()
       end
 
-      import CoreWeb.Helpers
       # Include shared imports and aliases for views
       unquote(view_helpers())
     end
@@ -75,6 +74,8 @@ defmodule Content do
 
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
+
+      import CoreWeb.Helpers
 
       import Content.ErrorHelpers
       import Content.Gettext

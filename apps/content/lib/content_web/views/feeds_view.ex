@@ -3,7 +3,8 @@ defmodule Content.FeedsView do
   use Phoenix.HTML
   alias Phoenix.HTML
   alias Phoenix.HTML.Tag
-  alias Content.LayoutView
+
+  import Content.LayoutView, only: [title: 3, excerpt: 3]
 
   def gravatar_url_for_email(email) do
     email

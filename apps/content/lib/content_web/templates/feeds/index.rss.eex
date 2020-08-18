@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title><%= LayoutView.title(@view_module, @view_template, assigns) %></title>
-    <description><%= LayoutView.excerpt(@view_module, @view_template, assigns) %></description>
-    <link>https://pre.hn</link>
-    <atom:link href="https://pre.hn<%= @feed_url %>" rel="self" type="application/rss+xml" />
+    <title><%= title(@view_module, @view_template, assigns) %></title>
+    <description><%= excerpt(@view_module, @view_template, assigns) %></description>
+    <link><%= Content.Router.Helpers.url(CoreWeb.Endpoint) %></link>
+    <atom:link href="<%= Content.Router.Helpers.url(CoreWeb.Endpoint) %><%= @feed_url %>" rel="self" type="application/rss+xml" />
 
 <%= for post <- @posts do %>
     <item>
