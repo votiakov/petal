@@ -1,41 +1,38 @@
-<div class="ui middle aligned center aligned grid">
-  <div class="column">
-    <h2 class="ui teal image header">
-      <div class="content">
-        Log-in To My Account
-      </div>
-    </h2>
-    <%= flash_block(@conn) %>
-    <%= changeset_error_block(@changeset) %>
-    <%= form_for @changeset, @action, [as: :user, class: "ui large form"], fn f -> %>
-      <div class="ui stacked segment">
-        <div class="field <%= error_class(f, :password) %>">
-          <div class="ui left icon input">
-            <i class="user icon"></i>
-            <%= text_input f, Pow.Ecto.Schema.user_id_field(@changeset), placeholder: "E-mail address"  %>
+<section class="absolute w-full h-full">
+  <div
+    class="absolute top-0 w-full h-full bg-gray-700"
+  ></div>
+  <div class="container mx-auto px-4 h-full">
+    <div class="flex content-center items-center justify-center h-full">
+      <div class="w-full lg:w-4/12 px-4">
+        <h1 class="relative text-white text-xl font-semibold text-center pb-6">Log In</h1>
+        <%= changeset_error_block(@changeset) %>
+        <div
+          class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0"
+        >
+          <div class="flex-auto px-4 lg:px-10 py-10 pt-6">
+            <%= form_for @changeset, @action, [as: :user, class: "ui large form"], fn f -> %>
+              <%= styled_input f, Pow.Ecto.Schema.user_id_field(@changeset), icon: "user", placeholder: "joe@example.org" %>
+              <%= styled_input f, :password, icon: "lock", type: "password" %>
+              <%= hidden_input f, :persistent_session, value: "true" %>
+              <div class="text-center mt-6">
+                <%= submit "Sign In", class: "bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full" %>
+              </div>
+            <% end %>
           </div>
-          <%= error_tag f, Pow.Ecto.Schema.user_id_field(@changeset), class: "ui error message" %>
         </div>
-        <div class="field <%= error_class(f, :password) %>">
-          <div class="ui left icon input">
-            <i class="lock icon"></i>
-            <%= password_input f, :password, placeholder: "Password" %>
+        <div class="flex flex-wrap mt-6">
+          <div class="w-full relative min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-500 border-0 py-4 px-4">
+            New to us? <span><%= link "Register", to: Routes.pow_registration_path(@conn, :new) %></span>
           </div>
-          <%= error_tag f, :password, class: "ui error message" %>
-        </div>
-        <%= hidden_input f, :persistent_session, value: "true" %>
-        <%= submit "Login", class: "ui fluid large teal submit button" %>
-      </div>
-    <% end %>
 
-    <div class="ui message">
-      New to us? <span><%= link "Register", to: Routes.pow_registration_path(@conn, :new) %></span>
+          <%= if pow_extension_enabled?(PowResetPassword) do %>
+            <div class="w-full relative min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-500 border-0 py-4 px-4">
+              Forgot your password? <span><%= link("Reset password", to: Routes.pow_reset_password_reset_password_path(@conn, :new)) %></span>
+            </div>
+          <% end %>
+        </div>
+      </div>
     </div>
-
-    <%= if pow_extension_enabled?(PowResetPassword) do %>
-      <div class="ui message">
-        Forgot your password? <span><%= link("Reset password", to: Routes.pow_reset_password_reset_password_path(@conn, :new)) %></span>
-      </div>
-    <% end %>
   </div>
-</div>
+</section>

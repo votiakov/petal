@@ -17,16 +17,16 @@ module.exports = (env, options) => {
         new OptimizeCSSAssetsPlugin({})
       ]
     },
+    mode: options.mode,
+    devtool: devMode ? 'source-map' : undefined,
     entry: {
       'app': glob.sync('./vendor/**/*.js').concat(['./js/app.js']),
       'content-editor': ['./js/content-editor.js'],
     },
     output: {
-      filename: '[name].js',
-      path: path.resolve(__dirname, '../priv/static/js'),
-      publicPath: '/js/'
+      filename: 'js/[name].js',
+      path: path.resolve(__dirname, '../priv/static/')
     },
-    devtool: devMode ? 'source-map' : undefined,
     module: {
       rules: [
         // For images and fonts found in our scss files
@@ -55,24 +55,11 @@ module.exports = (env, options) => {
           }
         },
         {
-          test: /\.[s]?css$/,
+          test: /\.css$/,
           use: [
-            MiniCssExtractPlugin.loader,
-            'css-loader',
-            'sass-loader',
-          ],
-        },
-        {
-          test: /\.less$/,
-          use: [
-            MiniCssExtractPlugin.loader,
+            {loader: MiniCssExtractPlugin.loader, options: {sourceMap: true}},
             {loader: 'css-loader', options: {sourceMap: true}},
-            {
-              loader: 'less-loader',
-              options: {
-                sourceMap: true,
-              },
-            },
+            {loader: 'postcss-loader', options: {sourceMap: true}},
           ],
         },
       ]
@@ -82,13 +69,12 @@ module.exports = (env, options) => {
         filename: 'css/[name].css',
         chunkFilename: '[id].css',
       }),
-      new CopyWebpackPlugin([{ from: 'static/', to: '../' }])
+      new CopyWebpackPlugin([
+        {
+          from: path.resolve(__dirname, 'static'),
+          to: path.resolve(__dirname, '../priv/static'),
+        },
+      ]),
     ],
-    resolve: {
-      alias: {
-        "../../theme.config$": path.join(__dirname, "/semantic-ui/theme.config"),
-        "../semantic-ui/site": path.join(__dirname, "/semantic-ui/site")
-      }
-    },
   }
 };

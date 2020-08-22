@@ -1,0 +1,82 @@
+{
+  "extends": "stylelint-config-standard",
+  "plugins": [
+      "stylelint-order"
+  ],
+  "rules": {
+      "order/properties-order": [
+          [
+            {
+              groupName: "display",
+              emptyLineBefore: "never",
+              properties: [
+                "display",
+                "flex-wrap",
+                "justify-content"
+              ]
+            },
+            {
+              groupName: "positioning",
+              emptyLineBefore: "never",
+              properties: [
+                "position",
+                "top",
+                "right",
+                "bottom",
+                "left",
+                "z-index"
+              ],
+            },
+            {
+              groupName: "box-model",
+              emptyLineBefore: "never",
+              properties: [
+                "min-width",
+                "width",
+                "max-width",
+                "min-height",
+                "height",
+                "max-height",
+                "margin",
+                "margin-top",
+                "margin-right",
+                "margin-bottom",
+                "margin-left",
+                "overflow",
+                "overflow-x",
+                "overflow-y",
+                "padding",
+                "padding-top",
+                "padding-right",
+                "padding-bottom",
+                "padding-left"
+              ],
+            },
+            {
+              groupName: "color-and-type",
+              emptyLineBefore: "never",
+              properties: [
+                "background-color",
+                "color",
+                "font-family",
+                "font-size",
+                "font-weight",
+              ],
+            },
+            {
+              groupName: "decoration",
+              emptyLineBefore: "never",
+              properties: [
+                "border",
+                "border-color",
+                "box-shadow"
+              ],
+            }
+          ],
+          {
+            unspecified: "bottomAlphabetical"
+          }
+      ]
+  },
+  "ignoreFiles": ["node_modules/**/*.css"]
+}
