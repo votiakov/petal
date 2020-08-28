@@ -16,7 +16,7 @@ defmodule CoreWeb.Helpers do
   def changeset_error_block(changeset) do
     ~E"""
     <%= if changeset.action do %>
-      <div class="ui negative message">
+      <div class="flex-auto px-4 lg:px-10 py-6 text-red-500 text-center">
         <p>Oops, something went wrong! Please check the errors below.</p>
       </div>
     <% end %>
@@ -25,10 +25,10 @@ defmodule CoreWeb.Helpers do
 
   def flash_block(conn) do
     ~E"""
-    <div class="fixed w-full z-50 mt-20">
-      <%= [info: "grey", error: "red"] |> Enum.map(fn {level, color} ->  %>
+    <div class="fixed w-full px-4 z-50 mt-20">
+      <%= [info: "green", error: "red"] |> Enum.map(fn {level, color} ->  %>
         <%= if get_flash(conn, level) do %>
-          <div class="relative bg-<%= color %>-100 p-5 w-1/2 object-right rounded shadow-xl m-auto mb-5 js-flash">
+          <div class="relative bg-<%= color %>-100 lg:w-1/2 w-full p-5 object-right rounded shadow-xl m-auto mb-5 js-flash">
             <div class="flex justify-between text-<%= color %>-700">
               <div class="flex space-x-3">
                 <div class="flex-1 leading-tight text-sm font-medium">
@@ -57,6 +57,14 @@ defmodule CoreWeb.Helpers do
     {classes, rest_opts} = Keyword.pop(rest_opts, :class, "px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full")
     {label_text, rest_opts} = Keyword.pop(rest_opts, :label)
     {input_helper, rest_opts} = Keyword.pop(rest_opts, :input_helper, :text_input)
+
+    error_classes =
+      if Keyword.get_values(f.errors, field) |> Enum.any?() do
+        " border border-red-500"
+      else
+        ""
+      end
+
     ~E"""
     <div class="relative w-full mb-3 <%= error_class(f, field) %>">
       <%= if label_text do %>
@@ -67,14 +75,50 @@ defmodule CoreWeb.Helpers do
 
       <i class="<%= icon %> icon"></i>
       <%= if options == nil do %>
-        <%= apply(Phoenix.HTML.Form, input_helper, [f, field, rest_opts ++ [class: classes]]) %>
+        <%= apply(Phoenix.HTML.Form, input_helper, [f, field, rest_opts ++ [class: Enum.join([classes, error_classes], " ")]]) %>
       <% else %>
-        <%= apply(Phoenix.HTML.Form, input_helper, [f, field, options, rest_opts ++ [class: classes]]) %>
+        <%= apply(Phoenix.HTML.Form, input_helper, [f, field, options, rest_opts ++ [class: Enum.join([classes, error_classes], " ")]]) %>
       <% end %>
       <%= content %>
 
-      <%= error_tag f, field, class: "ui pointing red basic label" %>
+      <%= error_tag f, field, class: "text-red-500 italic" %>
     </div>
+    """
+  end
+
+  def styled_button(text) do
+    ~E"""
+    <%= submit text, class: "bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full" %>
+    """
+  end
+
+  def floating_form(title, changeset, do: content) do
+    ~E"""
+    <h1 class="relative text-white text-xl font-semibold text-center pb-6"><%= title %></h1>
+    <div
+      class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0"
+    >
+      <%= changeset_error_block(changeset) %>
+      <div class="flex-auto px-4 lg:px-10 pt-6 pb-10">
+        <%= content %>
+      </div>
+    </div>
+    """
+
+  end
+
+  def floating_page_wrapper(do: content) do
+    ~E"""
+    <section class="absolute w-full h-full">
+      <div class="absolute top-0 w-full h-full bg-gray-700"></div>
+      <div class="container mx-auto px-4 h-full">
+        <div class="flex content-center items-center justify-center h-full">
+          <div class="w-full lg:w-4/12 px-4">
+            <%= content %>
+          </div>
+        </div>
+      </div>
+    </section>
     """
   end
 

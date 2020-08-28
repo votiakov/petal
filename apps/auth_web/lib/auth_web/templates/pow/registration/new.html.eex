@@ -1,37 +1,18 @@
-<div class="ui middle aligned center aligned grid">
-  <div class="column">
-    <h2 class="ui teal image header">
-      <div class="content">
-        Create My Account
-      </div>
-    </h2>
-    <%= flash_block(@conn) %>
-    <%= changeset_error_block(@changeset) %>
+<%= floating_page_wrapper do %>
+  <%= floating_form "Sign Up", @changeset do %>
     <%= form_for @changeset, @action, [as: :user, class: "ui large form"], fn f -> %>
       <div class="ui stacked left aligned segment">
-        <div class="field <%= error_class(f, :password) %>">
-          <%= label f, Pow.Ecto.Schema.user_id_field(@changeset) %>
-          <div class="ui left icon input">
-            <i class="user icon"></i>
-            <%= text_input f, Pow.Ecto.Schema.user_id_field(@changeset), placeholder: "E-mail address"  %>
-          </div>
-          <%= error_tag f, Pow.Ecto.Schema.user_id_field(@changeset), class: "ui pointing red basic label" %>
-        </div>
-        <div class="field <%= error_class(f, :password) %>">
-          <%= label f, :password %>
-          <div class="ui left icon right labeled input">
-            <i class="lock icon"></i>
-            <%= password_input f, :password, placeholder: "Password" %>
-            <div class="ui label js-passwordRevealer"><i class="eye icon" style="margin: 0;"></i></div>
-          </div>
-          <%= error_tag f, :password, class: "ui pointing red basic label" %>
-        </div>
-        <%= submit "Create My Account", class: "ui fluid large teal submit button" %>
+        <%= styled_input f, Pow.Ecto.Schema.user_id_field(@changeset), placeholder: "E-mail address" %>
+        <%= styled_input f, :password, placeholder: "Password" %>
+
+        <%= styled_button "Create My Account" %>
       </div>
     <% end %>
+  <% end %>
 
-    <div class="ui message">
-      Already have an account? <span><%= link "Sign in", to: Routes.pow_session_path(@conn, :new) %></span>
+  <div class="flex flex-wrap mt-6">
+    <div class="w-full relative min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-500 border-0 py-4 px-4">
+      Already have an account? <span><%= link "Sign in", to: Routes.pow_session_path(@conn, :new), class: "text-blue-100" %></span>
     </div>
   </div>
-</div>
+<% end %>

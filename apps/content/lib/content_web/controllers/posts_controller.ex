@@ -72,7 +72,7 @@ defmodule Content.PostsController do
   defp try_static_post(conn, id) do
     path = "static_pages/#{id}.html"
     try do
-      render(conn |> put_flash(:error, "Tits!"), path)
+      render(conn, path)
     rescue
       e in Phoenix.Template.UndefinedError ->
         case e do
