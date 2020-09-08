@@ -4,12 +4,11 @@
     style="min-height: 75vh;"
   >
     <div
-      class="absolute top-0 w-full h-full bg-center bg-cover"
-      style='background-image: url("https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1267&amp;q=80");'
+      class="absolute top-0 w-full h-full bg-center bg-cover bg-gray-700"
     >
       <span
         id="blackOverlay"
-        class="w-full h-full absolute opacity-75 bg-black"
+        class="w-full h-full absolute opacity-75 bg-gray-700"
       ></span>
     </div>
     <div class="container relative mx-auto">

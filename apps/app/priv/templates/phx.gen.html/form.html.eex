@@ -4,7 +4,7 @@
     <%= input %>
 <% end %>
     <div>
-      <%%= submit "Save", class: "ui primary fluid large submit button" %>
+      <%%= styled_button "Save" %>
     </div>
   </div>
 <%% end %>

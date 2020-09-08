@@ -53,8 +53,10 @@ defmodule CoreWeb.Helpers do
   end
 
   def styled_input(f, field, opts, options, do: content) do
-    {icon, rest_opts} = Keyword.pop(opts, :icon, "")
-    {classes, rest_opts} = Keyword.pop(rest_opts, :class, "px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full")
+    {type, rest_opts} = Keyword.pop(opts, :type, input_type(f, field))
+    IO.inspect(type)
+    {icon, rest_opts} = Keyword.pop(rest_opts, :icon, "")
+    {classes, rest_opts} = Keyword.pop(rest_opts, :class, default_classes_for_type(type))
     {label_text, rest_opts} = Keyword.pop(rest_opts, :label)
     {input_helper, rest_opts} = Keyword.pop(rest_opts, :input_helper, :text_input)
 
@@ -74,11 +76,7 @@ defmodule CoreWeb.Helpers do
       <% end %>
 
       <i class="<%= icon %> icon"></i>
-      <%= if options == nil do %>
-        <%= apply(Phoenix.HTML.Form, input_helper, [f, field, rest_opts ++ [class: Enum.join([classes, error_classes], " ")]]) %>
-      <% else %>
-        <%= apply(Phoenix.HTML.Form, input_helper, [f, field, options, rest_opts ++ [class: Enum.join([classes, error_classes], " ")]]) %>
-      <% end %>
+      <%= do_styled_input_tag(type, input_helper, f, field, options, opts, classes, error_classes) %>
       <%= content %>
 
       <%= error_tag f, field, class: "text-red-500 italic" %>
@@ -86,9 +84,64 @@ defmodule CoreWeb.Helpers do
     """
   end
 
+  defp do_styled_input_tag(type, input_helper, f, field, nil, opts, classes, error_classes) when type in [:date_select, :time_select, :datetime_select] do
+    default_child_opts = [
+      month: [
+        class: "appearance-none border-b-2 border-dashed",
+        options: [
+          {("Jan"), "1"},
+          {("Feb"), "2"},
+          {("Mar"), "3"},
+          {("Apr"), "4"},
+          {("May"), "5"},
+          {("Jun"), "6"},
+          {("Jul"), "7"},
+          {("Aug"), "8"},
+          {("Sep"), "9"},
+          {("Oct"), "10"},
+          {("Nov"), "11"},
+          {("Dec"), "12"},
+        ]
+      ],
+      day: [class: "appearance-none border-b-2 border-dashed"],
+      year: [class: "appearance-none border-b-2 border-dashed"],
+      hour: [class: "appearance-none border-b-2 border-dashed"],
+      minute: [class: "appearance-none border-b-2 border-dashed"],
+      second: [class: "appearance-none border-b-2 border-dashed"],
+    ]
+
+    {child_opts, rest_opts} = Keyword.pop(opts, :child_opts, default_child_opts)
+
+    ~E"""
+      <%= content_tag :div, class: Enum.join([classes, error_classes], " ") do %>
+        <%= apply(Phoenix.HTML.Form, input_helper, [f, field, rest_opts ++ child_opts]) %>
+      <% end %>
+    """
+  end
+
+  defp do_styled_input_tag(type, input_helper, f, field, nil, opts, classes, error_classes) do
+    apply(Phoenix.HTML.Form, input_helper, [f, field, opts ++ [class: Enum.join([classes, error_classes], " ")]])
+  end
+
+  defp do_styled_input_tag(type, input_helper, f, field, options, opts, classes, error_classes) do
+    apply(Phoenix.HTML.Form, input_helper, [f, field, options, opts ++ [class: Enum.join([classes, error_classes], " ")]])
+  end
+
+  defp default_classes_for_type(type) when type in [:date_select, :time_select, :datetime_select] do
+    "bg-white shadow rounded p-3"
+  end
+  defp default_classes_for_type(:checkbox), do: "appearance-none h-10 w-10 bg-white checked:bg-gray-500 rounded shadow focus:outline-none focus:shadow-outline text-white text-xl font-bold mb-2"
+  defp default_classes_for_type(_), do: "px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full"
+
   def styled_button(text) do
     ~E"""
     <%= submit text, class: "bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full" %>
+    """
+  end
+
+  def styled_button_link(text, opts) do
+    ~E"""
+    <%= link text, opts ++ [class: "bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"] %>
     """
   end
 

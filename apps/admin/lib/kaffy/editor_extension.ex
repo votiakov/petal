@@ -1,7 +1,7 @@
 defmodule Admin.Kaffy.EditorExtension do
   def stylesheets(_conn) do
     [
-      {:safe, ~s(<link rel="stylesheet" href="/js/css/content-editor.css" />)},
+      {:safe, ~s(<link rel="stylesheet" href="/css/content-editor.css" />)},
       {:safe, ~s(<link rel="stylesheet" href="/css/app.css" />)},
     ]
   end

@@ -1,46 +1,52 @@
-<div class="ui top padded container">
-  <div class="ui grid">
-    <div class="row">
-      <div class="eight wide column">
-        <h1 class="ui header"><%= schema.human_plural %></h1>
-      </div>
-      <div class="eight wide right aligned column">
-        <span><%%= link "New <%= schema.human_singular %>", to: Routes.<%= schema.route_helper %>_path(@conn, :new), class: "ui primary button" %></span>
-      </div>
+<div class="p-6">
+  <div class="flex pb-6">
+    <div class="w-/12 flex-1 text-4xl">
+      <h1 class="px-5 -mb-2 mt-2"><%= schema.human_plural %></h1>
+    </div>
+    <div class="w-/12 text-4xl text-right px-5">
+      <%%= styled_button_link "New <%= schema.human_singular %>", to: Routes.<%= schema.route_helper %>_path(@conn, :new) %>
     </div>
   </div>
 
-  <table class="ui celled table">
-    <thead>
-      <tr>
-  <%= for {k, _} <- schema.attrs do %>      <th><%= Phoenix.Naming.humanize(Atom.to_string(k)) %></th>
-  <% end %>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-  <%%= case @<%= schema.plural %> do %>
-    <%%= [] -> %>
-      <tr>
-        <td colspan="<%= schema.attrs |> Enum.count() %>">
-          No results.
-        </td>
-      </tr>
-    <%%= _ -> %>
-      <%%= for <%= schema.singular %> <- @<%= schema.plural %> do %>
-          <tr>
-      <%= for {k, _} <- schema.attrs do %>      <td><%%= <%= schema.singular %>.<%= k %> %></td>
-      <% end %>
-            <td>
-              <div class="ui list">
-                <span class="item"><%%= link "Show", to: Routes.<%= schema.route_helper %>_path(@conn, :show, <%= schema.singular %>) %></span>
-                <span class="item"><%%= link "Edit", to: Routes.<%= schema.route_helper %>_path(@conn, :edit, <%= schema.singular %>) %></span>
-                <span class="item"><%%= link "Delete", to: Routes.<%= schema.route_helper %>_path(@conn, :delete, <%= schema.singular %>), method: :delete, data: [confirm: "Are you sure?"] %></span>
-              </div>
-            </td>
-          </tr>
-      <%% end %>
-  <%% end %>
-    </tbody>
-  </table>
+  <div class="shadow rounded px-1 py-1 bg-white">
+    <table class="min-w-full leading-normal">
+      <thead>
+        <tr>
+    <%= for {k, _} <- schema.attrs do %>      <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"><%= Phoenix.Naming.humanize(Atom.to_string(k)) %></th>
+    <% end %>
+          <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"></th>
+        </tr>
+      </thead>
+      <tbody>
+    <%%= case @<%= schema.plural %> do %>
+      <%%= [] -> %>
+        <tr>
+          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" colspan="<%= (schema.attrs |> Enum.count()) + 1 %>">
+            No results.
+          </td>
+        </tr>
+      <%%= _ -> %>
+        <%%= for <%= schema.singular %> <- @<%= schema.plural %> do %>
+            <tr>
+        <%= for {k, _} <- schema.attrs do %>      
+          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+            <%%= link <%= schema.singular %>.<%= k %>, to: Routes.<%= schema.route_helper %>_path(@conn, :show, <%= schema.singular %>) %>
+          </td>
+        <% end %>
+              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                <label class="relative">
+                  ...
+                  <input type="checkbox" class="hidden hidden-options-toggle">
+                  <div class="hidden absolute right-0 rounded bg-white border shadow-lg py-4 w-48"> 
+                    <%%= link "Edit", to: Routes.<%= schema.route_helper %>_path(@conn, :edit, <%= schema.singular %>), class: "block px-4 py-2 hover:bg-gray-100" %>
+                    <%%= link "Delete", to: Routes.<%= schema.route_helper %>_path(@conn, :delete, <%= schema.singular %>), method: :delete, data: [confirm: "Are you sure?"], class: "text-red-600 block px-4 py-2 hover:bg-gray-100" %>
+                  </div>
+                </label>
+              </td>
+            </tr>
+        <%% end %>
+    <%% end %>
+      </tbody>
+    </table>
+  </div>
 </div>
