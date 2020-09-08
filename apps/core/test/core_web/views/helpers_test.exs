@@ -74,13 +74,12 @@ defmodule CoreWeb.HelpersTest do
       |> flash_block()
       |> safe_to_string()
 
-    assert markup =~ "ui negative message"
+    assert markup =~ "js-flash"
   end
 
   test "styled_input/4 (without error)" do
     markup = safe_to_string(styled_input(form(), :no_error_field))
 
-    assert markup =~ ~S{<div class="field "}
     assert markup =~ "<input"
     assert markup =~ "<label"
   end
@@ -88,10 +87,8 @@ defmodule CoreWeb.HelpersTest do
   test "styled_input/4 (with error)" do
     markup = safe_to_string(styled_input(form(), :error_field))
 
-    assert markup =~ ~S{<div class="field error"}
     assert markup =~ "<input"
     assert markup =~ "<label"
-    assert markup =~ "ui pointing red basic label"
   end
 
   test "styled_input/5 with content" do
@@ -104,7 +101,6 @@ defmodule CoreWeb.HelpersTest do
       end
       |> safe_to_string()
 
-    assert markup =~ ~S{<div class="field "}
     assert markup =~ "<select"
     assert markup =~ "<label"
   end

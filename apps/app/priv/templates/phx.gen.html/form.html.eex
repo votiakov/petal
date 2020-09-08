@@ -1,5 +1,5 @@
 <%%= form_for @changeset, @action, [class: "ui large form"], fn f -> %>
-  <div class="ui stacked left aligned segment">
+  <div>
 <%= for input <- Mix.Legendary.inputs(schema) do %>
     <%= input %>
 <% end %>

@@ -46,15 +46,9 @@ defmodule CoreWeb.Helpers do
     """
   end
 
-  def styled_input(f, field, opts \\ [], options \\ nil) do
-    styled_input(f, field, opts, options) do
-      ""
-    end
-  end
-
-  def styled_input(f, field, opts, options, do: content) do
+  def styled_input(f, field, opts \\ [], options \\ nil, block_list \\ []) do
+    {content, _} = Keyword.pop(block_list, :do, "")
     {type, rest_opts} = Keyword.pop(opts, :type, input_type(f, field))
-    IO.inspect(type)
     {icon, rest_opts} = Keyword.pop(rest_opts, :icon, "")
     {classes, rest_opts} = Keyword.pop(rest_opts, :class, default_classes_for_type(type))
     {label_text, rest_opts} = Keyword.pop(rest_opts, :label)
