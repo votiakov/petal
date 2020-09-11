@@ -12,7 +12,7 @@
           </p>
         </div>
       </div>
-      <div class="extra text">
+      <div>
         <%= sanitize comment.content |> auto_paragraph_tags |> elem(1) |> IO.iodata_to_binary() %>
       </div>
     </div>

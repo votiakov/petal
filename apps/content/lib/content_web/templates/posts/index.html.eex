@@ -7,20 +7,16 @@
     </h1>
     <%= post_topmatter(@conn, post) %>
     <div class="Article-content <%= if post.format, do: post.format.slug %> e-content">
-      <%= if authenticated_for_post?(@conn, post) do %>
-        <%= render "thumb.html", post: post, thumbs: @thumbs %>
-        <div class="Article-content-words">
-          <%= raw post |> Content.Post.content_page(1) |> Content.Post.before_more |> process_content |> raw %>
-          <%= if post.content =~ "<!--more-->" do %>
-            <p>
-              <%= link "Keep Reading", to: Routes.posts_path(@conn, :show, post) %>
-            </p>
-          <% end %>
-          <%= render "pagination.html", conn: @conn, post: post %>
-        </div>
-      <% else %>
-        <%= render "password_form.html", post: post, conn: @conn %>
-      <% end %>
+      <%= render "thumb.html", post: post, thumbs: @thumbs %>
+      <div class="Article-content-words">
+        <%= raw post |> Content.Post.content_page(1) |> Content.Post.before_more |> process_content |> raw %>
+        <%= if post.content =~ "<!--more-->" do %>
+          <p>
+            <%= link "Keep Reading", to: Routes.posts_path(@conn, :show, post) %>
+          </p>
+        <% end %>
+        <%= render "pagination.html", conn: @conn, post: post %>
+      </div>
     </div>
     
     <%= case post.categories || [] do %>
