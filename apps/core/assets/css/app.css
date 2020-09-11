@@ -4,6 +4,8 @@
 
 @import "tailwindcss/utilities";
 
+@import "@fortawesome/fontawesome-free/css/all.css";
+
 input[type="checkbox"]::after {
   content: "";
   color: currentColor;
@@ -20,4 +22,12 @@ input[type="checkbox"]:checked::after {
 
 .hidden-options-toggle:checked+.hidden {
   display: block;
+}
+
+.password-revealer {
+  @apply absolute;
+  height: 45px;
+  width: 45px;
+  right: 0;
+  bottom: 0;
 }

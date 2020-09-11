@@ -1,12 +1,10 @@
 <%= floating_page_wrapper do %>
   <%= floating_form "Sign Up", @changeset do %>
-    <%= form_for @changeset, @action, [as: :user, class: "ui large form"], fn f -> %>
-      <div class="ui stacked left aligned segment">
-        <%= styled_input f, Pow.Ecto.Schema.user_id_field(@changeset), placeholder: "E-mail address" %>
-        <%= styled_input f, :password, placeholder: "Password" %>
+    <%= form_for @changeset, @action, [as: :user], fn f -> %>
+      <%= styled_input f, Pow.Ecto.Schema.user_id_field(@changeset), placeholder: "E-mail address" %>
+      <%= styled_input f, :password, placeholder: "Password", autocomplete: "new-password"  %>
 
-        <%= styled_button "Create My Account" %>
-      </div>
+      <%= styled_button "Create My Account" %>
     <% end %>
   <% end %>
 

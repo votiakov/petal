@@ -1,35 +1,11 @@
-<div class="ui middle aligned grid" style="padding-top: 2em;">
-  <div class="column">
-    <h2 class="ui teal image header">
-      <div class="content">
-        Leave My Comment
-      </div>
-    </h2>
-    <%= changeset_error_block(@comment_changeset) %>
-    <div class="ui stacked left aligned segment">
-      <%= form_for @comment_changeset, Routes.comment_path(@conn, :create), [class: "ui form"], fn f -> %>
-        <%= hidden_input f, :parent %>
-        <%= hidden_input f, :post_id %>
-        <%= label f, :author do %>
-          Your Name
-          <%= text_input f, :author %>
-        <% end %>
-        <%= label f, :author_email do %>
-          Your Email
-          <%= email_input f, :author_email %>
-        <% end %>
-        <%= label f, :author_url do %>
-          Your Website
-          <%= text_input f, :author_url %>
-        <% end %>
-        <%= label f, :content do %>
-          Comment
-          <%= textarea f, :content %>
-        <% end %>
-        <div class="form-group">
-          <%= submit "Leave My Comment", class: "ui fluid large teal submit button" %>
-        </div>
-      <% end %>
-    </div>
-  </div>
-</div>
+<%= floating_form "Leave My Comment", @comment_changeset do %>
+  <%= form_for @comment_changeset, Routes.comment_path(@conn, :create), fn f -> %>
+    <%= hidden_input f, :parent %>
+    <%= hidden_input f, :post_id %>
+    <%= styled_input f, :author, label: "Your Name" %>
+    <%= styled_input f, :author_email, label: "Your Email" %>
+    <%= styled_input f, :author_url, label: "Your Website" %>
+    <%= styled_input f, :content, label: "Comment", input_helper: :textarea %>
+    <%= styled_button "Leave My Comment" %>
+  <% end %>
+<% end %>

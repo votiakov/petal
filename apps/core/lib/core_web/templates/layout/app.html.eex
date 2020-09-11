@@ -13,9 +13,7 @@
     <main role="main">
       <!-- Page Contents -->
       <div class="bg-gray-100 min-h-screen">
-        <div class="ui inverted vertical masthead center aligned segment">
-          <%= render "_menu.html", assigns %>
-        </div>
+        <%= render "_menu.html", assigns %>
 
         <%= flash_block(@conn) %>
 

@@ -1,24 +1,19 @@
-<div class="ui middle aligned center aligned grid">
-  <div class="column">
-    <h2 class="ui teal image header">
-      <div class="content">
-        Update My Account
-      </div>
-    </h2>
-    <%= flash_block(@conn) %>
-    <%= changeset_error_block(@changeset) %>
-    <%= form_for @changeset, @action, [as: :user, class: "ui large form"], fn f -> %>
-      <div class="ui stacked left aligned segment">
-        <%= styled_input f, :current_password, icon: "lock", type: "password" %>
+<%= floating_page_wrapper do %>
+  <%= floating_form "Update My Account", @changeset do %>
+    <%= form_for @changeset, @action, [as: :user], fn f -> %>
+      <div>
+        <%= styled_input f, :current_password, icon: "lock", type: "password", autocomplete: "current-password" %>
 
         <%= styled_input f, Pow.Ecto.Schema.user_id_field(@changeset), icon: "user" %>
 
-        <%= styled_input f, :password, icon: "lock", label: "New Password", type: "password", class: "right labeled" do %>
-          <div class="ui label js-passwordRevealer"><i class="eye icon" style="margin: 0;"></i></div>
+        <%= styled_input f, :password, [icon: "lock", label: "New Password", type: "password", autocomplete: "new-password"], nil do %>
+          <div class="password-revealer js-passwordRevealer flex items-center justify-center text-gray-500 bg-gray-200 hover:bg-gray-300 rounded-r">
+            <span class="fa fa-eye inline"></span>
+          </div>
         <% end %>
 
-        <%= submit "Create My Account", class: "ui fluid large teal submit button" %>
+        <%= styled_button "Create My Account" %>
       </div>
     <% end %>
-  </div>
-</div>
+  <% end %>
+<% end %>

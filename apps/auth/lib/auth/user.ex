@@ -27,7 +27,7 @@ defmodule Auth.User do
 
     user_or_changeset
     |> pow_user_id_field_changeset(attrs)
-    |> Changeset.cast(attrs, [:roles])
+    |> Changeset.cast(attrs, [:roles, :display_name])
     |> pow_extension_changeset(attrs)
   end
 

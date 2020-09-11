@@ -139,6 +139,24 @@ defmodule CoreWeb.Helpers do
     """
   end
 
+  def paginator(first..last, current, callback) do
+    [first, current - 1, current, current + 1, last]
+    |> Enum.sort()
+    |> Enum.filter(& &1 >= first)
+    |> Enum.filter(& &1 <= last)
+    |> Enum.dedup()
+    |> Enum.map(& callback.(first..last, &1))
+  end
+
+  def group_rounding_class(first..last, current, [first_class, middle_class, last_class] \\ ["rounded-l", "", "rounded-r"]) do
+    cond do
+      first == last -> "#{first_class} #{last_class}"
+      current == first -> first_class
+      current == last -> last_class
+      true -> middle_class
+    end
+  end
+
   def floating_form(title, changeset, do: content) do
     ~E"""
     <h1 class="relative text-white text-xl font-semibold text-center pb-6"><%= title %></h1>

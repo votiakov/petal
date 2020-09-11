@@ -67,20 +67,23 @@ defmodule Content.PostsView do
     assigns = %{post: post, author: author, conn: conn}
     ~E"""
       <% _ = assigns # suppress unused assigns warning %>
-      <div class="Comment-topmatter">
-
-        <h4>
-          <%= link to: author.homepage_url || "#", rel: "author", class: "p-author h-card" do %>
-            <%= img_tag gravatar_url_for_email(author.email), alt: "Photo of #{author.display_name}", class: "Gravatar u-photo ui avatar image" %>
-            <span><%= author.display_name %></span>
-            &#8226;
-            <%= link to: Routes.posts_path(conn, :show, post) do %>
+      <div class="flex w-full items-center font-sans py-6">
+        <%= link to: author.homepage_url || "#", rel: "author", class: "p-author h-card" do %>
+        <%= img_tag gravatar_url_for_email(author.email), alt: "Photo of #{author.display_name}", class: "Gravatar u-photo w-10 h-10 rounded-full mr-4" %>
+        <div class="flex-1 px-2">
+          <p class="text-base font-bold text-base md:text-xl leading-none mb-2">
+            <%= author.display_name %>
+          </p>
+          <%= link to: Routes.posts_path(conn, :show, post) do %>
+            <p class="text-gray-600 text-xs md:text-base">
+              Published
               <time class="dt-published" datetime="<%= post.date %>">
                 <%= post.date |> Timex.format!("%F", :strftime) %>
               </time>
-            <% end %>
+            </p>
           <% end %>
-        </h4>
+        </div>
+      <% end %>
       </div>
     """
   end

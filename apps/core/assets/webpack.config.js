@@ -45,8 +45,13 @@ module.exports = (env, options) => {
         },
         {
           test: /\.(woff2?|ttf|eot|svg)(\?[a-z0-9\=\.]+)?$/,
-          exclude: [nodeModulesPath],
           loader: 'file-loader',
+          options: {
+            publicPath: '/fonts',
+            outputPath: (url, resourcePath, context) => {
+              return `/fonts/${url}`;
+            },
+          }
         },
         {
           test: /\.js$/,
@@ -77,5 +82,24 @@ module.exports = (env, options) => {
         },
       ]),
     ],
+    resolve: {
+      alias: {
+        "../webfonts/fa-brands-400.eot": path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.eot"),
+        "../webfonts/fa-brands-400.woff2": path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.woff2"),
+        "../webfonts/fa-brands-400.woff": path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.woff"),
+        "../webfonts/fa-brands-400.ttf": path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.ttf"),
+        "../webfonts/fa-brands-400.svg": path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.svg"),
+        "../webfonts/fa-regular-400.eot": path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.eot"),
+        "../webfonts/fa-regular-400.woff2": path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff2"),
+        "../webfonts/fa-regular-400.woff": path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff"),
+        "../webfonts/fa-regular-400.ttf": path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.ttf"),
+        "../webfonts/fa-regular-400.svg": path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.svg"),
+        "../webfonts/fa-solid-900.eot": path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.eot"),
+        "../webfonts/fa-solid-900.woff2": path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2"),
+        "../webfonts/fa-solid-900.woff": path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff"),
+        "../webfonts/fa-solid-900.ttf": path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.ttf"),
+        "../webfonts/fa-solid-900.svg": path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.svg"),
+      }
+    },
   }
 };
