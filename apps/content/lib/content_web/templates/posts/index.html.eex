@@ -47,4 +47,6 @@
 </nav>
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script>
+<script charset="UTF-8"
+  src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/languages/elixir.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
