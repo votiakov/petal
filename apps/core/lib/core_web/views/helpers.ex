@@ -125,17 +125,17 @@ defmodule CoreWeb.Helpers do
     "bg-white shadow rounded p-3"
   end
   defp default_classes_for_type(:checkbox), do: "appearance-none h-10 w-10 bg-white checked:bg-gray-500 rounded shadow focus:outline-none focus:shadow-outline text-white text-xl font-bold mb-2"
-  defp default_classes_for_type(_), do: "px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full"
+  defp default_classes_for_type(_), do: "px-4 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full"
 
   def styled_button(text) do
     ~E"""
-    <%= submit text, class: "bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full" %>
+    <%= submit text, class: "bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-4 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full" %>
     """
   end
 
   def styled_button_link(text, opts) do
     ~E"""
-    <%= link text, opts ++ [class: "bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"] %>
+    <%= link text, opts ++ [class: "bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-4 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"] %>
     """
   end
 
