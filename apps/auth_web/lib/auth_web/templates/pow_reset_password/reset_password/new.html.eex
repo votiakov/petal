@@ -1,7 +1,7 @@
 <%= floating_page_wrapper do %>
   <%= floating_form "Reset Password", @changeset do %>
     <%= form_for @changeset, @action, [as: :user], fn f -> %>
-      <%= styled_input f, :email, [placeholder: "joe@example.org", icon: "user"] %>
+      <%= styled_input f, :email, [placeholder: "joe@example.org"] %>
       <%= styled_button "Reset My Password" %>
     <% end %>
   <% end %>

@@ -2,7 +2,11 @@
   <%= floating_form "Sign Up", @changeset do %>
     <%= form_for @changeset, @action, [as: :user], fn f -> %>
       <%= styled_input f, Pow.Ecto.Schema.user_id_field(@changeset), placeholder: "E-mail address" %>
-      <%= styled_input f, :password, placeholder: "Password", autocomplete: "new-password"  %>
+      <%= styled_input f, :password, [placeholder: "Password", autocomplete: "new-password"], nil do  %>
+        <div class="password-revealer js-passwordRevealer flex items-center justify-center text-gray-500 bg-gray-200 hover:bg-gray-300 rounded-r">
+          <span class="fa fa-eye inline"></span>
+        </div>
+      <% end %>
 
       <%= styled_button "Create My Account" %>
     <% end %>

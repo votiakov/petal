@@ -52,7 +52,7 @@ defmodule CoreWeb.Helpers do
     {icon, rest_opts} = Keyword.pop(rest_opts, :icon, "")
     {classes, rest_opts} = Keyword.pop(rest_opts, :class, default_classes_for_type(type))
     {label_text, rest_opts} = Keyword.pop(rest_opts, :label)
-    {input_helper, rest_opts} = Keyword.pop(rest_opts, :input_helper, :text_input)
+    {input_helper, rest_opts} = Keyword.pop(rest_opts, :input_helper, input_type(f, field))
 
     error_classes =
       if Keyword.get_values(f.errors, field) |> Enum.any?() do
@@ -69,7 +69,6 @@ defmodule CoreWeb.Helpers do
         <%= label f, field, class: "block uppercase text-gray-700 text-xs font-bold mb-2" %>
       <% end %>
 
-      <i class="<%= icon %> icon"></i>
       <%= do_styled_input_tag(type, input_helper, f, field, options, opts, classes, error_classes) %>
       <%= content %>
 

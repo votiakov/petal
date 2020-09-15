@@ -2,11 +2,11 @@
   <%= floating_form "Update My Account", @changeset do %>
     <%= form_for @changeset, @action, [as: :user], fn f -> %>
       <div>
-        <%= styled_input f, :current_password, icon: "lock", type: "password", autocomplete: "current-password" %>
+        <%= styled_input f, :current_password, type: "password", autocomplete: "current-password" %>
 
-        <%= styled_input f, Pow.Ecto.Schema.user_id_field(@changeset), icon: "user" %>
+        <%= styled_input f, Pow.Ecto.Schema.user_id_field(@changeset) %>
 
-        <%= styled_input f, :password, [icon: "lock", label: "New Password", type: "password", autocomplete: "new-password"], nil do %>
+        <%= styled_input f, :password, [label: "New Password", type: "password", autocomplete: "new-password"], nil do %>
           <div class="password-revealer js-passwordRevealer flex items-center justify-center text-gray-500 bg-gray-200 hover:bg-gray-300 rounded-r">
             <span class="fa fa-eye inline"></span>
           </div>
