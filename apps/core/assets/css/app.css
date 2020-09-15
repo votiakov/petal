@@ -6,6 +6,8 @@
 
 @import "@fortawesome/fontawesome-free/css/all.css";
 
+@import "code";
+
 input[type="checkbox"]::after {
   content: "";
   color: currentColor;
