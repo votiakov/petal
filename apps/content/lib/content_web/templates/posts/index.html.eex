@@ -1,84 +1,52 @@
 <%= for post <- @posts do %>
-  <article class="ui text container <%= post_class(post) %> h-entry">
-    <div class="ui main padded text container">
-      <h1 class="ui header p-name">
-        <%= link to: Routes.posts_path(@conn, :show, post), class: "u-url" do %>
-          <%= raw post.title %>
-        <% end %>
-      </h1>
-      <%= post_topmatter(@conn, post) %>
-    </div>
-    <div class="Article-content <%= if post.format, do: post.format.slug %> e-content">
-      <%= if authenticated_for_post?(@conn, post) do %>
-        <%= render "thumb.html", post: post, thumbs: @thumbs %>
-        <div class="Article-content-words" style="padding-bottom: 4em; padding-top: 4em;">
-          <%= raw post |> Content.Post.content_page(1) |> Content.Post.before_more |> process_content |> raw %>
-          <%= if post.content =~ "<!--more-->" do %>
-            <p>
-              <%= link "Keep Reading", to: Routes.posts_path(@conn, :show, post) %>
-            </p>
-          <% end %>
-          <%= render "pagination.html", conn: @conn, post: post %>
-        </div>
-      <% else %>
-        <%= render "password_form.html", post: post, conn: @conn %>
+  <article class="max-w-xl mx-auto <%= post_class(post) %> h-entry py-12">
+    <h1 class="text-4xl font-bold">
+      <%= link to: Routes.posts_path(@conn, :show, post), class: "u-url" do %>
+        <%= raw post.title %>
       <% end %>
-    </div>
-    <div class="ui grid">
-      <div class="ui center aligned one column row CategoryBlock" style="padding-top: 2rem;">
-        <div class="ui column">
-          <%= case post.categories || [] do %>
-            <% [] -> %>
-              <%= "" %>
-            <% categories -> %>
-              <%= for term <- categories do %>
-                <div class="ui label">
-                  <%= link term.name, to: Routes.category_path(@conn, :index_posts, term.slug), class: "p-category" %>
-                </div>
-              <% end %>
-          <% end %>
-        </div>
+    </h1>
+    <%= post_topmatter(@conn, post) %>
+    <div class="Article-content <%= if post.format, do: post.format.slug %> e-content">
+      <%= render "thumb.html", post: post, thumbs: @thumbs %>
+      <div class="Article-content-words">
+        <%= raw post |> Content.Post.content_page(1) |> Content.Post.before_more |> process_content |> () |> raw %>
+        <%= if post.content =~ "<!--more-->" do %>
+          <p>
+            <%= link "Keep Reading", to: Routes.posts_path(@conn, :show, post) %>
+          </p>
+        <% end %>
+        <%= render "pagination.html", conn: @conn, post: post %>
       </div>
     </div>
+    
+    <%= case post.categories || [] do %>
+      <% [] -> %>
+        <%= "" %>
+      <% categories -> %>
+        <div class="flex pt-6">
+          <h3 class="text-xl mr-4">Categories</h3>
+        
+          <%= for term <- categories do %>
+            <%= link term.name, to: Routes.category_path(@conn, :index_posts, term.slug), class: "rounded-full bg-gray-300 px-4 py-1 mr-2" %>
+          <% end %>
+        </div>
+    <% end %>
   </article>
 <% end %>
 
-<nav class="ui text container paginator">
-  <div class="ui grid">
-    <div class="ui center aligned one column row">
-      <div class="column">
-        <h3 class="ui header">
-          Pages
-        </h3>
-        
-        <div class="ui buttons">
-          <%= if @page > 1 do %>
-            <%= link 1, to: paginated_posts_path(@conn, @category, 1), class: "ui button" %>
-          <% end %>
-
-          <%= if @page > 3 do %>
-            <span class="paginator-page ui button disabled">...</span>
-          <% end %>
-
-          <%= if @page > 2 do %>
-            <%= link @page - 1, to: paginated_posts_path(@conn, @category, @page - 1), class: "ui button" %>
-          <% end %>
-
-          <span class="paginator-page ui button disabled"><%= @page %></span>
-
-          <%= if @page + 1 < @last_page do %>
-            <%= link @page + 1, to: paginated_posts_path(@conn, @category, @page + 1), class: "ui button" %>
-          <% end %>
-
-          <%= if @page + 2 < @last_page do %>
-            <span class="paginator-page ui button disabled">...</span>
-          <% end %>
-
-          <%= if @page < @last_page do %>
-            <%= link @last_page, to: paginated_posts_path(@conn, @category, @last_page), class: "ui button" %>
-          <% end %>
-        </div>
-      </div>
-    </div>
+<nav class="max-w-xl mx-auto flex justify-center">
+  <div class="flex shadow rounded">
+    <%= paginator(1..@last_page, @page, fn first..last, page ->
+      link page, 
+        to: paginated_posts_path(@conn, @category, page), 
+        style: "min-width: 3.5rem",
+        class: "#{if page == @page, do: "font-bold"} text-center flex-1 border bg-gray-100 hover:bg-gray-300 text-gray-500 p-4 #{group_rounding_class(first..last, page)}" 
+    end)
+    %>
   </div>
 </nav>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script>
+<script charset="UTF-8"
+  src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/languages/elixir.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>

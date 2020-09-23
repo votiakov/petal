@@ -1,180 +1,170 @@
-<style type="text/css">
-  .hidden.menu {
-    display: none;
-  }
-
-  .heroic {
-    min-height: 700px;
-    padding: 1em 0em;
-  }
-  .masthead .logo.item img {
-    margin-right: 1em;
-  }
-  .masthead .ui.menu .ui.button {
-    margin-left: 0.5em;
-  }
-  .masthead h1.ui.header {
-    margin-top: 3em;
-    margin-bottom: 0em;
-    font-size: 4em;
-    font-weight: normal;
-  }
-  .masthead h2 {
-    font-size: 1.7em;
-    font-weight: normal;
-  }
-
-  .ui.vertical.stripe {
-    padding: 8em 0em;
-  }
-  .ui.vertical.stripe h3 {
-    font-size: 2em;
-  }
-  .ui.vertical.stripe .button + h3,
-  .ui.vertical.stripe p + h3 {
-    margin-top: 3em;
-  }
-  .ui.vertical.stripe .floated.image {
-    clear: both;
-  }
-  .ui.vertical.stripe p {
-    font-size: 1.33em;
-  }
-  .ui.vertical.stripe .horizontal.divider {
-    margin: 3em 0em;
-  }
-
-  .quote.stripe.segment {
-    padding: 0em;
-  }
-  .quote.stripe.segment .grid .column {
-    padding-top: 5em;
-    padding-bottom: 5em;
-  }
-
-  .footer.segment {
-    padding: 5em 0em;
-  }
-
-  .secondary.pointing.menu .toc.item {
-    display: none;
-  }
-
-  @media only screen and (max-width: 700px) {
-    .ui.fixed.menu {
-      display: none !important;
-    }
-    .secondary.pointing.menu .item,
-    .secondary.pointing.menu .menu {
-      display: none;
-    }
-    .secondary.pointing.menu .toc.item {
-      display: block;
-    }
-    .masthead.segment {
-      min-height: 350px;
-    }
-    .masthead h1.ui.header {
-      font-size: 2em;
-      margin-top: 1.5em;
-    }
-    .masthead h2 {
-      margin-top: 0.5em;
-      font-size: 1.5em;
-    }
-  }
-</style>
-
-<div class="pusher">
-  <div class="ui inverted vertical heroic masthead center aligned segment">
-    <div class="ui text container">
-      <h1 class="ui inverted header">
-        Imagine-a-Company
-      </h1>
-      <h2>Do whatever you want when you want to.</h2>
-      <div class="ui huge primary button">Get Started <i class="right arrow icon"></i></div>
+<main>
+  <div
+    class="relative pt-16 flex content-center items-center justify-center"
+    style="min-height: 75vh;"
+  >
+    <div
+      class="absolute top-0 w-full h-full bg-center bg-cover bg-gray-700"
+    >
     </div>
-  </div>
-</div>
-
-<div class="ui vertical stripe segment">
-<div class="ui middle aligned stackable grid container">
-  <div class="row">
-    <div class="eight wide column">
-      <h3 class="ui header">We Help Companies and Companions</h3>
-      <p>We can give your company superpowers to do things that they never thought possible. Let us delight your customers and empower your needs...through pure data analytics.</p>
-      <h3 class="ui header">We Make Bananas That Can Dance</h3>
-      <p>Yes that's right, you thought it was the stuff of dreams, but even bananas can be bioengineered.</p>
-    </div>
-    <div class="six wide right floated column">
-      <img src="/images/wireframe/white-image.png" class="ui large bordered rounded image">
-    </div>
-  </div>
-  <div class="row">
-    <div class="center aligned column">
-      <a class="ui huge button">Check Them Out</a>
-    </div>
-  </div>
-</div>
-</div>
-
-
-<div class="ui vertical stripe quote segment">
-<div class="ui equal width stackable internally celled grid">
-  <div class="center aligned row">
-    <div class="column">
-      <h3>"What a Company"</h3>
-      <p>That is what they all say about us</p>
-    </div>
-    <div class="column">
-      <h3>"I shouldn't have gone with their competitor."</h3>
-      <p>
-        <img src="/images/avatar/nan.jpg" class="ui avatar image"> <b>Nan</b> Chief Fun Officer Acme Toys
-      </p>
-    </div>
-  </div>
-</div>
-</div>
-
-<div class="ui vertical stripe segment">
-<div class="ui text container">
-  <h3 class="ui header">Breaking The Grid, Grabs Your Attention</h3>
-  <p>Instead of focusing on content creation and hard work, we have learned how to master the art of doing nothing by providing massive amounts of whitespace and generic content that can seem massive, monolithic and worth your attention.</p>
-  <a class="ui large button">Read More</a>
-  <h4 class="ui horizontal header divider">
-    <a href="#">Case Studies</a>
-  </h4>
-  <h3 class="ui header">Did We Tell You About Our Bananas?</h3>
-  <p>Yes I know you probably disregarded the earlier boasts as non-sequitur filler content, but its really true. It took years of gene splicing and combinatory DNA research, but our bananas can really dance.</p>
-  <a class="ui large button">I'm Still Quite Interested</a>
-</div>
-</div>
-
-
-<div class="ui inverted vertical footer segment">
-<div class="ui container">
-  <div class="ui stackable inverted divided equal height stackable grid">
-    <div class="three wide column">
-      <h4 class="ui inverted header">About</h4>
-      <div class="ui inverted link list">
-        <a href="#" class="item">Sitemap</a>
-        <a href="#" class="item">Contact Us</a>
-        <a href="#" class="item">Religious Ceremonies</a>
-        <a href="#" class="item">Gazebo Plans</a>
+    <div class="relative mx-auto">
+      <div class="items-center flex flex-wrap">
+        <div class="w-full lg:w-8/12 px-4 ml-auto mr-auto text-center">
+          <div>
+            <h1 class="text-white font-semibold text-4xl">
+              The Stuff of Legend.
+            </h1>
+            <p class="mt-6 text-lg text-gray-100">
+              Legendary makes it easy to quickly build Phoenix applications with all the bells and whistles.
+            </p>
+          </div>
+        </div>
+        <div class="w-full lg:w-8/12 px-4 ml-auto mr-auto text-center my-12">
+          <%= styled_button_link "Log In", to: AuthWeb.Router.Helpers.pow_session_path(%URI{path: "/auth"}, :new) %>
+          <%= styled_button_link "Sign Up", to: AuthWeb.Router.Helpers.pow_registration_path(%URI{path: "/auth"}, :new) %>
+        </div>
       </div>
     </div>
-    <div class="three wide column">
-      <h4 class="ui inverted header">Services</h4>
-      <div class="ui inverted link list">
-        <a href="#" class="item">Banana Pre-Order</a>
-        <a href="#" class="item">DNA FAQ</a>
-        <a href="#" class="item">How To Access</a>
-        <a href="#" class="item">Favorite X-Men</a>
+  </div>
+  <section class="pb-20 bg-gray-300 -mt-24">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-wrap">
+        <div class="w-full md:w-4/12 px-4 text-center">
+          <div
+            class="relative flex flex-col min-w-0 break-words bg-white w-full h-full mb-6 shadow-lg rounded-lg"
+          >
+            <div class="px-4 py-6 flex-auto">
+              <div
+                class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-6 shadow-lg rounded-full bg-red-400"
+              >
+                <i class="fa fa-battery-full"></i>
+              </div>
+              <h6 class="text-xl font-semibold">Batteries Included</h6>
+              <p class="mt-2 mb-6 text-gray-600">
+                We include authentication, content management, administration, Tailwind styles,
+                and fluid email templates so that you can build your app as quickly as possible.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="w-full md:w-4/12 px-4 text-center">
+          <div
+            class="relative flex flex-col min-w-0 break-words bg-white w-full h-full mb-6 shadow-lg rounded-lg"
+          >
+            <div class="px-4 py-6 flex-auto">
+              <div
+                class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-6 shadow-lg rounded-full bg-blue-400"
+              >
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <h6 class="text-xl font-semibold">Hyper-scalable</h6>
+              <p class="mt-2 mb-6 text-gray-600">
+                Legendary is built on top of Phoenix and Elixir, so it can handle millions of connections without a problem.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="w-full md:w-4/12 px-4 text-center">
+          <div
+            class="relative flex flex-col min-w-0 break-words bg-white w-full h-full mb-6 shadow-lg rounded-lg"
+          >
+            <div class="px-4 py-6 flex-auto">
+              <div
+                class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-green-400"
+              >
+                <i class="fas fa-toolbox"></i>
+              </div>
+              <h6 class="text-xl font-semibold">Flexible Toolbox</h6>
+              <p class="mt-2 mb-6 text-gray-600">
+                We used our years of experience building Phoenix applications at scale to design Legendary with everything you need.
+                But we stay out of your way while you create your application.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-wrap items-center mt-32">
+        <h2 class="w-full text-3xl text-center">
+          Features
+        </h2>
+        <div class="w-full border-gray-400 border-t-2 border-b-2 py-12 px-4 mt-12 flex">
+          <div class="lg:w-1/2 mr-12">
+            <h1 class="text-2xl">Authentication</h1>
+            <p class="text-xl mt-6">
+              Look, you don't want to build yet another auth system. You want to build an application. Authentication
+              is a solved problem. With Legendary you don't need to reinvent the wheel.
+            </p>
+          </div>
+          <div class="lg:w-1/2">
+            <img src="/images/auth.svg" />
+          </div>
+        </div>
+        <div class="w-full border-gray-400  border-b-2 py-12 px-4 flex">
+          <div class="lg:w-1/2">
+            <img src="/images/content.svg" />
+          </div>
+          <div class="lg:w-1/2 ml-12">
+            <h1 class="text-2xl">Content Management</h1>
+            <p class="text-xl mt-6">
+              Legendary comes with a simple content management system for building custom pages and blog posts. Don't
+              get stuck building simple content pages when your development talent is better spent elsewhere.
+          </div>
+        </div>
+        <div class="w-full border-gray-400 border-b-2 py-12 px-4 flex">
+          <div class="lg:w-1/2 mr-12">
+            <h1 class="text-2xl">Admin Dashboard</h1>
+            <p class="text-xl mt-6">
+              There are plenty of tasks that don't require custom code. Legendary integrates the Kaffy admin dashboard 
+              so that you can focus on what is unique to your application instead of churning out CRUD or editing database
+              rows by hand.
+            </p>
+          </div>
+          <div class="lg:w-1/2">
+            <img src="/images/dashboard.svg" />
+          </div>
+        </div>
+        <div class="w-full border-gray-400 border-b-2 py-12 px-4 flex">
+          <div class="lg:w-1/2">
+            <img src="/images/tailwind.svg" />
+          </div>
+          <div class="lg:w-1/2 ml-12">
+            <h1 class="text-2xl">Tailwind CSS</h1>
+            <p class="text-xl mt-6">
+            Tailwind is a rad CSS framework that gives you the building blocks you need to implement
+            any design, without fighting a super-opinionated CSS framework.
+            </p>
+          </div>
+        </div>
+        <div class="w-full border-gray-400 py-12 px-4 pb-24 flex">
+          <div class="lg:w-1/2">
+            <h1 class="text-2xl">Battle-tested Fluid Email Templates</h1>
+            <p class="text-xl mt-6">
+            HTML email is hard. But it's also a solved problem. We include an HTML email template and toolkit that has been
+            tested across all the major email clients from mobile to desktop. You probably didn't get into this to code yet
+            another email template. So don't. Use ours.
+            </p>
+          </div>
+          <div class="lg:w-1/2">
+            <img src="/images/email.svg" />
+          </div>
+        </div>
       </div>
     </div>
-    <div class="seven wide column">
-      <h4 class="ui inverted header">Footer Header</h4>
-      <p>Extra space for a call to action inside the footer that could help re-engage users.</p>
+  </section>
+  <section class="bg-gray-100 py-12 pb-32">
+      <div class="relative mx-auto">
+        <div class="items-center flex flex-wrap">
+          <div class="w-full lg:w-8/12 px-4 ml-auto mr-auto text-center">
+            <h1 class="text-purple-600 font-semibold text-4xl">
+              What are you waiting for?
+            </h1>
+          </div>
+          <div class="w-full lg:w-8/12 px-4 ml-auto mr-auto text-center my-12">
+            <%= styled_button_link "Log In", to: AuthWeb.Router.Helpers.pow_session_path(%URI{path: "/auth"}, :new) %>
+            <%= styled_button_link "Sign Up", to: AuthWeb.Router.Helpers.pow_registration_path(%URI{path: "/auth"}, :new) %>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
+  </section>
+</main>

@@ -1,8 +1,7 @@
-import '../semantic/src/semantic.less';
 // We need to import the CSS so that webpack will load it.
 // The MiniCssExtractPlugin is used to separate it out into
 // its own CSS file.
-import "../css/app.scss"
+import "../css/app.css"
 
 // webpack automatically bundles all modules in your
 // entry points. Those entry points can be configured
@@ -38,11 +37,21 @@ const toggleSidebar = (event) => {
 }
 
 ready(() => {
+  document.getElementById('nav-toggle').onclick = function(){
+    document.getElementById("nav-content").classList.toggle("hidden");
+  }
+
   document.querySelectorAll('.js-passwordRevealer').forEach((el) => {
     el.addEventListener('click', togglePasswordFieldVisibility)
   })
 
   document.querySelectorAll('.js-SidebarOpener').forEach((el) => {
     el.addEventListener('click', toggleSidebar)
+  })
+
+  document.querySelectorAll('.js-flash-closer').forEach((el) => {
+    el.addEventListener('click', () => {
+      el.closest('.js-flash').remove()
+    })
   })
 })

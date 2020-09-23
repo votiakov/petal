@@ -17,16 +17,17 @@ module.exports = (env, options) => {
         new OptimizeCSSAssetsPlugin({})
       ]
     },
+    mode: options.mode,
+    devtool: devMode ? 'source-map' : undefined,
     entry: {
       'app': glob.sync('./vendor/**/*.js').concat(['./js/app.js']),
       'content-editor': ['./js/content-editor.js'],
+      'tailwind': ['./tailwind.config.js'],
     },
     output: {
-      filename: '[name].js',
-      path: path.resolve(__dirname, '../priv/static/js'),
-      publicPath: '/js/'
+      filename: 'js/[name].js',
+      path: path.resolve(__dirname, '../priv/static/')
     },
-    devtool: devMode ? 'source-map' : undefined,
     module: {
       rules: [
         // For images and fonts found in our scss files
@@ -44,8 +45,13 @@ module.exports = (env, options) => {
         },
         {
           test: /\.(woff2?|ttf|eot|svg)(\?[a-z0-9\=\.]+)?$/,
-          exclude: [nodeModulesPath],
           loader: 'file-loader',
+          options: {
+            publicPath: '/fonts',
+            outputPath: (url, resourcePath, context) => {
+              return `/fonts/${url}`;
+            },
+          }
         },
         {
           test: /\.js$/,
@@ -55,24 +61,11 @@ module.exports = (env, options) => {
           }
         },
         {
-          test: /\.[s]?css$/,
+          test: /\.css$/,
           use: [
-            MiniCssExtractPlugin.loader,
-            'css-loader',
-            'sass-loader',
-          ],
-        },
-        {
-          test: /\.less$/,
-          use: [
-            MiniCssExtractPlugin.loader,
+            {loader: MiniCssExtractPlugin.loader, options: {sourceMap: true}},
             {loader: 'css-loader', options: {sourceMap: true}},
-            {
-              loader: 'less-loader',
-              options: {
-                sourceMap: true,
-              },
-            },
+            {loader: 'postcss-loader', options: {sourceMap: true}},
           ],
         },
       ]
@@ -82,12 +75,30 @@ module.exports = (env, options) => {
         filename: 'css/[name].css',
         chunkFilename: '[id].css',
       }),
-      new CopyWebpackPlugin([{ from: 'static/', to: '../' }])
+      new CopyWebpackPlugin([
+        {
+          from: path.resolve(__dirname, 'static'),
+          to: path.resolve(__dirname, '../priv/static'),
+        },
+      ]),
     ],
     resolve: {
       alias: {
-        "../../theme.config$": path.join(__dirname, "/semantic-ui/theme.config"),
-        "../semantic-ui/site": path.join(__dirname, "/semantic-ui/site")
+        "../webfonts/fa-brands-400.eot": path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.eot"),
+        "../webfonts/fa-brands-400.woff2": path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.woff2"),
+        "../webfonts/fa-brands-400.woff": path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.woff"),
+        "../webfonts/fa-brands-400.ttf": path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.ttf"),
+        "../webfonts/fa-brands-400.svg": path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.svg"),
+        "../webfonts/fa-regular-400.eot": path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.eot"),
+        "../webfonts/fa-regular-400.woff2": path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff2"),
+        "../webfonts/fa-regular-400.woff": path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff"),
+        "../webfonts/fa-regular-400.ttf": path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.ttf"),
+        "../webfonts/fa-regular-400.svg": path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.svg"),
+        "../webfonts/fa-solid-900.eot": path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.eot"),
+        "../webfonts/fa-solid-900.woff2": path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2"),
+        "../webfonts/fa-solid-900.woff": path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff"),
+        "../webfonts/fa-solid-900.ttf": path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.ttf"),
+        "../webfonts/fa-solid-900.svg": path.resolve(__dirname, "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.svg"),
       }
     },
   }

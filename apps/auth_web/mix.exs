@@ -64,6 +64,7 @@ defmodule AuthWeb.MixProject do
       setup: ["deps.get", "cmd npm install --prefix assets"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "ecto.migrate": [],
+      "npm.install": [],
     ]
   end
 end

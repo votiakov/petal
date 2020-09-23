@@ -1,25 +1,16 @@
-<div class="ui middle aligned center aligned grid">
-  <div class="column">
-    <h2 class="ui teal image header">
-      <div class="content">
-        Reset Password
-      </div>
-    </h2>
-    <%= flash_block(@conn) %>
-    <%= changeset_error_block(@changeset) %>
-    <%= form_for @changeset, @action, [as: :user, class: "ui large form"], fn f -> %>
-      <div class="ui stacked left aligned segment">
-        <%= styled_input f, :email, [placeholder: "joe@example.org", icon: "user"] %>
-      </div>
-      <%= submit "Reset My Password", class: "ui fluid large teal submit button" %>
+<%= floating_page_wrapper do %>
+  <%= floating_form "Reset Password", @changeset do %>
+    <%= form_for @changeset, @action, [as: :user], fn f -> %>
+      <%= styled_input f, :email, [placeholder: "joe@example.org"] %>
+      <%= styled_button "Reset My Password" %>
     <% end %>
+  <% end %>
 
-    <div class="ui message">
-      Remembered your password? <span><%= link "Sign in", to: Routes.pow_session_path(@conn, :new) %></span>
-    </div>
-
-    <div class="ui message">
-      New to us? <span><%= link "Register", to: Routes.pow_registration_path(@conn, :new) %></span>
-    </div>
+  <div class="w-full relative min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-500 border-0 py-6 px-4">
+    Remembered your password? <span><%= link "Sign in", to: Routes.pow_session_path(@conn, :new), class: "text-blue-100" %></span>
   </div>
-</div>
+
+  <div class="w-full relative min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-500 border-0 py-6 px-4">
+    New to us? <span><%= link "Register", to: Routes.pow_registration_path(@conn, :new), class: "text-blue-100" %></span>
+  </div>
+<% end %>

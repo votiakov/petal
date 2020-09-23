@@ -53,7 +53,6 @@ defmodule Content.PostAdmin do
       sticky: nil,
       comment_status: %{choices: [{"open", :open}, {"closed", :closed}]},
       ping_status: %{choices: [{"open", :open}, {"closed", :closed}]},
-      password: nil,
       menu_order: nil,
     ]
   end

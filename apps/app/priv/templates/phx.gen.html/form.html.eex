@@ -1,10 +1,10 @@
-<%%= form_for @changeset, @action, [class: "ui large form"], fn f -> %>
-  <div class="ui stacked left aligned segment">
+<%%= form_for @changeset, @action, [], fn f -> %>
+  <div>
 <%= for input <- Mix.Legendary.inputs(schema) do %>
     <%= input %>
 <% end %>
     <div>
-      <%%= submit "Save", class: "ui primary fluid large submit button" %>
+      <%%= styled_button "Save" %>
     </div>
   </div>
 <%% end %>

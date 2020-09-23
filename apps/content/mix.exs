@@ -42,7 +42,7 @@ defmodule Content.MixProject do
       {:auth, in_umbrella: true},
       {:auth_web, in_umbrella: true},
       {:core, in_umbrella: true},
-      {:earmark, "~> 1.4.2" },
+      {:earmark, "1.4.3"},
       {:excoveralls, "~> 0.10", only: [:dev, :test]},
       {:floki, "~> 0.25.0"},
       {:gettext, "~> 0.11"},
@@ -77,7 +77,8 @@ defmodule Content.MixProject do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate", "test"],
+      "npm.install": [],
     ]
   end
 end

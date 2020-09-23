@@ -1,19 +1,15 @@
-<div class="ui top padded container">
-  <div class="ui grid">
-    <div class="row">
-      <div class="eight wide column">
-        <h1 class="ui header">Edit <%= schema.human_singular %></h1>
-      </div>
-      <div class="eight wide right aligned column">
-        <span><%%= link "Back", to: Routes.<%= schema.route_helper %>_path(@conn, :index), class: "ui button" %></span>
-      </div>
+<div class="p-6 mx-auto max-w-2xl">
+  <div class="flex pb-6">
+    <div class="w-/12 flex-1 text-4xl">
+      <h1>Edit <%= schema.human_singular %></h1>
     </div>
+    <div class="w-/12 text-4xl text-right">
+      <%%= styled_button_link "Back", to: Routes.<%= schema.route_helper %>_path(@conn, :index)%>
+    </div>
+  </div>
 
-    <div class="centered row">
-      <div class="center aligned column">
-        <%%= changeset_error_block(@changeset) %>
-        <%%= render "form.html", Map.put(assigns, :action, Routes.<%= schema.route_helper %>_path(@conn, :update, @<%= schema.singular %>)) %>
-      </div>
-    </div>
+  <%%= changeset_error_block(@changeset) %>
+  <div class="bg-white shadow rounded px-4 py-6 bg-gray-300">
+    <%%= render "form.html", Map.put(assigns, :action, Routes.<%= schema.route_helper %>_path(@conn, :update, @<%= schema.singular %>)) %>
   </div>
 </div>
