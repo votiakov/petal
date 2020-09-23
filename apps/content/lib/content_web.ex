@@ -42,8 +42,7 @@ defmodule Content do
 
       def process_content(text) do
         text
-        |> Content.Shortcodes.expand_shortcodes()
-        |> Earmark.as_html!()
+        |> Earmark.as_html!(encode: false)
       end
 
       # Include shared imports and aliases for views

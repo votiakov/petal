@@ -42,7 +42,7 @@ defmodule Content.MixProject do
       {:auth, in_umbrella: true},
       {:auth_web, in_umbrella: true},
       {:core, in_umbrella: true},
-      {:earmark, "~> 1.4.2" },
+      {:earmark, "1.4.3"},
       {:excoveralls, "~> 0.10", only: [:dev, :test]},
       {:floki, "~> 0.25.0"},
       {:gettext, "~> 0.11"},

@@ -1,13 +1,13 @@
-<article class="max-w-lg mx-auto <%= post_class(@post) %> h-entry py-12">
+<article class="max-w-xl mx-auto <%= post_class(@post) %> h-entry py-12">
   <div>
-    <h1 class="text-4xl">
+    <h1 class="text-4xl font-bold">
       <%= link to: Routes.posts_path(@conn, :show, @post), class: "u-url" do %>
         <%= raw @post.title %>
       <% end %>
     </h1>
     <%= post_topmatter(@conn, @post) %>
   </div>
-  <div class="<%= if @post.format, do: @post.format.slug %> e-content py-12">
+  <div class="<%= if @post.format, do: @post.format.slug %> e-content py-12 Article-content">
     <%= render "thumb.html", post: @post, thumbs: @thumbs %>
     <%= @post |> Content.Post.content_page(@page) |> process_content |> raw %>
     <%= case @post.categories || [] do %>
@@ -24,17 +24,21 @@
     <% end %>
   </div>
   <%= render "pagination.html", conn: @conn, post: @post, current_page: @page %>
-  <%= if @post.comment_status == "open" do %>
-    <h3 class="text-3xl">Comments</h3>
-    <%= render "comments.html", post: @post, parent_id: 0, conn: @conn %>
-    <%=
-      render "reply_form.html",
-        comment_changeset: comment_changeset_for_post(@post),
-        post: @post,
-        conn: @conn
-    %>
-  <% end %>
 </article>
+<%= if @post.comment_status == "open" do %>
+  <div class="w-full bg-gray-800 py-12">
+    <div class="max-w-xl mx-auto">
+      <h3 class="text-3xl text-white">Comments</h3>
+      <%= render "comments.html", post: @post, parent_id: 0, conn: @conn %>
+      <%=
+        render "reply_form.html",
+          comment_changeset: comment_changeset_for_post(@post),
+          post: @post,
+          conn: @conn
+      %>
+    </div>
+  </div>
+<% end %>
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script>
 <script charset="UTF-8"

@@ -156,6 +156,7 @@ defmodule CoreWeb.Helpers do
     end
   end
 
+  @spec floating_form(any, atom | %{action: any}, [{:do, any}, ...]) :: {:safe, [...]}
   def floating_form(title, changeset, do: content) do
     ~E"""
     <h1 class="relative text-white text-xl font-semibold text-center pb-6"><%= title %></h1>

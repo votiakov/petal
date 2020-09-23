@@ -1,6 +1,6 @@
 <%= for post <- @posts do %>
-  <article class="max-w-lg mx-auto <%= post_class(post) %> h-entry py-12">
-    <h1 class="text-4xl">
+  <article class="max-w-xl mx-auto <%= post_class(post) %> h-entry py-12">
+    <h1 class="text-4xl font-bold">
       <%= link to: Routes.posts_path(@conn, :show, post), class: "u-url" do %>
         <%= raw post.title %>
       <% end %>
@@ -9,7 +9,7 @@
     <div class="Article-content <%= if post.format, do: post.format.slug %> e-content">
       <%= render "thumb.html", post: post, thumbs: @thumbs %>
       <div class="Article-content-words">
-        <%= raw post |> Content.Post.content_page(1) |> Content.Post.before_more |> process_content |> raw %>
+        <%= raw post |> Content.Post.content_page(1) |> Content.Post.before_more |> process_content |> () |> raw %>
         <%= if post.content =~ "<!--more-->" do %>
           <p>
             <%= link "Keep Reading", to: Routes.posts_path(@conn, :show, post) %>
@@ -34,7 +34,7 @@
   </article>
 <% end %>
 
-<nav class="max-w-lg mx-auto flex justify-center">
+<nav class="max-w-xl mx-auto flex justify-center">
   <div class="flex shadow rounded">
     <%= paginator(1..@last_page, @page, fn first..last, page ->
       link page, 
