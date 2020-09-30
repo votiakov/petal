@@ -38,7 +38,7 @@ defmodule Content.MarkupFieldTest do
   end
 
   test "render_form/5 makes a field with a simplemde data attribute" do
-    safe = render_form(nil, nil, form, :boop, %{})
+    safe = render_form(nil, nil, form(), :boop, %{})
 
     assert safe_to_string(safe) =~ "data-simplemde"
   end

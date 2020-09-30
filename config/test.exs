@@ -31,6 +31,13 @@ config :content, Content.Repo,
   hostname: System.get_env("DATABASE_URL") || "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
 
+config :core, Core.Repo,
+  username: "postgres",
+  password: "postgres",
+  database: "legendary_test#{System.get_env("MIX_TEST_PARTITION")}",
+  hostname: System.get_env("DATABASE_URL") || "localhost",
+  pool: Ecto.Adapters.SQL.Sandbox
+
 config :admin, Admin.Repo,
   username: "postgres",
   password: "postgres",
@@ -57,5 +64,10 @@ config :content, Content.Endpoint,
   http: [port: 4002],
   server: false
 
+config :core, AppWeb.Endpoint,
+  http: [port: 4002],
+  server: false
 
 config :core, CoreMailer, adapter: Bamboo.TestAdapter
+
+config :logger, level: :warn
