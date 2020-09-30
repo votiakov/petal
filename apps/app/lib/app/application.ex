@@ -10,6 +10,8 @@ defmodule App.Application do
       App.Repo,
       # Start the Telemetry supervisor
       AppWeb.Telemetry,
+      # Set up the pubsub server
+      {Phoenix.PubSub, name: App.PubSub},
       # Start the Endpoint (http/https)
       AppWeb.Endpoint
       # Start a worker by calling: AppWeb.Worker.start_link(arg)

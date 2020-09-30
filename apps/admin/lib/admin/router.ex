@@ -7,7 +7,6 @@ defmodule Admin.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-    plug :put_layout, {CoreWeb.LayoutView, :app}
   end
 
   pipeline :require_admin do
@@ -18,5 +17,5 @@ defmodule Admin.Router do
     plug :accepts, ["json"]
   end
 
-  use Kaffy.Routes, scope: "/", pipe_through: [:require_admin]
+  use Admin.Routes
 end

@@ -9,7 +9,7 @@
     <div class="Article-content <%= if post.format, do: post.format.slug %> e-content">
       <%= render "thumb.html", post: post, thumbs: @thumbs %>
       <div class="Article-content-words">
-        <%= raw post |> Content.Post.content_page(1) |> Content.Post.before_more |> process_content |> () |> raw %>
+        <%= raw post |> Content.Post.content_page(1) |> Content.Post.before_more |> process_content |> raw %>
         <%= if post.content =~ "<!--more-->" do %>
           <p>
             <%= link "Keep Reading", to: Routes.posts_path(@conn, :show, post) %>

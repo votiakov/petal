@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title><%= title(@view_module, @view_template, assigns) %></title>
+    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+    <%= feed_tag(@conn, @view_module, @view_template, assigns) %>
+    <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+  </head>
+  <body class="text-gray-800 antialiased">
+    <main role="main">
+      <!-- Page Contents -->
+      <div class="bg-gray-100 min-h-screen">
+        <%= flash_block(@conn) %>
+
+        <%= @inner_content %>
+      </div>
+    </main>
+  </body>
+</html>

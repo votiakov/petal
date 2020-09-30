@@ -5,5 +5,4 @@ defmodule AuthWeb.EmailView do
     pattern: "**/*"
 
   import Phoenix.HTML, only: [raw: 1]
-  import CoreWeb.EmailHelpers
 end

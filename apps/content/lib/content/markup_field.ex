@@ -29,7 +29,7 @@ defmodule Content.MarkupField do
     """
   end
 
-  def render_index(conn, resource, field, _opts) do
+  def render_index(_conn, resource, field, _opts) do
     case Map.get(resource, field) do
       nil ->
         ""
