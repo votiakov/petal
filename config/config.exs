@@ -1,67 +1,44 @@
 use Mix.Config
 
-# Configures the endpoint
-config :app, AppWeb.Endpoint,
+[
+  {:admin, Admin, false},
+  {:app, AppWeb, true},
+  {:auth_web, AuthWeb, false},
+  {:content, Content, false},
+  {:core, CoreWeb, false},
+]
+|> Enum.map(fn {otp_app, module, start_server} ->
+  endpoint = Module.concat(module, "Endpoint")
+  error_view = Module.concat(module, "ErrorView")
+
+  config otp_app, endpoint,
   url: [host: "localhost"],
   secret_key_base: "r2eN53mJ9RmlGz9ZQ7xf43P3Or59aaO9rdf5D3hRcsuiH44pGW9kPGfl5mt9N1Gi",
-  render_errors: [view: AppWeb.ErrorView, accepts: ~w(html json), layout: false],
+  render_errors: [view: error_view, accepts: ~w(html json), layout: false],
   pubsub_server: App.PubSub,
-  live_view: [signing_salt: "g5ltUbnQ"]
+  live_view: [signing_salt: "g5ltUbnQ"],
+  server: start_server
+end)
 
-config :admin, Admin.Endpoint,
-  url: [host: "localhost"],
-  secret_key_base: "r2eN53mJ9RmlGz9ZQ7xf43P3Or59aaO9rdf5D3hRcsuiH44pGW9kPGfl5mt9N1Gi",
-  render_errors: [view: Admin.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: Admin.PubSub,
-  live_view: [signing_salt: "g5ltUbnQ"]
+[
+  {:admin, Admin.Repo},
+  {:app, App.Repo},
+  {:auth, Auth.Repo},
+  {:auth_web, Auth.Repo, :auth},
+  {:content, Content.Repo},
+  {:core, Core.Repo},
+]
+|> Enum.map(fn
+  {otp_app, repo} ->
+    config otp_app,
+      ecto_repos: [repo],
+      generators: [context_app: otp_app]
 
-config :auth_web, AuthWeb.Endpoint,
-  url: [host: "localhost"],
-  secret_key_base: "cjtU4RvTirW4yJZDkdqZJmaj7bvaQRrX6mevkoGYqzEuMujV/Q0w3utlO5+FUsUj",
-  render_errors: [view: AuthWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: AuthWeb.PubSub,
-  live_view: [signing_salt: "AwljJYaY"]
-
-config :content, Content.Endpoint,
-  url: [host: "localhost"],
-  secret_key_base: "kNJbLKCmuZYSK99S55+DmirA2TlmOxzs/xz3xnlXtOhQCoBMmYRabaRLTXkcsw5d",
-  render_errors: [view: Content.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: Content.PubSub,
-  live_view: [signing_salt: "Nb8V5NUr"]
-
-config :core, CoreWeb.Endpoint,
-  url: [host: "localhost"],
-  secret_key_base: "kNJbLKCmuZYSK99S55+DmirA2TlmOxzs/xz3xnlXtOhQCoBMmYRabaRLTXkcsw5d",
-  render_errors: [view: CoreWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: Core.PubSub,
-  live_view: [signing_salt: "Nb8V5NUr"]
-
-config :content, Content.Endpoint, server: false
-config :auth_web, AuthWeb.Endpoint, server: false
-config :admin, Admin.Endpoint, server: false
-config :app, CoreWeb.Endpoint, server: false
-
-# Configure Mix tasks and generators
-config :admin,
-  ecto_repos: [Admin.Repo],
-  generators: [context_app: false]
-
-config :app,
-  ecto_repos: [App.Repo],
-  generators: [context_app: :app]
-
-config :auth,
-  ecto_repos: [Auth.Repo]
-
-config :auth_web,
-  ecto_repos: [Auth.Repo],
-  generators: [context_app: :auth]
-
-config :content,
-  ecto_repos: [Content.Repo]
-
-config :core,
-  ecto_repos: [Core.Repo]
+  {otp_app, repo, context_app} ->
+    config otp_app,
+      ecto_repos: [repo],
+      generators: [context_app: context_app]
+end)
 
 config :auth_web, :pow,
   user: Auth.User,
@@ -73,11 +50,6 @@ config :auth_web, :pow,
   web_module: AuthWeb
 
 config :core, email_from: "example@example.org"
-
-config :content,
-  generators: [context_app: false]
-
-import_config "../apps/*/config/config.exs"
 
 # Configures Elixir's Logger
 config :logger, :console,
