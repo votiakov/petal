@@ -11,7 +11,7 @@ config :core,
   ecto_repos: [Core.Repo]
 
 # Configures the endpoint
-config :core, CoreWeb.Endpoint,
+config :core, AppWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "kNJbLKCmuZYSK99S55+DmirA2TlmOxzs/xz3xnlXtOhQCoBMmYRabaRLTXkcsw5d",
   render_errors: [view: CoreWeb.ErrorView, accepts: ~w(html json), layout: false],

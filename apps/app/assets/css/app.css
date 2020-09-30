@@ -9,6 +9,10 @@
 @import "blog";
 @import "code";
 
+body {
+  outline: 1px pink solid;
+}
+
 input[type="checkbox"]::after {
   content: "";
   color: currentColor;

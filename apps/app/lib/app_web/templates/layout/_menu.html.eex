@@ -20,16 +20,16 @@
       <% end %>
       <%= if Pow.Plug.current_user(@conn) do %>
         <li class="mr-3">
-          <%= link "Sign Out", to: AuthWeb.Router.Helpers.pow_session_path(%URI{path: "/auth"}, :delete), method: :delete, class: "inline-block text-white  no-underline hover:text-white hover:text-underline py-2 px-4" %>
+          <%= link "Sign Out", to: Routes.pow_session_path(@conn, :delete), method: :delete, class: "inline-block text-white  no-underline hover:text-white hover:text-underline py-2 px-4" %>
         </li>
       <% else %>
         <li class="mr-3">
-          <%= link to: AuthWeb.Router.Helpers.pow_session_path(%URI{path: "/auth"}, :new), class: "inline-block text-white  no-underline hover:text-white hover:text-underline py-2 px-4" do %>
+          <%= link to: Routes.pow_session_path(@conn, :new), class: "inline-block text-white  no-underline hover:text-white hover:text-underline py-2 px-4" do %>
             Log In
           <% end %>
         </li>
         <li class="mr-3">
-          <%= link to: AuthWeb.Router.Helpers.pow_registration_path(%URI{path: "/auth"}, :new), class: "inline-block text-white  no-underline hover:text-white hover:text-underline py-2 px-4" do %>
+          <%= link to: Routes.pow_registration_path(@conn, :new), class: "inline-block text-white  no-underline hover:text-white hover:text-underline py-2 px-4" do %>
             Sign Up
           <% end %>
         </li>

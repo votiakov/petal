@@ -29,7 +29,7 @@ config :app, AppWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "r2eN53mJ9RmlGz9ZQ7xf43P3Or59aaO9rdf5D3hRcsuiH44pGW9kPGfl5mt9N1Gi",
   render_errors: [view: AppWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: AppWeb.PubSub,
+  pubsub_server: App.PubSub,
   live_view: [signing_salt: "g5ltUbnQ"]
 
 # Configure Mix tasks and generators
@@ -67,14 +67,7 @@ config :content, Content.Endpoint,
 config :admin,
   ecto_repos: [Admin.Repo]
 
-config :core,
-  router_forwards: [
-    {Content.Router, "/pages"},
-    {AuthWeb.Router, "/auth"},
-    {Admin.Router, "/admin"},
-    {AppWeb.Router, "/app"},
-  ],
-  email_from: "example@example.org"
+config :core, email_from: "example@example.org"
 
 config :content,
   generators: [context_app: false]
@@ -82,7 +75,7 @@ config :content,
 config :content, Content.Endpoint, server: false
 config :auth_web, AuthWeb.Endpoint, server: false
 config :admin, Admin.Endpoint, server: false
-config :app, AppWeb.Endpoint, server: false
+config :app, CoreWeb.Endpoint, server: false
 
 import_config "../apps/*/config/config.exs"
 

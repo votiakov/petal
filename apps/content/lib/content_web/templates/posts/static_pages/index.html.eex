@@ -20,8 +20,8 @@
           </div>
         </div>
         <div class="w-full lg:w-8/12 px-4 ml-auto mr-auto text-center my-12">
-          <%= styled_button_link "Log In", to: AuthWeb.Router.Helpers.pow_session_path(%URI{path: "/auth"}, :new) %>
-          <%= styled_button_link "Sign Up", to: AuthWeb.Router.Helpers.pow_registration_path(%URI{path: "/auth"}, :new) %>
+          <%= styled_button_link "Log In", to: "/session/new" %>
+          <%= styled_button_link "Sign Up", to: "/registration/new" %>
         </div>
       </div>
     </div>
@@ -160,8 +160,8 @@
             </h1>
           </div>
           <div class="w-full lg:w-8/12 px-4 ml-auto mr-auto text-center my-12">
-            <%= styled_button_link "Log In", to: AuthWeb.Router.Helpers.pow_session_path(%URI{path: "/auth"}, :new) %>
-            <%= styled_button_link "Sign Up", to: AuthWeb.Router.Helpers.pow_registration_path(%URI{path: "/auth"}, :new) %>
+            <%= styled_button_link "Log In", to: "/session/new" %>
+            <%= styled_button_link "Sign Up", to: "/registration/new" %>
           </div>
         </div>
       </div>

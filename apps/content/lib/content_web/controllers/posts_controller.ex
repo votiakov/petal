@@ -77,8 +77,14 @@ defmodule Content.PostsController do
       e in Phoenix.Template.UndefinedError ->
         case e do
           %{template: ^path} ->
+            router =
+              case conn do
+                %{private: %{phoenix_router: router}} -> router
+                _ -> Content.Router
+              end
+
             # The static page we're looking for is missing, so this is just a 404
-            raise Phoenix.Router.NoRouteError.exception(conn: conn, router: Content.Router)
+            raise Phoenix.Router.NoRouteError.exception(conn: conn, router: router)
           _ ->
             # We aren't missing the static page, we're missing a partial. This is probably
             # a developer error, so bubble it up

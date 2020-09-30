@@ -1,5 +1,10 @@
 defmodule AppWeb.Router do
   use AppWeb, :router
+  use Pow.Phoenix.Router
+  use Pow.Extension.Phoenix.Router,
+    extensions: [PowResetPassword, PowEmailConfirmation]
+
+  alias AuthWeb.Plugs.{RequireAdmin}
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -7,11 +12,19 @@ defmodule AppWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-    plug :put_layout, {CoreWeb.LayoutView, :app}
+    plug :put_layout, {AppWeb.LayoutView, :app}
   end
 
   pipeline :api do
     plug :accepts, ["json"]
+  end
+
+  pipeline :require_admin do
+    plug(RequireAdmin)
+  end
+
+  pipeline :require_auth do
+    plug Pow.Plug.RequireAuthenticated, error_handler: Pow.Phoenix.PlugErrorHandler
   end
 
   # Other scopes may use custom stacks.
@@ -33,5 +46,17 @@ defmodule AppWeb.Router do
       pipe_through :browser
       live_dashboard "/dashboard", metrics: AppWeb.Telemetry
     end
+
+    forward "/sent_emails", Bamboo.SentEmailViewerPlug
   end
+
+  scope "/" do
+    pipe_through :browser
+
+    pow_routes()
+    pow_extension_routes()
+  end
+
+  use Admin.Routes
+  use Content.Routes
 end

@@ -49,10 +49,9 @@ defmodule CoreWeb.Helpers do
   def styled_input(f, field, opts \\ [], options \\ nil, block_list \\ []) do
     {content, _} = Keyword.pop(block_list, :do, "")
     {type, rest_opts} = Keyword.pop(opts, :type, input_type(f, field))
-    {icon, rest_opts} = Keyword.pop(rest_opts, :icon, "")
     {classes, rest_opts} = Keyword.pop(rest_opts, :class, default_classes_for_type(type))
     {label_text, rest_opts} = Keyword.pop(rest_opts, :label)
-    {input_helper, rest_opts} = Keyword.pop(rest_opts, :input_helper, input_type(f, field))
+    {input_helper, _rest_opts} = Keyword.pop(rest_opts, :input_helper, input_type(f, field))
 
     error_classes =
       if Keyword.get_values(f.errors, field) |> Enum.any?() do
@@ -112,11 +111,11 @@ defmodule CoreWeb.Helpers do
     """
   end
 
-  defp do_styled_input_tag(type, input_helper, f, field, nil, opts, classes, error_classes) do
+  defp do_styled_input_tag(_type, input_helper, f, field, nil, opts, classes, error_classes) do
     apply(Phoenix.HTML.Form, input_helper, [f, field, opts ++ [class: Enum.join([classes, error_classes], " ")]])
   end
 
-  defp do_styled_input_tag(type, input_helper, f, field, options, opts, classes, error_classes) do
+  defp do_styled_input_tag(_type, input_helper, f, field, options, opts, classes, error_classes) do
     apply(Phoenix.HTML.Form, input_helper, [f, field, options, opts ++ [class: Enum.join([classes, error_classes], " ")]])
   end
 
