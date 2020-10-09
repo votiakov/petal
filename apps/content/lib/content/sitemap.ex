@@ -6,11 +6,20 @@ defmodule Content.Sitemaps do
   alias Content.{Endpoint, Post, Posts, Repo,  Router.Helpers, Terms}
   import Ecto.Query
 
+  require Logger
+
+  use Oban.Worker
+
   use Sitemap,
     host: "https://#{Application.get_env(:content, Endpoint)[:url][:host]}",
     files_path: "tmp/sitemap/",
     public_path: "",
     adapter: Content.SitemapStorage
+
+  @impl Oban.Worker
+  def perform(_job) do
+    generate()
+  end
 
   def generate do
     create do
@@ -21,7 +30,7 @@ defmodule Content.Sitemaps do
         |> where([p], p.type not in ["nav_menu_item", "attachment"])
         |> Repo.all()
 
-        for post <- posts do
+      for post <- posts do
         add Helpers.posts_path(Endpoint, :show, post), priority: 0.5, changefreq: "hourly", expires: nil
         page_count = Post.content_page_count(post)
         if page_count > 1 do
@@ -41,5 +50,9 @@ defmodule Content.Sitemaps do
 
     # notify search engines (currently Google and Bing) of the updated sitemap
     if Mix.env() == :prod, do: ping()
+
+    Logger.info "Sitemap generated."
+
+    :ok
   end
 end

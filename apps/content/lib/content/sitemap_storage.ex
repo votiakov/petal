@@ -4,7 +4,7 @@ defmodule Content.SitemapStorage do
     the sitemap as an attachment post into the system, so that the CMS will
     serve it up.
   """
-  alias Content.{Endpoint, Post, Repo, Router.Helpers, User}
+  alias Content.{Endpoint, Post, Repo, Router.Helpers}
   alias Ecto.Changeset
   alias Sitemap.{Location}
   import Ecto.Query
