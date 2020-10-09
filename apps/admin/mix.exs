@@ -39,7 +39,6 @@ defmodule Admin.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:auth_web, in_umbrella: true},
       {:core, in_umbrella: true},
       {:ecto_sql, "~> 3.4"},
       {:excoveralls, "~> 0.10", only: [:dev, :test]},

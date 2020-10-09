@@ -39,8 +39,6 @@ defmodule Content.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:auth, in_umbrella: true},
-      {:auth_web, in_umbrella: true},
       {:core, in_umbrella: true},
       {:earmark, "1.4.3"},
       {:excoveralls, "~> 0.10", only: [:dev, :test]},

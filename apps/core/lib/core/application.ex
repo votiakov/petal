@@ -14,7 +14,7 @@ defmodule Core.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Core.PubSub},
       # Start the Endpoint (http/https)
-      CoreWeb.Endpoint
+      CoreWeb.Endpoint,
       # Start a worker by calling: Core.Worker.start_link(arg)
       # {Core.Worker, arg}
     ]

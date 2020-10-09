@@ -56,7 +56,7 @@ defmodule AppWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
-  plug Pow.Plug.Session, otp_app: :auth_web
+  plug Pow.Plug.Session, otp_app: :core
   plug PowPersistentSession.Plug.Cookie
   plug AppWeb.Router
 end

@@ -3,7 +3,7 @@ use Mix.Config
 [
   {:admin, Admin, false},
   {:app, AppWeb, true},
-  {:auth_web, AuthWeb, false},
+  {:core, AuthWeb, false},
   {:content, Content, false},
   {:core, CoreWeb, false},
 ]
@@ -12,19 +12,17 @@ use Mix.Config
   error_view = Module.concat(module, "ErrorView")
 
   config otp_app, endpoint,
-  url: [host: "localhost"],
-  secret_key_base: "r2eN53mJ9RmlGz9ZQ7xf43P3Or59aaO9rdf5D3hRcsuiH44pGW9kPGfl5mt9N1Gi",
-  render_errors: [view: error_view, accepts: ~w(html json), layout: false],
-  pubsub_server: App.PubSub,
-  live_view: [signing_salt: "g5ltUbnQ"],
-  server: start_server
+    url: [host: "localhost"],
+    secret_key_base: "r2eN53mJ9RmlGz9ZQ7xf43P3Or59aaO9rdf5D3hRcsuiH44pGW9kPGfl5mt9N1Gi",
+    render_errors: [view: error_view, accepts: ~w(html json), layout: false],
+    pubsub_server: App.PubSub,
+    live_view: [signing_salt: "g5ltUbnQ"],
+    server: start_server
 end)
 
 [
   {:admin, Admin.Repo},
   {:app, App.Repo},
-  {:auth, Auth.Repo},
-  {:auth_web, Auth.Repo, :auth},
   {:content, Content.Repo},
   {:core, Core.Repo},
 ]
@@ -40,9 +38,9 @@ end)
       generators: [context_app: context_app]
 end)
 
-config :auth_web, :pow,
+config :core, :pow,
   user: Auth.User,
-  repo: Auth.Repo,
+  repo: Core.Repo,
   extensions: [PowEmailConfirmation, PowPersistentSession, PowResetPassword],
   controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks,
   mailer_backend: AuthWeb.Pow.Mailer,

@@ -5,7 +5,7 @@ use Mix.Config
 [
   {:admin, Admin},
   {:app, AppWeb},
-  {:auth_web, AuthWeb},
+  {:core, AuthWeb},
   {:content, Content},
   {:core, CoreWeb},
 ]
@@ -24,7 +24,6 @@ end)
 [
   {:admin, Admin.Repo},
   {:app, App.Repo},
-  {:auth, Auth.Repo},
   {:content, Content.Repo},
   {:core, Core.Repo}
 ]
