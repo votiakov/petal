@@ -16,9 +16,9 @@ defmodule Content.Application do
       # Start the endpoint when the application starts
       # Start your own worker by calling: Content.Worker.start_link(arg1, arg2, arg3)
       # worker(Content.Worker, [arg1, arg2, arg3]),
-      worker(Content.Scheduler, []),
       Content.Telemetry,
       Content.Endpoint,
+      {Oban, oban_config()},
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
@@ -32,5 +32,10 @@ defmodule Content.Application do
   def config_change(changed, _new, removed) do
     Content.Endpoint.config_change(changed, removed)
     :ok
+  end
+
+  # Conditionally disable crontab, queues, or plugins here.
+  defp oban_config do
+    Application.get_env(:content, Oban)
   end
 end

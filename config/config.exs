@@ -53,6 +53,7 @@ config :core, email_from: "example@example.org"
 
 # Configures Elixir's Logger
 config :logger, :console,
+  level: :debug,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
@@ -61,9 +62,12 @@ config :phoenix, :json_library, Jason
 
 config :linguist, pluralization_key: :count
 
-config :content, Content.Scheduler,
-  jobs: [
-    {"@hourly", {Content.Sitemaps, :generate, []}}
+config :content,
+  Oban,
+  repo: Content.Repo,
+  queues: [default: 10],
+  crontab: [
+    {"0 * * * *", Content.Sitemaps},
   ]
 
 import_config "email_styles.exs"
