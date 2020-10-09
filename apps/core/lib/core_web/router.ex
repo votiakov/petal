@@ -1,5 +1,8 @@
 defmodule CoreWeb.Router do
   use CoreWeb, :router
+  use Pow.Phoenix.Router
+  use Pow.Extension.Phoenix.Router,
+    extensions: [PowResetPassword, PowEmailConfirmation]
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -11,6 +14,13 @@ defmodule CoreWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+  end
+
+  scope "/" do
+    pipe_through :browser
+
+    pow_routes()
+    pow_extension_routes()
   end
 
   if Mix.env() in [:dev, :test] do

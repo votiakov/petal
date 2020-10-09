@@ -1,12 +1,12 @@
-defmodule CoreWeb do
+defmodule AuthWeb do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, views, channels and so on.
 
   This can be used in your application as:
 
-      use CoreWeb, :controller
-      use CoreWeb, :view
+      use AuthWeb, :controller
+      use AuthWeb, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -19,7 +19,7 @@ defmodule CoreWeb do
 
   def controller do
     quote do
-      use Phoenix.Controller, namespace: CoreWeb
+      use Phoenix.Controller, namespace: AuthWeb
 
       import Plug.Conn
       import CoreWeb.Gettext
@@ -30,9 +30,8 @@ defmodule CoreWeb do
   def view do
     quote do
       use Phoenix.View,
-        root: "lib/core_web/templates",
-        namespace: CoreWeb,
-        pattern: "**/*"
+        root: "lib/auth_web/templates",
+        namespace: AuthWeb
 
       # Import convenience functions from controllers
       import Phoenix.Controller,

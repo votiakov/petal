@@ -187,7 +187,7 @@ defmodule CoreWeb.Helpers do
   end
 
   def pow_extension_enabled?(extension) do
-    {extensions, _rest} = Application.get_env(:auth_web, :pow) |> Keyword.pop(:extensions, [])
+    {extensions, _rest} = Application.get_env(:core, :pow) |> Keyword.pop(:extensions, [])
 
     Enum.any?(extensions, & &1 == extension)
   end
