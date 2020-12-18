@@ -4,8 +4,7 @@
   "description": "The Legendary Phoenix Boilerplate.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "semantic-release": "semantic-release"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -20,7 +19,7 @@
   "devDependencies": {
     "@semantic-release/commit-analyzer": "^6.1.0",
     "@semantic-release/git": "^7.0.8",
-    "semantic-release": "^15.13.3",
+    "semantic-release": "^15.14.0",
     "semantic-release-docker": "^2.2.0"
   },
   "release": {
