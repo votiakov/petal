@@ -1,0 +1,41 @@
+{
+  "name": "@mythic-insight/legendary",
+  "version": "0.0.0-development",
+  "description": "The Legendary Phoenix Boilerplate.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/mythic-insight/legendary.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://gitlab.com/mythic-insight/legendary/issues"
+  },
+  "homepage": "https://gitlab.com/mythic-insight/legendary#readme",
+  "devDependencies": {
+    "@semantic-release/commit-analyzer": "^6.1.0",
+    "@semantic-release/git": "^7.0.8",
+    "semantic-release": "^15.14.0",
+    "semantic-release-docker": "^2.2.0"
+  },
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/git",
+      {
+        "path": "semantic-release-docker",
+        "registryUrl": "registry.gitlab.com/mythic-insight/legendary"
+      }
+    ],
+    "publish": [
+      {
+        "path": "semantic-release-docker",
+        "name": "registry.gitlab.com/mythic-insight/legendary"
+      }
+    ]
+  }
+}
