@@ -11,8 +11,15 @@ variables:
   DATABASE_URL: "postgres"
   MIX_ENV: "test"
 
-services: 
+services:
 - name: postgres:12
 
 tests:
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build --pull -t gitlab.com/mythic-insight/legendary/legendary .
+
   script: script/cibuild
+
+build:
+  script: npm run semantic-release
