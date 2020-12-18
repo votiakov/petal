@@ -1,4 +1,7 @@
-image: "elixir:1.10"
+stages:
+  - build
+  - test
+  - deploy
 
 cache:
   paths:
@@ -14,12 +17,19 @@ variables:
 services:
 - name: postgres:12
 
-tests:
-  before_script:
+build:
+  stage: build
+  image: "docker"
+  script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker build --pull -t gitlab.com/mythic-insight/legendary/legendary .
 
+test:
+  stage: test
+  image: "elixir:1.10"
   script: script/cibuild
 
-build:
+deploy:
+  stage: deploy
+  image: "node:current-alpine"
   script: npm run semantic-release
