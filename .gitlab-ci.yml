@@ -20,9 +20,9 @@ services:
 build:
   stage: build
   image: "docker"
+  services:
+    - docker:19.03.12-dind
   script:
-    - echo $CI_REGISTRY
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker build --pull -t $CI_REGISTRY_IMAGE .
 
 test:
@@ -33,4 +33,7 @@ test:
 deploy:
   stage: deploy
   image: "node:current-alpine"
-  script: npm run semantic-release
+  script:
+    - echo $CI_REGISTRY
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - npm run semantic-release
