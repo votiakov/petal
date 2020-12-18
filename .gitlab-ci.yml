@@ -21,8 +21,8 @@ build:
   stage: build
   image: "docker"
   script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker build --pull -t gitlab.com/mythic-insight/legendary/legendary .
+    - docker login -u $CI_JOB_USER -p $CI_JOB_TOKEN $CI_REGISTRY
+    - docker build --pull -t registry.gitlab.com/mythic-insight/legendary/legendary .
 
 test:
   stage: test
