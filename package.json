@@ -28,13 +28,13 @@
       "@semantic-release/git",
       {
         "path": "semantic-release-docker",
-        "registryUrl": "registry.gitlab.com/mythic-insight/legendary/legendary"
+        "registryUrl": "registry.gitlab.com/mythic-insight/legendary"
       }
     ],
     "publish": [
       {
         "path": "semantic-release-docker",
-        "name": "registry.gitlab.com/mythic-insight/legendary/legendary"
+        "name": "registry.gitlab.com/mythic-insight/legendary"
       }
     ]
   }
