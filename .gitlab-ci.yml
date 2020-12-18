@@ -1,6 +1,5 @@
 stages:
-  - build
-  - test
+  - prebuild_and_test
   - deploy
 
 cache:
@@ -17,8 +16,8 @@ variables:
 services:
 - name: postgres:12
 
-build:
-  stage: build
+prebuild:
+  stage: prebuild_and_test
   image: "docker"
   services:
     - docker:19.03.12-dind
@@ -26,13 +25,13 @@ build:
     - docker build --pull -t $CI_REGISTRY_IMAGE .
 
 test:
-  stage: test
+  stage: prebuild_and_test
   image: "elixir:1.10"
   script: script/cibuild
 
 deploy:
   stage: deploy
-  image: "node:current-alpine"
+  image: "circleci/node:14.5"
   script:
     - echo $CI_REGISTRY
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
