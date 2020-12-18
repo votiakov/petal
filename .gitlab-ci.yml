@@ -22,7 +22,8 @@ prebuild:
   services:
     - docker:19.03.12-dind
   script:
-    - docker build --pull -t $CI_REGISTRY_IMAGE .
+    - docker pull $CI_REGISTRY_IMAGE:latest || true
+    - docker build --cache-from $CI_REGISTRY_IMAGE:latest -t $CI_REGISTRY_IMAGE .
 
 test:
   stage: prebuild_and_test
@@ -34,6 +35,7 @@ deploy:
   image: "circleci/node:14.5"
   script:
     - echo $CI_REGISTRY
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - export DOCKER_USERNAME=$CI_REGISTRY_USER
+    - export DOCKER_PASSWORD=$CI_REGISTRY_PASSWORD
     - npm install
     - npx semantic-release
