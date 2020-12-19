@@ -35,6 +35,7 @@ deploy:
   stage: deploy
   image: "cimg/node:15.0"
   script:
+    - docker -v
     - npm install
     - echo "Attempting login to https://${CI_REGISTRY}"
     - docker login "https://${CI_REGISTRY}" -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
