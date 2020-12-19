@@ -13,6 +13,7 @@ variables:
   DATABASE_URL: "postgres"
   MIX_ENV: "test"
   DOCKER_TLS_CERTDIR: "/certs"
+  DOCKER_HOST: tcp://docker:2376
 
 services:
 - name: postgres:12
