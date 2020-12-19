@@ -1,5 +1,3 @@
-image: docker:19.03.12-dind
-
 stages:
   - prebuild_and_test
   - deploy
@@ -19,9 +17,6 @@ variables:
 services:
 - name: postgres:12
 - name: docker:19.03.12-dind
-
-before_script:
-  - docker info
 
 prebuild:
   stage: prebuild_and_test
