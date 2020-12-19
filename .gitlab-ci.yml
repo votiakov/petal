@@ -1,3 +1,7 @@
+stages:
+  - test
+  - deploy
+
 cache:
   paths:
     - _build
@@ -12,6 +16,7 @@ variables:
   DOCKER_HOST: tcp://docker:2376
 
 test:
+  stage: test
   needs: []
   image: "elixir:1.10"
   services:
@@ -19,6 +24,7 @@ test:
   script: script/cibuild
 
 deploy_to_tags:
+  stage: deploy
   needs: ['test']
   image: "node:15.0"
   script:
@@ -26,6 +32,7 @@ deploy_to_tags:
     - npx semantic-release
 
 deploy_to_registry:
+  stage: deploy
   needs: ['test']
   image: "docker:19.03.12"
   services:
