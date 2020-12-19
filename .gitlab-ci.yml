@@ -45,8 +45,9 @@ deploy_to_registry:
   stage: push_image
   image: "docker:19.03.12"
   services:
-  - name: docker:19.03.12-dind
-  only: tags
+    - name: docker:19.03.12-dind
+  only:
+    - tags
   script:
     - docker pull $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
     - docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
