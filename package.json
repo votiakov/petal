@@ -25,11 +25,7 @@
   "release": {
     "plugins": [
       "@semantic-release/commit-analyzer",
-      "@semantic-release/git",
-      {
-        "path": "semantic-release-docker",
-        "registryUrl": "https://registry.gitlab.com"
-      }
+      "@semantic-release/git"
     ],
     "publish": [
       {
