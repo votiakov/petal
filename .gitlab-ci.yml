@@ -33,7 +33,7 @@ test:
 
 deploy:
   stage: deploy
-  image: "cimg/node:15.4"
+  image: "cimg/node:15.0"
   script:
     - npm install
     - echo "Attempting login to https://${CI_REGISTRY}"
