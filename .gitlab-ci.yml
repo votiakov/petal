@@ -36,5 +36,6 @@ deploy:
   image: "circleci/node:14.5"
   script:
     - npm install
-    - docker login  $CI_REGISTRY -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
+    - echo "Attempting login to https://${CI_REGISTRY}"
+    - docker login "https://${CI_REGISTRY}" -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
     - npx semantic-release
