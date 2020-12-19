@@ -33,7 +33,7 @@ test:
 
 deploy:
   stage: deploy
-  image: "circleci/node:15.2"
+  image: "cimg/node:15.4"
   script:
     - npm install
     - echo "Attempting login to https://${CI_REGISTRY}"
