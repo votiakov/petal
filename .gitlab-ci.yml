@@ -1,3 +1,5 @@
+image: docker:19.03.12-dind
+
 stages:
   - prebuild_and_test
   - deploy
@@ -12,15 +14,18 @@ variables:
   POSTGRES_USER: "postgres"
   DATABASE_URL: "postgres"
   MIX_ENV: "test"
+  DOCKER_TLS_CERTDIR: "/certs"
 
 services:
 - name: postgres:12
+- name: docker:19.03.12-dind
+
+before_script:
+  - docker info
 
 prebuild:
   stage: prebuild_and_test
   image: "docker"
-  services:
-    - docker:19.03.12-dind
   script:
     - docker pull $CI_REGISTRY_IMAGE:latest || true
     - docker build --cache-from $CI_REGISTRY_IMAGE:latest -t $CI_REGISTRY_IMAGE .
