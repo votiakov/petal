@@ -1,6 +1,7 @@
 stages:
   - prebuild_and_test
-  - deploy
+  - tag
+  - push_image
 
 cache:
   paths:
@@ -15,28 +16,40 @@ variables:
   DOCKER_TLS_CERTDIR: "/certs"
   DOCKER_HOST: tcp://docker:2376
 
-services:
-- name: postgres:12
-- name: docker:19.03.12-dind
-
 prebuild:
   stage: prebuild_and_test
   image: docker:19.03.12
+  services:
+  - name: docker:19.03.12-dind
   script:
+    - docker login "https://${CI_REGISTRY}" -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
     - docker pull $CI_REGISTRY_IMAGE:latest || true
-    - docker build --cache-from $CI_REGISTRY_IMAGE:latest -t $CI_REGISTRY_IMAGE .
+    - docker build --cache-from $CI_REGISTRY_IMAGE:latest -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
 
 test:
   stage: prebuild_and_test
   image: "elixir:1.10"
+  services:
+  - name: postgres:12
   script: script/cibuild
 
-deploy:
-  stage: deploy
-  image: "cimg/node:15.0"
+deploy_to_tags:
+  stage: tag
+  image: "node:15.0"
   script:
-    - docker -v
     - npm install
-    - echo "Attempting login to https://${CI_REGISTRY}"
-    - docker login "https://${CI_REGISTRY}" -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
     - npx semantic-release
+
+deploy_to_registry:
+  stage: push_image
+  image: "docker:19.03.12"
+  services:
+  - name: docker:19.03.12-dind
+  only: tags
+  script:
+    - docker pull $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+    - docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
+    - docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA $CI_REGISTRY_IMAGE:latest
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
+    - docker push $CI_REGISTRY_IMAGE:latest
