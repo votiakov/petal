@@ -4,8 +4,8 @@ stages:
 
 cache:
   paths:
-    - _build
-    - deps
+    - _build/
+    - deps/
 
 variables:
   POSTGRES_PASSWORD: "postgres"
@@ -49,7 +49,7 @@ build_image_for_commit:
 
 deploy_commit_image_to_tag:
   stage: deploy
-  needs: ['test']
+  needs: ['test', 'build_image_for_commit']
   image: "docker:19.03.12"
   services:
     - name: docker:19.03.12-dind
