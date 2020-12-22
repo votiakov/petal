@@ -8,10 +8,6 @@ ENV MIX_HOME=/opt/mix
 RUN mix local.hex --force \
   && mix local.rebar --force
 
-WORKDIR /root/app
-
-ADD ./ /root/app/
-
 EXPOSE 4000
 
 ARG MIX_ENV=prod
@@ -19,8 +15,15 @@ RUN echo ${MIX_ENV}
 ENV MIX_ENV=$MIX_ENV
 ENV PORT=4000
 
+WORKDIR /root/app
+
+ADD ./mix.exs /root/app/mix.exs
+ADD ./mix.lock /root/app/mix.lock
 RUN mix deps.get
 RUN mix deps.compile
+
+ADD ./ /root/app/
+
 RUN MAKE=cmake mix compile
 RUN mix phx.digest
 
