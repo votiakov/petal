@@ -17,12 +17,18 @@ ENV PORT=4000
 
 WORKDIR /root/app
 
-ADD ./mix.exs /root/app/mix.exs
-ADD ./mix.lock /root/app/mix.lock
+ADD ./config /root/app/config
+ADD ./mix.exs /root/app/
+ADD ./mix.lock /root/app/
+ADD ./apps/admin/mix.exs /root/app/apps/admin/
+ADD ./apps/app/mix.exs /root/app/apps/app/
+ADD ./apps/content/mix.exs /root/app/apps/content/
+ADD ./apps/core/mix.exs /root/app/apps/core/
 RUN mix deps.get
 RUN mix deps.compile
 
-ADD ./ /root/app/
+ADD ./script /root/app/script
+ADD ./apps /root/app/apps
 
 RUN MAKE=cmake mix compile
 RUN mix phx.digest

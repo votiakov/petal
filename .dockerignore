@@ -1,4 +1,5 @@
 _build
+deps
 cover
 .elixir_ls
 *.dump
