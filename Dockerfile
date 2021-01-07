@@ -33,4 +33,4 @@ ADD ./apps /root/app/apps
 RUN MAKE=cmake mix compile
 RUN mix phx.digest
 
-CMD ["script/server"]
+CMD ["mix", "phx.server"]

@@ -27,6 +27,8 @@ deploy_to_tags:
   stage: deploy
   needs: ['test']
   image: "node:15.0"
+  only:
+    - master
   except:
     - tags
   script:
