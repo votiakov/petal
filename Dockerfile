@@ -1,4 +1,4 @@
-FROM elixir:1.8.0-alpine
+FROM elixir:1.8.0-alpine AS elixir1
 
 RUN apk add make gcc libc-dev
 
@@ -30,7 +30,21 @@ RUN mix deps.compile
 ADD ./script /root/app/script
 ADD ./apps /root/app/apps
 
-RUN mix phx.digest
 RUN MAKE=cmake mix compile
+
+FROM node:15.0
+
+WORKDIR /root/app/apps/app/assets/
+COPY --from=0 /root/app/apps/app/assets/ /root/app/apps/app/assets
+COPY --from=0 /root/app/deps/phoenix/ /root/app/apps/app/assets/node_modules/phoenix
+COPY --from=0 /root/app/deps/phoenix_html/ /root/app/apps/app/assets/node_modules/phoenix_html
+RUN npm install
+RUN npm run deploy
+
+FROM elixir1
+
+COPY --from=1 /root/app/apps/app/priv/static/ /root/app/apps/app/priv/static
+
+RUN mix phx.digest
 
 CMD ["mix", "phx.server"]

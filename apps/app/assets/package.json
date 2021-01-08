@@ -5,7 +5,6 @@
   "scripts": {
     "deploy": "webpack --mode production",
     "watch": "webpack --mode development --watch",
-    "preinstall": "npx npm-force-resolutions",
     "profile": "webpack --mode development --plugin webpack/lib/debug/ProfilingPlugin"
   },
   "dependencies": {
