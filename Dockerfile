@@ -35,9 +35,7 @@ RUN MAKE=cmake mix compile
 FROM node:15.0
 
 WORKDIR /root/app/apps/app/assets/
-COPY --from=0 /root/app/apps/app/assets/ /root/app/apps/app/assets
-COPY --from=0 /root/app/deps/phoenix/ /root/app/apps/app/assets/node_modules/phoenix
-COPY --from=0 /root/app/deps/phoenix_html/ /root/app/apps/app/assets/node_modules/phoenix_html
+COPY --from=0 /root/app/ /root/app/
 RUN npm install
 RUN npm run deploy
 
