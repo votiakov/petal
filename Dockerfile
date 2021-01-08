@@ -30,7 +30,7 @@ RUN mix deps.compile
 ADD ./script /root/app/script
 ADD ./apps /root/app/apps
 
-RUN MAKE=cmake mix compile
 RUN mix phx.digest
+RUN MAKE=cmake mix compile
 
 CMD ["mix", "phx.server"]
