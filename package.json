@@ -28,7 +28,16 @@
   },
   "release": {
     "plugins": [
-      "@semantic-release/commit-analyzer",
+      "@semantic-release/commit-analyzer"
+    ],
+    "prepare": [
+      "@semantic-release/npm",
+      [
+        "@semantic-release/exec",
+        {
+          "prepareCmd": "script/generate-kube"
+        }
+      ],
       [
         "@semantic-release/git",
         {
@@ -39,16 +48,6 @@
           ]
         }
       ]
-    ],
-    "prepare": [
-      "@semantic-release/npm",
-      [
-        "@semantic-release/exec",
-        {
-          "prepareCmd": "script/generate-kube"
-        }
-      ],
-      "@semantic-release/git"
     ],
     "publish": [
       {
