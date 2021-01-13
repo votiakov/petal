@@ -1,0 +1,15 @@
+#!/usr/bin/env node
+
+const fs = require("fs");
+const doT = require("dot");
+doT.templateSettings = {...doT.templateSettings, strip: false};
+
+const dots = doT.process({path: "./infrastructure"});
+
+var packageText = fs.readFileSync("package.json", {encoding: "utf8"});
+var packageConfig = JSON.parse(packageText);
+
+const {version} = packageConfig;
+const manifestText = dots.kube({version: version});
+
+fs.writeFileSync("infrastructure/kube.yml", manifestText);

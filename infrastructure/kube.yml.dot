@@ -1,0 +1,69 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: legendary
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: legendary
+  namespace: legendary
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: legendary
+  template:
+    metadata:
+      labels:
+        app: legendary
+    spec:
+      containers:
+        - name: app
+          image: registry.gitlab.com/mythic-insight/legendary:{{=it.version}}
+          ports:
+            - containerPort: 4000
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: database
+                  key: url
+            - name: SECRET_KEY_BASE
+              valueFrom:
+                secretKeyRef:
+                  name: legendary
+                  key: secret-key-base
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: legendary
+  namespace: legendary
+spec:
+  selector:
+    app: legendary
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 4000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: legendary
+  namespace: legendary
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - host: legendary-demo.mythicinsight.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: legendary
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
