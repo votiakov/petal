@@ -1,6 +1,6 @@
 {
   "name": "@mythic-insight/legendary",
-  "version": "1.0.12",
+  "version": "1.1.2",
   "private": true,
   "description": "The Legendary Phoenix Boilerplate.",
   "main": "index.js",
