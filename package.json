@@ -47,7 +47,8 @@
         {
           "prepareCmd": "script/generate-kube"
         }
-      ]
+      ],
+      "@semantic-release/git"
     ],
     "publish": [
       {
