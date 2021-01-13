@@ -1,0 +1,12 @@
+#!/usr/bin/env node
+
+const fs = require("fs");
+const doT = require("dot");
+
+var packageText = fs.readFileSync("package.json", {encoding: "utf8"});
+var packageConfig = JSON.parse(packageText);
+
+const {version} = packageConfig;
+const template = doT.template("BUILD_VERSION={{=it.version}}")
+
+fs.writeFileSync("build.env", template({version}));

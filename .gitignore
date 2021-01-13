@@ -37,3 +37,6 @@ node_modules
 Brewfile.lock.json
 
 config/*.secret.exs
+
+# Temporary CI build file
+build.env
