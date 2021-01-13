@@ -1,5 +1,6 @@
 stages:
   - test
+  - deploy_tags
   - deploy
 
 cache:
@@ -36,7 +37,7 @@ build_image_for_commit:
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
 
 deploy_to_tags:
-  stage: deploy
+  stage: deploy_tags
   needs: ['test']
   image: "node:15.0"
   only:
