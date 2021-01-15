@@ -4,7 +4,7 @@ const fs = require("fs");
 const doT = require("dot");
 doT.templateSettings = {...doT.templateSettings, strip: false};
 
-const dots = doT.process({path: "./infrastructure"});
+const dots = doT.process({path: "./infrastructure_templates"});
 
 var packageText = fs.readFileSync("package.json", {encoding: "utf8"});
 var packageConfig = JSON.parse(packageText);
