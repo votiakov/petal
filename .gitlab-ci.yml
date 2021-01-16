@@ -28,6 +28,8 @@ build_image_for_commit:
   stage: test
   needs: []
   image: "docker:19.03.12"
+  only:
+    - master
   services:
     - name: docker:19.03.12-dind
   script:
