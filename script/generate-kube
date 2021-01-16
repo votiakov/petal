@@ -12,4 +12,4 @@ var packageConfig = JSON.parse(packageText);
 const {version} = packageConfig;
 const manifestText = dots.kube({version: version});
 
-fs.writeFileSync("infrastructure/kube.yml", manifestText);
+fs.writeFileSync("infrastructure/kube.yaml", manifestText);
