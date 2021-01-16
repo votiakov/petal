@@ -10,6 +10,5 @@ var packageText = fs.readFileSync("package.json", {encoding: "utf8"});
 var packageConfig = JSON.parse(packageText);
 
 const {version} = packageConfig;
-const manifestText = dots.kube({version: version});
 
 fs.writeFileSync("infrastructure/kube.yaml", manifestText);
