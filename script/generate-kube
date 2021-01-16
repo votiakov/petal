@@ -11,6 +11,6 @@ var packageConfig = JSON.parse(packageText);
 
 const {version} = packageConfig;
 
-fs.writeFileSync("infrastructure/deployment.yml", dots.deployment({version: version}));
-fs.writeFileSync("infrastructure/service.yml", dots.service({version: version}));
-fs.writeFileSync("infrastructure/ingress.yml", dots.ingress({version: version}));
+fs.writeFileSync("infrastructure/deployment.yaml", dots.deployment({version: version}));
+fs.writeFileSync("infrastructure/service.yaml", dots.service({version: version}));
+fs.writeFileSync("infrastructure/ingress.yaml", dots.ingress({version: version}));
