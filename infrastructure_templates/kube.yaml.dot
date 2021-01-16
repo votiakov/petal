@@ -1,7 +1,13 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: legendary
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: legendary
+  namespace: legendary
 spec:
   replicas: 2
   selector:
@@ -28,3 +34,36 @@ spec:
                 secretKeyRef:
                   name: legendary
                   key: secret-key-base
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: legendary
+  namespace: legendary
+spec:
+  selector:
+    app: legendary
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 4000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: legendary
+  namespace: legendary
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - host: legendary-demo.mythicinsight.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: legendary
+            port:
+              number: 80
+        path: /
+        pathType: Prefix

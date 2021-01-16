@@ -43,7 +43,7 @@
         {
           "assets": [
             "package.json",
-            "infrastructure/kube.yml"
+            "infrastructure/kube.yaml"
           ]
         }
       ]
