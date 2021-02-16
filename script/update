@@ -8,6 +8,15 @@ DIR_PATH=$(dirname $FULL_PATH)
 
 $DIR_PATH/bootstrap
 
+ORIGIN=`git remote get-url origin || echo ''`
+FRAMEWORK=`git remote get-url framework || echo ''`
+
+if [ "$ORIGIN" == 'git@gitlab.com:mythic-insight/legendary.git' ] && [ "$FRAMEWORK" != 'git@gitlab.com:mythic-insight/legendary.git' ]; then
+  echo "Setting Legendary repo as 'framework' remote"
+  git remote add framework git@gitlab.com:mythic-insight/legendary.git
+  git remote remove origin
+fi;
+
 mix deps.get
 mix npm.install
 mix ecto.create
