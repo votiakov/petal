@@ -51,7 +51,7 @@
     "publish": [
       {
         "path": "semantic-release-docker",
-        "name": "registry.gitlab.com/mythic-insight/legendary"
+        "name": "${$CI_REGISTRY_IMAGE:-registry.gitlab.com/mythic-insight/legendary}"
       }
     ]
   }

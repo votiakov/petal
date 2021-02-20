@@ -46,7 +46,7 @@ deploy_to_tags:
     - master
   script:
     - npm install
-    - npx semantic-release
+    - npx semantic-release --repository-url=$CI_REPOSITORY_URL
     - script/generate-build-version
   artifacts:
     reports:
