@@ -32,10 +32,8 @@ end)
       ecto_repos: [repo],
       generators: [context_app: otp_app]
 
-  {otp_app, repo, context_app} ->
-    config otp_app,
-      ecto_repos: [repo],
-      generators: [context_app: context_app]
+    config otp_app, repo,
+      pool: Core.SharedDBConnectionPool
 end)
 
 config :core, :pow,
