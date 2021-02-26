@@ -1,4 +1,4 @@
-FROM elixir:1.8.0-alpine AS elixir1
+FROM elixir:1.10.4-alpine AS elixir1
 
 RUN apk add make gcc libc-dev
 
