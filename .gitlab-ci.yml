@@ -7,6 +7,8 @@ cache:
   paths:
     - _build/
     - deps/
+    - node_modules/
+    - apps/app/assets/node_modules/
 
 variables:
   POSTGRES_PASSWORD: "postgres"
@@ -19,7 +21,7 @@ variables:
 test:
   stage: test
   needs: []
-  image: "elixir:1.10"
+  image: "elixir:1.11.3-alpine"
   services:
   - name: postgres:12
   script: script/cibuild
