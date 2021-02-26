@@ -55,6 +55,7 @@ metadata:
   namespace: legendary
   annotations:
     kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt
 spec:
   rules:
   - host: legendary-demo.mythicinsight.com
@@ -67,3 +68,7 @@ spec:
               number: 80
         path: /
         pathType: Prefix
+  tls:
+  - hosts:
+    - legendary-demo.mythicinsight.com
+    secretName: legendary-demo-cert
