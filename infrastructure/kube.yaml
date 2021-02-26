@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: registry.gitlab.com/mythic-insight/legendary:1.3.4
+          image: registry.gitlab.com/mythic-insight/legendary:1.4.0
           ports:
             - containerPort: 4000
           env:
@@ -55,6 +55,7 @@ metadata:
   namespace: legendary
   annotations:
     kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt
 spec:
   rules:
   - host: legendary-demo.mythicinsight.com
@@ -67,3 +68,7 @@ spec:
               number: 80
         path: /
         pathType: Prefix
+  tls:
+  - hosts:
+    - legendary-demo.mythicinsight.com
+    secretName: legendary-demo-cert
