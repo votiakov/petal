@@ -21,7 +21,7 @@ variables:
 test:
   stage: test
   needs: []
-  image: "elixir:1.11.3-alpine"
+  image: "elixir:1.10"
   services:
   - name: postgres:12
   script: script/cibuild
