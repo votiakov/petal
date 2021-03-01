@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: registry.gitlab.com/mythic-insight/legendary:1.4.2
+          image: registry.gitlab.com/mythic-insight/legendary:1.5.0
           ports:
             - containerPort: 4000
           env:
