@@ -27,4 +27,13 @@ defmodule AuthWeb.Plugs.RequireAdminTest do
 
     assert !conn.halted
   end
+
+  test "call/2 with a user who is not admin", %{conn: conn} do
+    conn =
+      conn
+      |> Pow.Plug.assign_current_user(%User{roles: []}, [])
+      |> RequireAdmin.call([])
+
+    assert conn.halted
+  end
 end
