@@ -13,6 +13,7 @@ import "../css/app.css"
 //     import socket from "./socket"
 //
 import "phoenix_html"
+import "alpinejs"
 import { ready } from "./utils"
 
 function togglePasswordFieldVisibility()
@@ -22,7 +23,7 @@ function togglePasswordFieldVisibility()
     if (el.type == 'password')
     {
       el.type = 'text'
-    } 
+    }
     else
     {
       el.type = 'password'
