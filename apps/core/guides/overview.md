@@ -29,7 +29,7 @@ will be installed automatically using [brew](https://brew.sh/),
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
-## Application Development
+## Development
 
 Your main app lives in apps/app/ and that is where you will do most of your
 development there. This is a normal Phoenix application and you can develop it
