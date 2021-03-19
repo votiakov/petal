@@ -38,7 +38,6 @@ defmodule Legendary.Core.MixProject do
       package: [
         name: "legendary_core",
         maintainers: ["Robert Prehn"],
-        organization: "mythic_insight",
         licenses: ["MIT"],
         links: %{"GitLab" => "https://gitlab.com/mythic-insight/legendary"}
       ]
