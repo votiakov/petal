@@ -1,10 +1,10 @@
-defmodule Content.TermRelationship do
+defmodule Legendary.Content.TermRelationship do
   @moduledoc """
   Maintains the relationship between a term_taxonomy and a post / page / or object.
   """
   use Ecto.Schema
   import Ecto.Changeset
-  alias Content.{Post}
+  alias Legendary.Content.{Post}
 
   @primary_key {:object_id, :integer, []}
   @primary_key {:term_taxonomy_id, :integer, []}
@@ -12,21 +12,21 @@ defmodule Content.TermRelationship do
     field :term_order, :integer
     belongs_to :post, Post, foreign_key: :object_id, references: :id
     belongs_to :term_taxonomy,
-      Content.TermTaxonomy,
+      Legendary.Content.TermTaxonomy,
       foreign_key: :term_taxonomy_id,
       define_field: false
     belongs_to :category,
-      Content.TermTaxonomy,
+      Legendary.Content.TermTaxonomy,
       foreign_key: :term_taxonomy_id,
       define_field: false,
       where: [taxonomy: "category"]
     belongs_to :tag,
-      Content.TermTaxonomy,
+      Legendary.Content.TermTaxonomy,
       foreign_key: :term_taxonomy_id,
       define_field: false,
       where: [taxonomy: "post_tag"]
     belongs_to :format,
-      Content.TermTaxonomy,
+      Legendary.Content.TermTaxonomy,
       foreign_key: :term_taxonomy_id,
       define_field: false,
       where: [taxonomy: "post_format"]

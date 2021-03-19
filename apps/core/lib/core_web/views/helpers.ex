@@ -1,16 +1,16 @@
-defmodule CoreWeb.Helpers do
+defmodule Legendary.CoreWeb.Helpers do
   @moduledoc """
   HTML helpers for our styled (Fomantic UI) forms.
   """
   use Phoenix.HTML
 
   import Phoenix.Controller, only: [get_flash: 2]
-  import CoreWeb.ErrorHelpers
+  import Legendary.CoreWeb.ErrorHelpers
 
   def has_role?(conn = %Plug.Conn{}, role) do
     conn
     |> Pow.Plug.current_user()
-    |> Auth.Roles.has_role?(role)
+    |> Legendary.Auth.Roles.has_role?(role)
   end
 
   def changeset_error_block(changeset) do

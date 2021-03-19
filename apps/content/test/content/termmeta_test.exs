@@ -1,7 +1,7 @@
-defmodule Content.TermmetaTest do
-  use Content.DataCase
+defmodule Legendary.Content.TermmetaTest do
+  use Legendary.Content.DataCase
 
-  alias Content.{Repo, Termmeta}
+  alias Legendary.Content.{Repo, Termmeta}
 
   test "can save a new termmeta" do
     %Termmeta{}

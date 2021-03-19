@@ -1,9 +1,9 @@
-defmodule Content.Slugs do
+defmodule Legendary.Content.Slugs do
   @moduledoc """
   Provides functions for working with post slugs and ensuring that they are unique.
   """
   import Ecto.{Changeset, Query}
-  alias Content.{Post, Repo}
+  alias Legendary.Content.{Post, Repo}
 
   def ensure_post_has_slug(changeset) do
     cond do

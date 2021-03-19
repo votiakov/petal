@@ -1,10 +1,10 @@
-defmodule Content.Comment do
+defmodule Legendary.Content.Comment do
   @moduledoc """
   A comment on the site.
   """
   use Ecto.Schema
   import Ecto.Changeset
-  alias Content.{Post}
+  alias Legendary.Content.{Post}
 
   schema "comments" do
     belongs_to :post, Post

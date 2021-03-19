@@ -1,3 +1,3 @@
-defmodule Admin.PageControllerTest do
-  use Admin.ConnCase
+defmodule Legendary.Admin.PageControllerTest do
+  use Legendary.Admin.ConnCase
 end

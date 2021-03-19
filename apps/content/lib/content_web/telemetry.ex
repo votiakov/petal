@@ -1,4 +1,4 @@
-defmodule Content.Telemetry do
+defmodule Legendary.Content.Telemetry do
   @moduledoc """
   Collects metrics for the application and allows them to be transmitted using the Telemetry framework.
   """
@@ -52,7 +52,7 @@ defmodule Content.Telemetry do
     [
       # A module, function and arguments to be invoked periodically.
       # This function must call :telemetry.execute/3 and a metric must be added above.
-      # {Content, :count_users, []}
+      # {Legendary.Content, :count_users, []}
     ]
   end
 end

@@ -1,4 +1,4 @@
-defmodule Admin.Telemetry do
+defmodule Legendary.Admin.Telemetry do
   use Supervisor
   import Telemetry.Metrics
 
@@ -49,7 +49,7 @@ defmodule Admin.Telemetry do
     [
       # A module, function and arguments to be invoked periodically.
       # This function must call :telemetry.execute/3 and a metric must be added above.
-      # {Admin, :count_users, []}
+      # {Legendary.Admin, :count_users, []}
     ]
   end
 end

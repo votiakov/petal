@@ -1,5 +1,5 @@
-defmodule CoreWeb.ErrorView do
-  use CoreWeb, :view
+defmodule Legendary.CoreWeb.ErrorView do
+  use Legendary.CoreWeb, :view
 
   # If you want to customize a particular status code
   # for a certain format, you may uncomment below.

@@ -1,6 +1,6 @@
-defmodule Content.Router do
-  use Content, :router
-  alias AuthWeb.Plugs.{RequireAdmin}
+defmodule Legendary.Content.Router do
+  use Legendary.Content, :router
+  alias Legendary.AuthWeb.Plugs.{RequireAdmin}
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -22,5 +22,5 @@ defmodule Content.Router do
     plug Pow.Plug.RequireAuthenticated, error_handler: Pow.Phoenix.PlugErrorHandler
   end
 
-  use Content.Routes
+  use Legendary.Content.Routes
 end

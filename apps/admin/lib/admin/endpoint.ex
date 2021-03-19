@@ -1,4 +1,4 @@
-defmodule Admin.Endpoint do
+defmodule Legendary.Admin.Endpoint do
   use Phoenix.Endpoint, otp_app: :admin
 
   def init(_, config) do
@@ -17,7 +17,7 @@ defmodule Admin.Endpoint do
     signing_salt: "zGdDhvUt"
   ]
 
-  socket "/socket", Admin.UserSocket,
+  socket "/socket", Legendary.Admin.UserSocket,
     websocket: true,
     longpoll: false
 
@@ -58,5 +58,5 @@ defmodule Admin.Endpoint do
   plug Plug.Head
   plug Plug.Session, @session_options
   plug Pow.Plug.Session, otp_app: :admin
-  plug Admin.Router
+  plug Legendary.Admin.Router
 end

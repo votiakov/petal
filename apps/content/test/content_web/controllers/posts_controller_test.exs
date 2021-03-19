@@ -1,8 +1,7 @@
-defmodule Content.PostsControllerTest do
-  use Content.ConnCase
+defmodule Legendary.Content.PostsControllerTest do
+  use Legendary.Content.ConnCase
 
-  alias Content
-  alias Content.{Comment, Options, Posts, Repo, Term, TermRelationship, TermTaxonomy}
+  alias Legendary.Content.{Comment, Options, Posts, Repo, Term, TermRelationship, TermTaxonomy}
 
   @create_attrs %{
     id: 123,
@@ -66,8 +65,8 @@ defmodule Content.PostsControllerTest do
   def fixture(:posts) do
     {:ok, post} = Posts.create_posts(@create_attrs)
     {:ok, thumb} = Posts.create_posts(@thumb_attrs)
-    {:ok, _meta} = %Content.Postmeta{post_id: post.id, key: "_thumbnail_id", value: Integer.to_string(thumb.id)} |> Repo.insert()
-    {:ok, _option} = %Content.Option{name: "sticky_posts", value: "a:1:{i:0;i:123;}"} |> Repo.insert()
+    {:ok, _meta} = %Legendary.Content.Postmeta{post_id: post.id, key: "_thumbnail_id", value: Integer.to_string(thumb.id)} |> Repo.insert()
+    {:ok, _option} = %Legendary.Content.Option{name: "sticky_posts", value: "a:1:{i:0;i:123;}"} |> Repo.insert()
 
     post
   end
@@ -87,8 +86,8 @@ defmodule Content.PostsControllerTest do
 
   def fixture(:front_post) do
     {:ok, post} = Posts.create_posts(@create_attrs)
-    {:ok, _option} = %Content.Option{name: "show_on_front", value: "page"} |> Repo.insert()
-    {:ok, _option} = %Content.Option{name: "page_on_front", value: post.id |> Integer.to_string(10)} |> Repo.insert()
+    {:ok, _option} = %Legendary.Content.Option{name: "show_on_front", value: "page"} |> Repo.insert()
+    {:ok, _option} = %Legendary.Content.Option{name: "page_on_front", value: post.id |> Integer.to_string(10)} |> Repo.insert()
 
     post
   end

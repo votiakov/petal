@@ -1,7 +1,7 @@
-defmodule CoreWeb.ErrorHelpersTest do
-  use Core.DataCase
+defmodule Legendary.CoreWeb.ErrorHelpersTest do
+  use Legendary.Core.DataCase
 
-  import CoreWeb.ErrorHelpers
+  import Legendary.CoreWeb.ErrorHelpers
   import Phoenix.HTML, only: [safe_to_string: 1]
   import Phoenix.HTML.Form, only: [form_for: 3]
 

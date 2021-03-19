@@ -1,7 +1,7 @@
-defmodule Content.TermTaxonomyTest do
-  use Content.DataCase
+defmodule Legendary.Content.TermTaxonomyTest do
+  use Legendary.Content.DataCase
 
-  alias Content.{Repo, TermTaxonomy}
+  alias Legendary.Content.{Repo, TermTaxonomy}
 
   test "can save a new term taxonomy" do
     %TermTaxonomy{}

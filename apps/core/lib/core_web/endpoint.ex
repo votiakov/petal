@@ -1,4 +1,4 @@
-defmodule CoreWeb.Endpoint do
+defmodule Legendary.CoreWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :core
 
   def init(_, config) do
@@ -17,7 +17,7 @@ defmodule CoreWeb.Endpoint do
     signing_salt: "LSBaXPn+"
   ]
 
-  socket "/socket", CoreWeb.UserSocket,
+  socket "/socket", Legendary.CoreWeb.UserSocket,
     websocket: true,
     longpoll: false
 
@@ -65,5 +65,5 @@ defmodule CoreWeb.Endpoint do
   plug Plug.Session, @session_options
   plug Pow.Plug.Session, otp_app: :core
   plug PowPersistentSession.Plug.Cookie
-  plug CoreWeb.Router
+  plug Legendary.CoreWeb.Router
 end

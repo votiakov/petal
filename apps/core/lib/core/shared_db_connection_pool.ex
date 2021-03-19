@@ -1,4 +1,4 @@
-defmodule Core.SharedDBConnectionPool do
+defmodule Legendary.Core.SharedDBConnectionPool do
   @moduledoc """
   A shareable connection pool. We use this so that all the apps connecting to
   one database can use on connection pool, even if they have different repos.
@@ -18,7 +18,7 @@ defmodule Core.SharedDBConnectionPool do
 
   def child_spec({mod, opts}) do
     opts = Keyword.put_new(opts, :name, key(opts))
-    Supervisor.Spec.worker(Core.SharedDBConnectionPool, [{mod, opts}])
+    Supervisor.Spec.worker(Legendary.Core.SharedDBConnectionPool, [{mod, opts}])
   end
 
   defp key(opts) do
@@ -31,7 +31,7 @@ defmodule Core.SharedDBConnectionPool do
       end
       |> hash_opts()
 
-    String.to_atom("Core.SharedDBConnectionPool.#{key_hash}")
+    String.to_atom("Legendary.Core.SharedDBConnectionPool.#{key_hash}")
   end
 
   defp hash_opts(opts) do

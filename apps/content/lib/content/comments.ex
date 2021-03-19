@@ -1,10 +1,10 @@
-defmodule Content.Comments do
+defmodule Legendary.Content.Comments do
   @moduledoc """
   Functions for presenting comments on the site.
   """
   import Ecto.Query, warn: false
-  alias Content.Comment
-  alias Content.Repo
+  alias Legendary.Content.Comment
+  alias Legendary.Content.Repo
 
   def children(parent_id, array_of_comments) do
     array_of_comments

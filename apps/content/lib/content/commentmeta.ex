@@ -1,4 +1,4 @@
-defmodule Content.Commentmeta do
+defmodule Legendary.Content.Commentmeta do
   @moduledoc """
   A piece of metadata about a comment on the site.
   """

@@ -1,7 +1,7 @@
-defmodule Content.TermTest do
-  use Content.DataCase
+defmodule Legendary.Content.TermTest do
+  use Legendary.Content.DataCase
 
-  alias Content.{Repo, Term}
+  alias Legendary.Content.{Repo, Term}
 
   test "can save a new term" do
     %Term{}

@@ -1,10 +1,10 @@
-defmodule Content.FeedsView do
-  use Content, :view
+defmodule Legendary.Content.FeedsView do
+  use Legendary.Content, :view
   use Phoenix.HTML
   alias Phoenix.HTML
   alias Phoenix.HTML.Tag
 
-  import Content.LayoutView, only: [title: 3, excerpt: 3]
+  import Legendary.Content.LayoutView, only: [title: 3, excerpt: 3]
 
   def gravatar_url_for_email(email) do
     email
@@ -38,7 +38,7 @@ defmodule Content.FeedsView do
   def post_topmatter(conn, post) do
     author =
       post.author ||
-      %Auth.User{
+      %Legendary.Auth.User{
         email: "example@example.org",
         display_name: "Anonymous",
         homepage_url: "#"

@@ -1,9 +1,9 @@
-defmodule Content.Attachment do
+defmodule Legendary.Content.Attachment do
   @moduledoc """
   Helpers for dealing with "attachment"-type posts, which are generally media
   uploaded to the site e.g. images.
   """
-  alias Content.Post
+  alias Legendary.Content.Post
 
   def dimensions(attachment) do
     meta =

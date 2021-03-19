@@ -1,12 +1,12 @@
-defmodule CoreWeb do
+defmodule Legendary.CoreWeb do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, views, channels and so on.
 
   This can be used in your application as:
 
-      use CoreWeb, :controller
-      use CoreWeb, :view
+      use Legendary.CoreWeb, :controller
+      use Legendary.CoreWeb, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -19,11 +19,11 @@ defmodule CoreWeb do
 
   def controller do
     quote do
-      use Phoenix.Controller, namespace: CoreWeb
+      use Phoenix.Controller, namespace: Legendary.CoreWeb
 
       import Plug.Conn
-      import CoreWeb.Gettext
-      alias CoreWeb.Router.Helpers, as: Routes
+      import Legendary.CoreWeb.Gettext
+      alias Legendary.CoreWeb.Router.Helpers, as: Routes
     end
   end
 
@@ -31,7 +31,7 @@ defmodule CoreWeb do
     quote do
       use Phoenix.View,
         root: "lib/core_web/templates",
-        namespace: CoreWeb,
+        namespace: Legendary.CoreWeb,
         pattern: "**/*"
 
       # Import convenience functions from controllers
@@ -55,7 +55,7 @@ defmodule CoreWeb do
   def channel do
     quote do
       use Phoenix.Channel
-      import CoreWeb.Gettext
+      import Legendary.CoreWeb.Gettext
     end
   end
 
@@ -67,20 +67,20 @@ defmodule CoreWeb do
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
 
-      import CoreWeb.ErrorHelpers
-      import CoreWeb.Helpers
-      import CoreWeb.Gettext
-      alias CoreWeb.Router.Helpers, as: Routes
+      import Legendary.CoreWeb.ErrorHelpers
+      import Legendary.CoreWeb.Helpers
+      import Legendary.CoreWeb.Gettext
+      alias Legendary.CoreWeb.Router.Helpers, as: Routes
     end
   end
 
   def mailer_view do
     quote do
       use Phoenix.View, root: "lib/auth_web/templates",
-                        namespace: AuthWeb
+                        namespace: Legendary.AuthWeb
 
       use Phoenix.HTML
-      import CoreWeb.EmailHelpers
+      import Legendary.CoreWeb.EmailHelpers
     end
   end
 

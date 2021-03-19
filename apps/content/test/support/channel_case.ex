@@ -1,4 +1,4 @@
-defmodule Content.ChannelCase do
+defmodule Legendary.Content.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -11,7 +11,7 @@ defmodule Content.ChannelCase do
   we enable the SQL sandbox, so changes done to the database
   are reverted at the end of every test. If you are using
   PostgreSQL, you can even run database tests asynchronously
-  by setting `use Content.ChannelCase, async: true`, although
+  by setting `use Legendary.Content.ChannelCase, async: true`, although
   this option is not recommended for other databases.
   """
 
@@ -21,18 +21,18 @@ defmodule Content.ChannelCase do
     quote do
       # Import conveniences for testing with channels
       import Phoenix.ChannelTest
-      import Content.ChannelCase
+      import Legendary.Content.ChannelCase
 
       # The default endpoint for testing
-      @endpoint Content.Endpoint
+      @endpoint Legendary.Content.Endpoint
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Content.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Legendary.Content.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Content.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Legendary.Content.Repo, {:shared, self()})
     end
 
     :ok

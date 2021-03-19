@@ -1,7 +1,7 @@
-defmodule Content.PostmetaTest do
-  use Content.DataCase
+defmodule Legendary.Content.PostmetaTest do
+  use Legendary.Content.DataCase
 
-  alias Content.{Postmeta, Repo}
+  alias Legendary.Content.{Postmeta, Repo}
 
   test "can save a new postmeta" do
     %Postmeta{}

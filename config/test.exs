@@ -3,11 +3,11 @@ use Mix.Config
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
 [
-  {:admin, Admin},
+  {:admin, Legendary.Admin},
   {:app, AppWeb},
-  {:core, AuthWeb},
-  {:content, Content},
-  {:core, CoreWeb},
+  {:core, Legendary.AuthWeb},
+  {:content, Legendary.Content},
+  {:core, Legendary.CoreWeb},
 ]
 |> Enum.map(fn {otp_app, module} ->
   config otp_app, Module.concat(module, "Endpoint"),
@@ -22,10 +22,10 @@ end)
 # Run `mix help test` for more information.
 
 [
-  {:admin, Admin.Repo},
+  {:admin, Legendary.Admin.Repo},
   {:app, App.Repo},
-  {:content, Content.Repo},
-  {:core, Core.Repo}
+  {:content, Legendary.Content.Repo},
+  {:core, Legendary.Core.Repo}
 ]
 |> Enum.map(fn {otp_app, repo} ->
   config otp_app, repo,
@@ -36,7 +36,7 @@ end)
     pool: Ecto.Adapters.SQL.Sandbox
 end)
 
-config :core, CoreMailer, adapter: Bamboo.TestAdapter
+config :core, Legendary.CoreMailer, adapter: Bamboo.TestAdapter
 
 config :content, Oban, crontab: false, queues: false, plugins: false
 

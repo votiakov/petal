@@ -1,4 +1,4 @@
-defmodule Content.MarkupField do
+defmodule Legendary.Content.MarkupField do
   use Ecto.Type
   def type, do: :string
 
@@ -34,7 +34,7 @@ defmodule Content.MarkupField do
       nil ->
         ""
       text ->
-        Content.PostsView.process_content(text)
+        Legendary.Content.PostsView.process_content(text)
     end
   end
 end

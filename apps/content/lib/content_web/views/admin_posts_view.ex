@@ -1,3 +1,3 @@
-defmodule Content.AdminPostsView do
-  use Content, :view
+defmodule Legendary.Content.AdminPostsView do
+  use Legendary.Content, :view
 end

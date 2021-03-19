@@ -1,4 +1,4 @@
-defmodule CoreWeb.Telemetry do
+defmodule Legendary.CoreWeb.Telemetry do
   @moduledoc """
   Collects metrics for the application and allows them to be transmitted using the Telemetry framework.
   """
@@ -52,7 +52,7 @@ defmodule CoreWeb.Telemetry do
     [
       # A module, function and arguments to be invoked periodically.
       # This function must call :telemetry.execute/3 and a metric must be added above.
-      # {CoreWeb, :count_users, []}
+      # {Legendary.CoreWeb, :count_users, []}
     ]
   end
 end

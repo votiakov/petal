@@ -1,7 +1,7 @@
-defmodule Content.PostsController do
-  use Content, :controller
+defmodule Legendary.Content.PostsController do
+  use Legendary.Content, :controller
 
-  alias Content.{Options, Posts}
+  alias Legendary.Content.{Options, Posts}
 
   plug :put_layout, false when action in [:preview]
 
@@ -80,7 +80,7 @@ defmodule Content.PostsController do
             router =
               case conn do
                 %{private: %{phoenix_router: router}} -> router
-                _ -> Content.Router
+                _ -> Legendary.Content.Router
               end
 
             # The static page we're looking for is missing, so this is just a 404

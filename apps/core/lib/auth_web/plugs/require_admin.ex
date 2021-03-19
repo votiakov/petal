@@ -1,10 +1,10 @@
-defmodule AuthWeb.Plugs.RequireAdmin do
+defmodule Legendary.AuthWeb.Plugs.RequireAdmin do
   @moduledoc """
   A plug that returns 403 unauthorized if the user is not an admin. Used
   to block out logged-in-only routes.
   """
   import Plug.Conn
-  alias Auth.{Roles, User}
+  alias Legendary.Auth.{Roles, User}
 
   def init(opts) do
     opts

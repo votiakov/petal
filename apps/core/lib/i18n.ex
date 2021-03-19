@@ -1,4 +1,4 @@
-defmodule I18n do
+defmodule Legendary.I18n do
   @moduledoc """
   The internationalization and strings module. Keeps strings outside the codebase and allows them to
   be replaced on a per locale basis by editing yml files.

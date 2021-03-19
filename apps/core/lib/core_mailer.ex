@@ -1,4 +1,4 @@
-defmodule CoreMailer do
+defmodule Legendary.CoreMailer do
   @moduledoc """
   The base mailer for email for the application.
   """

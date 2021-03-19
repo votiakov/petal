@@ -1,3 +1,3 @@
-defmodule AuthWeb.PageViewTest do
-  use CoreWeb.ConnCase, async: true
+defmodule Legendary.AuthWeb.PageViewTest do
+  use Legendary.CoreWeb.ConnCase, async: true
 end

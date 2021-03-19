@@ -1,7 +1,7 @@
-defmodule Core.MapUtilsTest do
-  use Core.DataCase
+defmodule Legendary.Core.MapUtilsTest do
+  use Legendary.Core.DataCase
 
-  import Core.MapUtils
+  import Legendary.Core.MapUtils
 
   test "deep_merge/2" do
     assert deep_merge(

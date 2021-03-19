@@ -1,4 +1,4 @@
-defmodule Content.Terms do
+defmodule Legendary.Content.Terms do
   @moduledoc """
     This module contains functions for retrieving, manipulating, and saving
     Terms.
@@ -7,8 +7,8 @@ defmodule Content.Terms do
   import Ecto.Query
 
   def categories do
-    from t in Content.Term,
-      join: tt in Content.TermTaxonomy,
+    from t in Legendary.Content.Term,
+      join: tt in Legendary.Content.TermTaxonomy,
       on: t.id == tt.term_id,
       where: tt.taxonomy ==  "category"
   end

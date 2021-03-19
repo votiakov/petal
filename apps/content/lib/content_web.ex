@@ -1,12 +1,12 @@
-defmodule Content do
+defmodule Legendary.Content do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, views, channels and so on.
 
   This can be used in your application as:
 
-      use Content, :controller
-      use Content, :view
+      use Legendary.Content, :controller
+      use Legendary.Content, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -19,11 +19,11 @@ defmodule Content do
 
   def controller do
     quote do
-      use Phoenix.Controller, namespace: Content
+      use Phoenix.Controller, namespace: Legendary.Content
 
       import Plug.Conn
-      import Content.Gettext
-      alias Content.Router.Helpers, as: Routes
+      import Legendary.Content.Gettext
+      alias Legendary.Content.Router.Helpers, as: Routes
     end
   end
 
@@ -31,7 +31,7 @@ defmodule Content do
     quote do
       use Phoenix.View,
         root: "lib/content_web/templates",
-        namespace: Content,
+        namespace: Legendary.Content,
         pattern: "**/*"
 
       use PhoenixHtmlSanitizer, :basic_html
@@ -62,7 +62,7 @@ defmodule Content do
   def channel do
     quote do
       use Phoenix.Channel
-      import Content.Gettext
+      import Legendary.Content.Gettext
     end
   end
 
@@ -74,11 +74,11 @@ defmodule Content do
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
 
-      import CoreWeb.Helpers
+      import Legendary.CoreWeb.Helpers
 
-      import Content.ErrorHelpers
-      import Content.Gettext
-      alias Content.Router.Helpers, as: Routes
+      import Legendary.Content.ErrorHelpers
+      import Legendary.Content.Gettext
+      alias Legendary.Content.Router.Helpers, as: Routes
     end
   end
 

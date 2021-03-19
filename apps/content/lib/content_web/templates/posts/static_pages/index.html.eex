@@ -104,7 +104,7 @@
             <img src="/images/content.svg" />
           </div>
           <div class="lg:w-1/2 ml-12">
-            <h1 class="text-2xl">Content Management</h1>
+            <h1 class="text-2xl">Legendary.Content Management</h1>
             <p class="text-xl mt-6">
               Legendary comes with a simple content management system for building custom pages and blog posts. Don't
               get stuck building simple content pages when your development talent is better spent elsewhere.
@@ -112,9 +112,9 @@
         </div>
         <div class="w-full border-gray-400 border-b-2 py-12 px-4 flex">
           <div class="lg:w-1/2 mr-12">
-            <h1 class="text-2xl">Admin Dashboard</h1>
+            <h1 class="text-2xl">Legendary.Admin Dashboard</h1>
             <p class="text-xl mt-6">
-              There are plenty of tasks that don't require custom code. Legendary integrates the Kaffy admin dashboard 
+              There are plenty of tasks that don't require custom code. Legendary integrates the Kaffy admin dashboard
               so that you can focus on what is unique to your application instead of churning out CRUD or editing database
               rows by hand.
             </p>

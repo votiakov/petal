@@ -1,5 +1,5 @@
 <div>
-  <%= Enum.map(Content.Comments.children(@parent_id, @post.comments), fn comment -> %>
+  <%= Enum.map(Legendary.Content.Comments.children(@parent_id, @post.comments), fn comment -> %>
     <div class="rounded shadow bg-gray-200 px-4 py-6 my-6">
       <div class="flex pb-6 items-center">
         <img class="w-10 h-10 rounded-full mr-2" src="<%= comment.author_email |> gravatar_url_for_email %>" />

@@ -1,4 +1,4 @@
-defmodule Content.Postmeta do
+defmodule Legendary.Content.Postmeta do
   @moduledoc """
   An item of metadata about a post.
   """
@@ -6,7 +6,7 @@ defmodule Content.Postmeta do
   import Ecto.Changeset
 
   schema "postmeta" do
-    belongs_to :post, Content.Post
+    belongs_to :post, Legendary.Content.Post
     field :key, :string
     field :value, :string
   end

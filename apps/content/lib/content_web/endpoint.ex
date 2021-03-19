@@ -1,4 +1,4 @@
-defmodule Content.Endpoint do
+defmodule Legendary.Content.Endpoint do
   use Phoenix.Endpoint, otp_app: :content
 
   def init(_, config) do
@@ -17,7 +17,7 @@ defmodule Content.Endpoint do
     signing_salt: "wfYQp84C"
   ]
 
-  socket "/socket", Content.UserSocket,
+  socket "/socket", Legendary.Content.UserSocket,
     websocket: true,
     longpoll: false
 
@@ -58,5 +58,5 @@ defmodule Content.Endpoint do
   plug Plug.Head
   plug Plug.Session, @session_options
   plug Pow.Plug.Session, otp_app: :content
-  plug Content.Router
+  plug Legendary.Content.Router
 end

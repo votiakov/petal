@@ -1,4 +1,4 @@
-defmodule Core.Repo.Migrations.AddRolesToUsers do
+defmodule Legendary.Core.Repo.Migrations.AddRolesToUsers do
   use Ecto.Migration
 
   def change do

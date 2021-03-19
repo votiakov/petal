@@ -1,7 +1,7 @@
-defmodule Content.TermRelationshipTest do
-  use Content.DataCase
+defmodule Legendary.Content.TermRelationshipTest do
+  use Legendary.Content.DataCase
 
-  alias Content.{Repo, TermRelationship}
+  alias Legendary.Content.{Repo, TermRelationship}
 
   test "can save a new term relationship" do
     %TermRelationship{}

@@ -5,7 +5,7 @@ defmodule App.LayoutViewTest do
 
   describe "title/3" do
     def default_title do
-      I18n.t! "en", "site.title"
+      Legendary.I18n.t! "en", "site.title"
     end
 
     test "for nil" do
@@ -15,7 +15,7 @@ defmodule App.LayoutViewTest do
 
   describe "excerpt/3" do
     def default_excerpt do
-      I18n.t! "en", "site.excerpt"
+      Legendary.I18n.t! "en", "site.excerpt"
     end
 
     test "for nil" do

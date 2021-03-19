@@ -1,3 +1,3 @@
-defmodule CoreWeb.LayoutViewTest do
-  use CoreWeb.ConnCase, async: true
+defmodule Legendary.CoreWeb.LayoutViewTest do
+  use Legendary.CoreWeb.ConnCase, async: true
 end

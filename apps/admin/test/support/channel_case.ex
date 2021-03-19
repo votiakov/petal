@@ -1,4 +1,4 @@
-defmodule Admin.ChannelCase do
+defmodule Legendary.Admin.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -11,7 +11,7 @@ defmodule Admin.ChannelCase do
   we enable the SQL sandbox, so changes done to the database
   are reverted at the end of every test. If you are using
   PostgreSQL, you can even run database tests asynchronously
-  by setting `use Admin.ChannelCase, async: true`, although
+  by setting `use Legendary.Admin.ChannelCase, async: true`, although
   this option is not recommended for other databases.
   """
 
@@ -21,18 +21,18 @@ defmodule Admin.ChannelCase do
     quote do
       # Import conveniences for testing with channels
       import Phoenix.ChannelTest
-      import Admin.ChannelCase
+      import Legendary.Admin.ChannelCase
 
       # The default endpoint for testing
-      @endpoint Admin.Endpoint
+      @endpoint Legendary.Admin.Endpoint
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Admin.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Legendary.Admin.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Admin.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Legendary.Admin.Repo, {:shared, self()})
     end
 
     :ok

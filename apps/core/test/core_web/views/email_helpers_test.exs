@@ -1,7 +1,7 @@
-defmodule CoreWeb.EmailHelpersTest do
-  use Core.DataCase
+defmodule Legendary.CoreWeb.EmailHelpersTest do
+  use Legendary.Core.DataCase
 
-  import CoreWeb.EmailHelpers
+  import Legendary.CoreWeb.EmailHelpers
   import Phoenix.HTML, only: [safe_to_string: 1]
 
   test "framework_styles/0" do
@@ -92,6 +92,6 @@ defmodule CoreWeb.EmailHelpersTest do
   test "footer/0" do
     markup = safe_to_string(footer())
 
-    assert markup =~ I18n.t! "en", "email.company.name"
+    assert markup =~ Legendary.I18n.t! "en", "email.company.name"
   end
 end

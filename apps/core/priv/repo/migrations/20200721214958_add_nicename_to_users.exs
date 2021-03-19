@@ -1,4 +1,4 @@
-defmodule Core.Repo.Migrations.AddNicenameToUsers do
+defmodule Legendary.Core.Repo.Migrations.AddNicenameToUsers do
   use Ecto.Migration
 
   def change do

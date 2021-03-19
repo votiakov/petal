@@ -1,3 +1,3 @@
-defmodule Content.AdminHomeView do
-  use Content, :view
+defmodule Legendary.Content.AdminHomeView do
+  use Legendary.Content, :view
 end

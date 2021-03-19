@@ -1,9 +1,9 @@
-defmodule Content.PostsView do
-  use Content, :view
+defmodule Legendary.Content.PostsView do
+  use Legendary.Content, :view
   use Phoenix.HTML
   import Plug.Conn
-  alias Content.Comment
-  alias Content.Post
+  alias Legendary.Content.Comment
+  alias Legendary.Content.Post
   alias Phoenix.HTML
   alias Phoenix.HTML.Tag
 
@@ -59,7 +59,7 @@ defmodule Content.PostsView do
   def post_topmatter(conn, post) do
     author =
       post.author ||
-      %Auth.User{
+      %Legendary.Auth.User{
         email: "example@example.org",
         display_name: "Anonymous",
         homepage_url: "#"

@@ -1,3 +1,3 @@
-defmodule Admin.PageView do
-  use Admin, :view
+defmodule Legendary.Admin.PageView do
+  use Legendary.Admin, :view
 end

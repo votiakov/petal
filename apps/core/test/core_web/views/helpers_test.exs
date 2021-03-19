@@ -1,7 +1,7 @@
-defmodule CoreWeb.HelpersTest do
-  use CoreWeb.ConnCase
+defmodule Legendary.CoreWeb.HelpersTest do
+  use Legendary.CoreWeb.ConnCase
 
-  import CoreWeb.Helpers
+  import Legendary.CoreWeb.Helpers
   import Ecto.Changeset,
     only: [cast: 3, validate_required: 2, apply_action: 2]
   import Phoenix.HTML, only: [safe_to_string: 1]
@@ -40,7 +40,7 @@ defmodule CoreWeb.HelpersTest do
       conn =
         conn
         |> Pow.Plug.put_config(current_user_assigns_key: :current_user)
-        |> Pow.Plug.assign_current_user(%Auth.User{roles: ["admin"]}, [])
+        |> Pow.Plug.assign_current_user(%Legendary.Auth.User{roles: ["admin"]}, [])
 
       assert has_role?(conn, "admin")
       refute has_role?(conn, "blooper")

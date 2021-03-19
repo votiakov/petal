@@ -1,4 +1,4 @@
-defmodule Content.Termmeta do
+defmodule Legendary.Content.Termmeta do
   @moduledoc """
   Represents one piece of metadata around one "term" (a grouping under a taxonomy).
   """

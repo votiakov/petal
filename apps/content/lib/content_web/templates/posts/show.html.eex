@@ -9,14 +9,14 @@
   </div>
   <div class="<%= if @post.format, do: @post.format.slug %> e-content py-12 Article-content">
     <%= render "thumb.html", post: @post, thumbs: @thumbs %>
-    <%= @post |> Content.Post.content_page(@page) |> process_content |> raw %>
+    <%= @post |> Legendary.Content.Post.content_page(@page) |> process_content |> raw %>
     <%= case @post.categories || [] do %>
       <% [] -> %>
         <%= "" %>
       <% categories -> %>
         <div class="flex pt-6">
           <h3 class="text-xl font-bold mr-4">Categories</h3>
-        
+
           <%= for term <- categories do %>
             <%= link term.name, to: Routes.category_path(@conn, :index_posts, term.slug), class: "rounded-full bg-gray-300 px-4 py-1 mr-2" %>
           <% end %>

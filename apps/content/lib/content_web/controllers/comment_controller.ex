@@ -1,10 +1,9 @@
-defmodule Content.CommentController do
-  use Content, :controller
+defmodule Legendary.Content.CommentController do
+  use Legendary.Content, :controller
 
-  alias Content
-  alias Content.Comments
-  alias Content.Post
-  alias Content.Repo
+  alias Legendary.Content.Comments
+  alias Legendary.Content.Post
+  alias Legendary.Content.Repo
 
   import Ecto.Query
 

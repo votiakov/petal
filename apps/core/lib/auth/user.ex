@@ -1,4 +1,4 @@
-defmodule Auth.User do
+defmodule Legendary.Auth.User do
   @moduledoc """
   The baseline user schema module.
   """
@@ -40,7 +40,7 @@ defmodule Auth.User do
     |> pow_extension_changeset(attrs)
   end
 
-  def reset_password_changeset(user = %Auth.User{}, params) do
+  def reset_password_changeset(user = %Legendary.Auth.User{}, params) do
     user
     |> new_password_changeset(params, @pow_config)
     |> Changeset.validate_required([:password])

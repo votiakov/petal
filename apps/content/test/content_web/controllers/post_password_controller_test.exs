@@ -1,8 +1,7 @@
-defmodule Content.PostPasswordControllerTest do
-  use Content.ConnCase
+defmodule Legendary.Content.PostPasswordControllerTest do
+  use Legendary.Content.ConnCase
   use Plug.Test
 
-  alias Content
   import Plug.Conn
 
   describe "create" do

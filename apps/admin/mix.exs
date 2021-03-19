@@ -1,4 +1,4 @@
-defmodule Admin.MixProject do
+defmodule Legendary.Admin.MixProject do
   use Mix.Project
 
   def project do
@@ -25,7 +25,7 @@ defmodule Admin.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {Admin.Application, []},
+      mod: {Legendary.Admin.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end

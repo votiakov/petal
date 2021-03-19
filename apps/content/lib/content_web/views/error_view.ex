@@ -1,5 +1,5 @@
-defmodule Content.ErrorView do
-  use Content, :view
+defmodule Legendary.Content.ErrorView do
+  use Legendary.Content, :view
 
   # If you want to customize a particular status code
   # for a certain format, you may uncomment below.

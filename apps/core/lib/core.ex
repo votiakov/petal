@@ -1,6 +1,6 @@
-defmodule Core do
+defmodule Legendary.Core do
   @moduledoc """
-  Core keeps the contexts that define your domain
+  Legendary.Core keeps the contexts that define your domain
   and business logic.
 
   Contexts are also responsible for managing your data, regardless

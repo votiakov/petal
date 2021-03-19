@@ -1,7 +1,7 @@
-defmodule Content.FeedsControllerTest do
-  use Content.ConnCase
+defmodule Legendary.Content.FeedsControllerTest do
+  use Legendary.Content.ConnCase
 
-  alias Content.{Term, TermRelationship, TermTaxonomy, Posts, Repo}
+  alias Legendary.Content.{Term, TermRelationship, TermTaxonomy, Posts, Repo}
 
   @post_attrs %{
     id: 456,

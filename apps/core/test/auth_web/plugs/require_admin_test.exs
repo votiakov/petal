@@ -1,8 +1,8 @@
-defmodule AuthWeb.Plugs.RequireAdminTest do
-  use CoreWeb.ConnCase
+defmodule Legendary.AuthWeb.Plugs.RequireAdminTest do
+  use Legendary.CoreWeb.ConnCase
 
-  alias AuthWeb.Plugs.RequireAdmin
-  alias Auth.User
+  alias Legendary.AuthWeb.Plugs.RequireAdmin
+  alias Legendary.Auth.User
 
   setup %{conn: conn} do
     %{conn: Pow.Plug.put_config(conn, current_user_assigns_key: :current_user)}

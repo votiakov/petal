@@ -1,7 +1,7 @@
-defmodule Content.CommentmetaTest do
-  use Content.DataCase
+defmodule Legendary.Content.CommentmetaTest do
+  use Legendary.Content.DataCase
 
-  alias Content.{Commentmeta, Repo}
+  alias Legendary.Content.{Commentmeta, Repo}
 
   test "can save a new commentmeta" do
     %Commentmeta{}

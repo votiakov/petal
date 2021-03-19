@@ -2,26 +2,26 @@ use Mix.Config
 
 config :kaffy,
   otp_app: :admin,
-  ecto_repo: Admin.Repo,
+  ecto_repo: Legendary.Admin.Repo,
   extensions: [
-    Admin.Kaffy.EditorExtension,
+    Legendary.Admin.Kaffy.EditorExtension,
   ],
-  router: Admin.Router,
-  resources: &Admin.Kaffy.Config.create_resources/1
+  router: Legendary.Admin.Router,
+  resources: &Legendary.Admin.Kaffy.Config.create_resources/1
 
-config :admin, Admin,
+config :admin, Legendary.Admin,
   resources: [
     auth: [
-      name: "Auth",
+      name: "Legendary.Auth",
       resources: [
-        user: [schema: Auth.User, admin: Auth.UserAdmin],
+        user: [schema: Legendary.Auth.User, admin: Legendary.Auth.UserAdmin],
       ]
     ],
     content: [
-      name: "Content",
+      name: "Legendary.Content",
       resources: [
-        post: [schema: Content.Post, admin: Content.PostAdmin, label: "Posts and Pages", id_column: :name],
-        comment: [schema: Content.Comment, admin: Content.CommentAdmin],
+        post: [schema: Legendary.Content.Post, admin: Legendary.Content.PostAdmin, label: "Posts and Pages", id_column: :name],
+        comment: [schema: Legendary.Content.Comment, admin: Legendary.Content.CommentAdmin],
       ]
     ]
   ]

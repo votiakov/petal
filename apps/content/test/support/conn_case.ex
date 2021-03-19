@@ -1,4 +1,4 @@
-defmodule Content.ConnCase do
+defmodule Legendary.Content.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -11,7 +11,7 @@ defmodule Content.ConnCase do
   we enable the SQL sandbox, so changes done to the database
   are reverted at the end of every test. If you are using
   PostgreSQL, you can even run database tests asynchronously
-  by setting `use Content.ConnCase, async: true`, although
+  by setting `use Legendary.Content.ConnCase, async: true`, although
   this option is not recommended for other databases.
   """
 
@@ -22,18 +22,18 @@ defmodule Content.ConnCase do
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
-      import Content.ConnCase
+      import Legendary.Content.ConnCase
       import Mock
 
-      alias Content.Router.Helpers, as: Routes
+      alias Legendary.Content.Router.Helpers, as: Routes
 
       # The default endpoint for testing
-      @endpoint Content.Endpoint
+      @endpoint Legendary.Content.Endpoint
 
       defmacro as_admin(do: expression) do
         quote do
           with_mock Pow.Plug.RequireAuthenticated, [call: fn(conn, _opts) -> conn end] do
-            with_mock AuthWeb.Plugs.RequireAdmin, [call: fn(conn, _opts) -> conn end] do
+            with_mock Legendary.AuthWeb.Plugs.RequireAdmin, [call: fn(conn, _opts) -> conn end] do
               unquote(expression)
             end
           end
@@ -43,10 +43,10 @@ defmodule Content.ConnCase do
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Content.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Legendary.Content.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Content.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Legendary.Content.Repo, {:shared, self()})
     end
 
     {:ok, conn: Phoenix.ConnTest.build_conn()}

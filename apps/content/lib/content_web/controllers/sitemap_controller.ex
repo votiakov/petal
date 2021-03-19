@@ -1,7 +1,7 @@
-defmodule Content.SitemapController do
-  use Content, :controller
+defmodule Legendary.Content.SitemapController do
+  use Legendary.Content, :controller
 
-  alias Content.{Posts, Repo, Terms}
+  alias Legendary.Content.{Posts, Repo, Terms}
 
   import Ecto.Query
 

@@ -1,7 +1,7 @@
-defmodule Content.MarkupFieldTest do
-  use Content.DataCase
+defmodule Legendary.Content.MarkupFieldTest do
+  use Legendary.Content.DataCase
 
-  import Content.MarkupField
+  import Legendary.Content.MarkupField
   import Phoenix.HTML, only: [safe_to_string: 1]
   import Phoenix.HTML.Form, only: [form_for: 3]
 

@@ -1,15 +1,15 @@
-defmodule Content.Posts do
+defmodule Legendary.Content.Posts do
   @page_size 3
 
   @moduledoc """
-  The Content context.
+  The Legendary.Content context.
   """
 
   import Ecto.Query, warn: false
-  alias Content.Repo
+  alias Legendary.Content.Repo
 
-  alias Content.Option
-  alias Content.Post
+  alias Legendary.Content.Option
+  alias Legendary.Content.Post
   alias Ecto.Changeset
 
   @preloads [:metas, :author, :categories, :tags, :comments, :format]

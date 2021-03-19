@@ -1,4 +1,4 @@
-defmodule Content.PostAdmin do
+defmodule Legendary.Content.PostAdmin do
   import Ecto.Query, only: [from: 2]
 
   def singular_name(_) do
@@ -10,11 +10,11 @@ defmodule Content.PostAdmin do
   end
 
   def create_changeset(schema, attrs) do
-    Content.Post.changeset(schema, attrs)
+    Legendary.Content.Post.changeset(schema, attrs)
   end
 
   def update_changeset(schema, attrs) do
-    Content.Post.changeset(schema, attrs)
+    Legendary.Content.Post.changeset(schema, attrs)
   end
 
   def index(_) do
@@ -31,13 +31,13 @@ defmodule Content.PostAdmin do
 
   def form_fields(_) do
     authors_query =
-      from u in Auth.User,
+      from u in Legendary.Auth.User,
         where: "admin" in u.roles,
         select: [u.email, u.id]
 
     authors =
       authors_query
-      |> Content.Repo.all()
+      |> Legendary.Content.Repo.all()
       |> Enum.map(fn [email, id] ->
         {email, id}
       end)

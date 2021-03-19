@@ -1,10 +1,10 @@
-defmodule Content.SitemapStorage do
+defmodule Legendary.Content.SitemapStorage do
   @moduledoc """
     This module serves as a storage adapter for the Sitemap package. It writes
     the sitemap as an attachment post into the system, so that the CMS will
     serve it up.
   """
-  alias Content.{Endpoint, Post, Repo, Router.Helpers}
+  alias Legendary.Content.{Endpoint, Post, Repo, Router.Helpers}
   alias Ecto.Changeset
   alias Sitemap.{Location}
   import Ecto.Query

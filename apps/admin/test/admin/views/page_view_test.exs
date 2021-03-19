@@ -1,3 +1,3 @@
-defmodule Admin.PageViewTest do
-  use Admin.ConnCase, async: true
+defmodule Legendary.Admin.PageViewTest do
+  use Legendary.Admin.ConnCase, async: true
 end

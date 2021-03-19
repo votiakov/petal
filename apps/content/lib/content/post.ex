@@ -1,10 +1,10 @@
-defmodule Content.Post do
+defmodule Legendary.Content.Post do
   @moduledoc """
   One "post" i.e. a blog post, page, attachment, or item of a custom post type.
   """
   use Ecto.Schema
   import Ecto.Changeset
-  alias Content.{MarkupField, Slugs}
+  alias Legendary.Content.{MarkupField, Slugs}
 
   @derive {Phoenix.Param, key: :name}
   schema "posts" do
@@ -30,13 +30,13 @@ defmodule Content.Post do
     field :mime_type, :string
     field :comment_count, :integer
     field :sticky, :boolean, [virtual: true, default: false]
-    has_many :metas, Content.Postmeta
-    has_many :comments, Content.Comment
-    has_many :term_relationships, Content.TermRelationship, foreign_key: :object_id
+    has_many :metas, Legendary.Content.Postmeta
+    has_many :comments, Legendary.Content.Comment
+    has_many :term_relationships, Legendary.Content.TermRelationship, foreign_key: :object_id
     has_many :categories, through: [:term_relationships, :category, :term]
     has_many :tags, through: [:term_relationships, :tag, :term]
     has_one :format, through: [:term_relationships, :format, :term]
-    belongs_to :author, Auth.User
+    belongs_to :author, Legendary.Auth.User
   end
 
   def changeset(struct, params \\ %{}) do
@@ -108,20 +108,20 @@ defmodule Content.Post do
     content_page_count(struct) > 1
   end
 
-  def metas_map(%Content.Post{} = struct) do
+  def metas_map(%Legendary.Content.Post{} = struct) do
     struct.metas
     |> Enum.map(&({&1.key, &1.value}))
     |> Map.new
   end
 
   def maybe_put_guid(changeset) do
-    import Content.Router.Helpers, only: [url: 1, posts_url: 3]
+    import Legendary.Content.Router.Helpers, only: [url: 1, posts_url: 3]
     slug = changeset |> get_field(:name)
 
     case slug do
       nil -> changeset
       _ ->
-        base = url(CoreWeb.Endpoint)
+        base = url(Legendary.CoreWeb.Endpoint)
 
         changeset
         |> put_default(:guid, posts_url(URI.merge(base, "/pages"), :show, slug))

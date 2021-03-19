@@ -1,10 +1,10 @@
-defmodule Admin.ErrorHelpersTest do
-  use Admin.ConnCase
+defmodule Legendary.Admin.ErrorHelpersTest do
+  use Legendary.Admin.ConnCase
 
   import Phoenix.HTML, only: [safe_to_string: 1]
   import Phoenix.HTML.Form, only: [form_for: 3]
 
-  import Admin.ErrorHelpers
+  import Legendary.Admin.ErrorHelpers
 
   def form do
     :example
