@@ -18,6 +18,7 @@
   },
   "homepage": "https://gitlab.com/mythic-insight/legendary#readme",
   "devDependencies": {
+    "@google/semantic-release-replace-plugin": "^1.0.2",
     "@semantic-release/commit-analyzer": "^6.1.0",
     "@semantic-release/exec": "^5.0.0",
     "@semantic-release/git": "^7.0.8",
@@ -27,7 +28,45 @@
   },
   "release": {
     "plugins": [
-      "@semantic-release/commit-analyzer"
+      "@semantic-release/commit-analyzer",
+      [
+        "@google/semantic-release-replace-plugin",
+        {
+          "replacements": [
+            {
+              "files": ["mix.exs", "apps/admin/mix.exs", "apps/content/mix.exs", "apps/core/mix.exs"],
+              "from": "@version \".*\"",
+              "to": "@version \"${nextRelease.version}\"",
+              "results": [
+                {
+                  "file": "mix.exs",
+                  "hasChanged": true,
+                  "numMatches": 1,
+                  "numReplacements": 1
+                },
+                {
+                  "file": "apps/admin/mix.exs",
+                  "hasChanged": true,
+                  "numMatches": 1,
+                  "numReplacements": 1
+                },
+                {
+                  "file": "apps/content/mix.exs",
+                  "hasChanged": true,
+                  "numMatches": 1,
+                  "numReplacements": 1
+                },{
+                  "file": "apps/core/mix.exs",
+                  "hasChanged": true,
+                  "numMatches": 1,
+                  "numReplacements": 1
+                }
+              ],
+              "countMatches": true
+            }
+          ]
+        }
+      ]
     ],
     "prepare": [
       "@semantic-release/npm",
@@ -42,7 +81,11 @@
         {
           "assets": [
             "package.json",
-            "infrastructure/kube.yaml"
+            "infrastructure/kube.yaml",
+            "mix.exs",
+            "apps/admin/mix.exs",
+            "apps/content/mix.exs",
+            "apps/core/mix.exs"
           ]
         }
       ]
