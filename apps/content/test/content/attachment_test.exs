@@ -1,7 +1,7 @@
-defmodule Content.AttachmentTest do
-  use Content.DataCase
+defmodule Legendary.Content.AttachmentTest do
+  use Legendary.Content.DataCase
 
-  alias Content.{Attachment, Postmeta, Posts, Repo}
+  alias Legendary.Content.{Attachment, Postmeta, Posts, Repo}
 
   @create_attrs %{
     id: 123,
@@ -22,7 +22,7 @@ defmodule Content.AttachmentTest do
         value: "a:2:{s:5:\"width\";i:640;s:6:\"height\";i:480;}"
       } |> Repo.insert()
 
-    Content.Post
+    Legendary.Content.Post
     |> preload([:metas])
     |> Repo.get!(attachment.id)
   end
@@ -35,14 +35,14 @@ defmodule Content.AttachmentTest do
         key: "attachment_metadata",
         value: "a:2:{s:5:\"width\";i:480;s:6:\"height\";i:640;}"
       } |> Repo.insert()
-    Content.Post
+    Legendary.Content.Post
     |> preload([:metas])
     |> Repo.get!(attachment.id)
   end
 
   def fixture(:unknown_dimensions) do
     {:ok, attachment} = Posts.create_posts(@create_attrs)
-    Content.Post
+    Legendary.Content.Post
     |> preload([:metas])
     |> Repo.get!(attachment.id)
   end

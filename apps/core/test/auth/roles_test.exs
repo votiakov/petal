@@ -1,9 +1,9 @@
-defmodule Auth.RolesTest do
-  use Core.DataCase
+defmodule Legendary.Auth.RolesTest do
+  use Legendary.Core.DataCase
 
-  import Auth.Roles
+  import Legendary.Auth.Roles
 
-  alias Auth.User
+  alias Legendary.Auth.User
 
   describe "has_role?/2" do
     test "with no user" do

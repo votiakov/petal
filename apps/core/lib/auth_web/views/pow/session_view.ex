@@ -1,3 +1,3 @@
-defmodule AuthWeb.Pow.SessionView do
-  use AuthWeb, :view
+defmodule Legendary.AuthWeb.Pow.SessionView do
+  use Legendary.AuthWeb, :view
 end

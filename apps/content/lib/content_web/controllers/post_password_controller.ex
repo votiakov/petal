@@ -1,5 +1,5 @@
-defmodule Content.PostPasswordController do
-  use Content, :controller
+defmodule Legendary.Content.PostPasswordController do
+  use Legendary.Content, :controller
 
   def create(conn, %{"post_password" => post_password}) do
     conn = put_session(conn, "post_password", post_password)

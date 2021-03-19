@@ -1,4 +1,4 @@
-defmodule Content.CommentAdmin do
+defmodule Legendary.Content.CommentAdmin do
   def index(_) do
     [
       id: nil,

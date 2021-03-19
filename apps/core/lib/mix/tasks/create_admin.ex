@@ -4,8 +4,8 @@ defmodule Mix.Tasks.Legendary.CreateAdmin do
   """
   use Mix.Task
 
-  alias Auth.User
-  alias Core.Repo
+  alias Legendary.Auth.User
+  alias Legendary.Core.Repo
   alias Ecto.Changeset
 
   @shortdoc "Create an admin user."

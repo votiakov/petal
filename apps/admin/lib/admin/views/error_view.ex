@@ -1,5 +1,5 @@
-defmodule Admin.ErrorView do
-  use Admin, :view
+defmodule Legendary.Admin.ErrorView do
+  use Legendary.Admin, :view
 
   # If you want to customize a particular status code
   # for a certain format, you may uncomment below.

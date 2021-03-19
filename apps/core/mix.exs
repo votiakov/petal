@@ -1,4 +1,4 @@
-defmodule Core.MixProject do
+defmodule Legendary.Core.MixProject do
   use Mix.Project
 
   def project do
@@ -52,7 +52,7 @@ defmodule Core.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {Core.Application, []},
+      mod: {Legendary.Core.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end

@@ -1,7 +1,7 @@
-defmodule Content.OptionsTest do
-  use Content.DataCase
+defmodule Legendary.Content.OptionsTest do
+  use Legendary.Content.DataCase
 
-  alias Content.{Option, Options, Repo}
+  alias Legendary.Content.{Option, Options, Repo}
 
   def fixture(:option) do
     %Option{}

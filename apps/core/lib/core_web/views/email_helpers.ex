@@ -1,4 +1,4 @@
-defmodule CoreWeb.EmailHelpers do
+defmodule Legendary.CoreWeb.EmailHelpers do
   @moduledoc """
   HTML helpers for emails.
   """
@@ -102,7 +102,7 @@ defmodule CoreWeb.EmailHelpers do
   def effective_styles(group, overrides \\ %{}) do
     group
     |> framework_styles()
-    |> Core.MapUtils.deep_merge(application_styles(group))
+    |> Legendary.Core.MapUtils.deep_merge(application_styles(group))
     |> Map.merge(overrides)
   end
 
@@ -276,10 +276,10 @@ defmodule CoreWeb.EmailHelpers do
     ~E"""
     <%= wrapper do %>
       <td style="<%= map_style(effective_styles(:footer)) %>">
-        <%= I18n.t! "en", "email.company.name" %><br>
+        <%= Legendary.I18n.t! "en", "email.company.name" %><br>
         <span class="unstyle-auto-detected-links">
-          <%= I18n.t! "en", "email.company.address" %><br>
-          <%= I18n.t! "en", "email.company.phone" %>
+          <%= Legendary.I18n.t! "en", "email.company.address" %><br>
+          <%= Legendary.I18n.t! "en", "email.company.phone" %>
         </span>
         <br><br>
       </td>

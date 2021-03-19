@@ -1,5 +1,5 @@
-defmodule Content.SitemapControllerTest do
-  use Content.ConnCase
+defmodule Legendary.Content.SitemapControllerTest do
+  use Legendary.Content.ConnCase
 
   describe "index" do
     test "is the site index", %{conn: conn} do

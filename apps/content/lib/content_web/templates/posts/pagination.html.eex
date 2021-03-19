@@ -1,8 +1,8 @@
-<%= if Content.Post.paginated_post?(@post) do %>
+<%= if Legendary.Content.Post.paginated_post?(@post) do %>
   <nav class="paginator">
     Page:
       <%= Enum.map(
-        1..Content.Post.content_page_count(@post),
+        1..Legendary.Content.Post.content_page_count(@post),
         fn page ->
           if assigns[:current_page] == nil || assigns[:current_page] != page do
             link page, to: Routes.paged_post_path(@conn, :show, @post, page)

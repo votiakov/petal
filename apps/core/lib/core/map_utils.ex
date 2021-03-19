@@ -1,4 +1,4 @@
-defmodule Core.MapUtils do
+defmodule Legendary.Core.MapUtils do
   @moduledoc """
   Generic additional utility functions for Maps.
   """

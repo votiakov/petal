@@ -1,7 +1,7 @@
-defmodule Content.LinkTest do
-  use Content.DataCase
+defmodule Legendary.Content.LinkTest do
+  use Legendary.Content.DataCase
 
-  alias Content.{Link, Repo}
+  alias Legendary.Content.{Link, Repo}
 
   test "can save a new link" do
     %Link{}

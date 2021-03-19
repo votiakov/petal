@@ -1,3 +1,3 @@
-defmodule Content.PageViewTest do
-  use Content.ConnCase, async: true
+defmodule Legendary.Content.PageViewTest do
+  use Legendary.Content.ConnCase, async: true
 end

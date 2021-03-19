@@ -1,11 +1,11 @@
 use Mix.Config
 
 [
-  {:admin, Admin, false},
+  {:admin, Legendary.Admin, false},
   {:app, AppWeb, true},
-  {:core, AuthWeb, false},
-  {:content, Content, false},
-  {:core, CoreWeb, false},
+  {:core, Legendary.AuthWeb, false},
+  {:content, Legendary.Content, false},
+  {:core, Legendary.CoreWeb, false},
 ]
 |> Enum.map(fn {otp_app, module, start_server} ->
   endpoint = Module.concat(module, "Endpoint")
@@ -21,10 +21,10 @@ use Mix.Config
 end)
 
 [
-  {:admin, Admin.Repo},
+  {:admin, Legendary.Admin.Repo},
   {:app, App.Repo},
-  {:content, Content.Repo},
-  {:core, Core.Repo},
+  {:content, Legendary.Content.Repo},
+  {:core, Legendary.Core.Repo},
 ]
 |> Enum.map(fn
   {otp_app, repo} ->
@@ -33,17 +33,17 @@ end)
       generators: [context_app: otp_app]
 
     config otp_app, repo,
-      pool: Core.SharedDBConnectionPool
+      pool: Legendary.Core.SharedDBConnectionPool
 end)
 
 config :core, :pow,
-  user: Auth.User,
-  repo: Core.Repo,
+  user: Legendary.Auth.User,
+  repo: Legendary.Core.Repo,
   extensions: [PowEmailConfirmation, PowPersistentSession, PowResetPassword],
   controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks,
-  mailer_backend: AuthWeb.Pow.Mailer,
-  web_mailer_module: AuthWeb,
-  web_module: AuthWeb
+  mailer_backend: Legendary.AuthWeb.Pow.Mailer,
+  web_mailer_module: Legendary.AuthWeb,
+  web_module: Legendary.AuthWeb
 
 config :core, email_from: "example@example.org"
 
@@ -60,10 +60,10 @@ config :linguist, pluralization_key: :count
 
 config :content,
   Oban,
-  repo: Content.Repo,
+  repo: Legendary.Content.Repo,
   queues: [default: 10],
   crontab: [
-    {"0 * * * *", Content.Sitemaps},
+    {"0 * * * *", Legendary.Content.Sitemaps},
   ]
 
 import_config "email_styles.exs"

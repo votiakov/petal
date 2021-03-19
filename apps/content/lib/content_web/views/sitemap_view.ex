@@ -1,3 +1,3 @@
-defmodule Content.SitemapView do
-  use Content, :view
+defmodule Legendary.Content.SitemapView do
+  use Legendary.Content, :view
 end

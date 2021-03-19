@@ -1,8 +1,8 @@
-defmodule CoreWeb.CoreEmailView do
+defmodule Legendary.CoreWeb.CoreEmailView do
   use Phoenix.View,
     root: "lib/core_web/templates",
-    namespace: CoreWeb,
+    namespace: Legendary.CoreWeb,
     pattern: "**/*"
 
-  import CoreWeb.EmailHelpers
+  import Legendary.CoreWeb.EmailHelpers
 end

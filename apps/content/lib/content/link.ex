@@ -1,4 +1,4 @@
-defmodule Content.Link do
+defmodule Legendary.Content.Link do
   @moduledoc """
   A link for the (deprecated) link roll feature.
   """

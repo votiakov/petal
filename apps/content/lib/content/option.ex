@@ -1,4 +1,4 @@
-defmodule Content.Option do
+defmodule Legendary.Content.Option do
   @moduledoc """
   A configuration option for the site.
   """

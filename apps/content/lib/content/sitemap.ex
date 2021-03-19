@@ -1,9 +1,9 @@
-defmodule Content.Sitemaps do
+defmodule Legendary.Content.Sitemaps do
   @moduledoc """
     This module generates sitemaps for the website and pings search engines as
     appropriate.
   """
-  alias Content.{Endpoint, Post, Posts, Repo,  Router.Helpers, Terms}
+  alias Legendary.Content.{Endpoint, Post, Posts, Repo,  Router.Helpers, Terms}
   import Ecto.Query
 
   require Logger
@@ -14,7 +14,7 @@ defmodule Content.Sitemaps do
     host: "https://#{Application.get_env(:content, Endpoint)[:url][:host]}",
     files_path: "tmp/sitemap/",
     public_path: "",
-    adapter: Content.SitemapStorage
+    adapter: Legendary.Content.SitemapStorage
 
   @impl Oban.Worker
   def perform(_job) do

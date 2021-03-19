@@ -1,3 +1,3 @@
-defmodule AuthWeb.PageView do
-  use AuthWeb, :view
+defmodule Legendary.AuthWeb.PageView do
+  use Legendary.AuthWeb, :view
 end

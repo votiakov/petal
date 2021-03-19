@@ -1,4 +1,4 @@
-defmodule Core.Repo.Migrations.AddUrlToUsers do
+defmodule Legendary.Core.Repo.Migrations.AddUrlToUsers do
   use Ecto.Migration
 
   def change do

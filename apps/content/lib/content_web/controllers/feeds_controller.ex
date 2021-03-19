@@ -1,7 +1,7 @@
-defmodule Content.FeedsController do
-  use Content, :controller
+defmodule Legendary.Content.FeedsController do
+  use Legendary.Content, :controller
 
-  alias Content.{Posts}
+  alias Legendary.Content.{Posts}
 
   plug :put_layout, false when action in [:preview]
 

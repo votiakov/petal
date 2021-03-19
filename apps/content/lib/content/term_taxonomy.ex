@@ -1,4 +1,4 @@
-defmodule Content.TermTaxonomy do
+defmodule Legendary.Content.TermTaxonomy do
   @moduledoc """
   A record in a taxonomy which organizes terms and posts in the system.
   """
@@ -10,7 +10,7 @@ defmodule Content.TermTaxonomy do
     field :description, :string
     field :parent, :integer
     field :count, :integer
-    belongs_to :term, Content.Term
+    belongs_to :term, Legendary.Content.Term
   end
 
   def changeset(struct, params \\ %{}) do

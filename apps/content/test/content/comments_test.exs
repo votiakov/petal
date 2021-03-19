@@ -1,7 +1,7 @@
-defmodule Content.CommentsTest do
-  use Content.DataCase
+defmodule Legendary.Content.CommentsTest do
+  use Legendary.Content.DataCase
 
-  alias Content.{Comment, Comments, Repo}
+  alias Legendary.Content.{Comment, Comments, Repo}
   alias Ecto.Changeset
 
   def fixture(:parent_comment) do

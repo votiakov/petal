@@ -4,7 +4,7 @@ defmodule AppWeb.Router do
   use Pow.Extension.Phoenix.Router,
     extensions: [PowResetPassword, PowEmailConfirmation]
 
-  alias AuthWeb.Plugs.{RequireAdmin}
+  alias Legendary.AuthWeb.Plugs.{RequireAdmin}
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -57,6 +57,6 @@ defmodule AppWeb.Router do
     pow_extension_routes()
   end
 
-  use Admin.Routes
-  use Content.Routes
+  use Legendary.Admin.Routes
+  use Legendary.Content.Routes
 end

@@ -1,5 +1,5 @@
-defmodule CoreWeb.Router do
-  use CoreWeb, :router
+defmodule Legendary.CoreWeb.Router do
+  use Legendary.CoreWeb, :router
   use Pow.Phoenix.Router
   use Pow.Extension.Phoenix.Router,
     extensions: [PowResetPassword, PowEmailConfirmation]
@@ -28,7 +28,7 @@ defmodule CoreWeb.Router do
 
     scope "/" do
       pipe_through :browser
-      live_dashboard "/dashboard", metrics: CoreWeb.Telemetry
+      live_dashboard "/dashboard", metrics: Legendary.CoreWeb.Telemetry
     end
   end
 end

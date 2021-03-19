@@ -1,4 +1,4 @@
-defmodule Content.ErrorHelpers do
+defmodule Legendary.Content.ErrorHelpers do
   @moduledoc """
   Conveniences for translating and building error messages.
   """
@@ -39,9 +39,9 @@ defmodule Content.ErrorHelpers do
     # should be written to the errors.po file. The :count option is
     # set by Ecto and indicates we should also apply plural rules.
     if count = opts[:count] do
-      Gettext.dngettext(Content.Gettext, "errors", msg, msg, count, opts)
+      Gettext.dngettext(Legendary.Content.Gettext, "errors", msg, msg, count, opts)
     else
-      Gettext.dgettext(Content.Gettext, "errors", msg, opts)
+      Gettext.dgettext(Legendary.Content.Gettext, "errors", msg, opts)
     end
   end
 end

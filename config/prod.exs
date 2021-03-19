@@ -13,10 +13,10 @@ use Mix.Config
 secret_key_base = System.get_env("SECRET_KEY_BASE")
 
 [
-  {:admin, Admin, false},
+  {:admin, Legendary.Admin, false},
   {:app, AppWeb, true},
-  {:content, Content, false},
-  {:core, CoreWeb, false},
+  {:content, ContentWeb, false},
+  {:core, Legendary.CoreWeb, false},
 ]
 |> Enum.map(fn {otp_app, module, start_server} ->
   endpoint = Module.concat(module, "Endpoint")
@@ -45,7 +45,7 @@ end)
 # If you are doing OTP releases, you need to instruct Phoenix
 # to start each relevant endpoint:
 #
-#     config :admin, Admin.Endpoint, server: true
+#     config :admin, Legendary.Admin.Endpoint, server: true
 #
 # Then you can assemble a release by calling `mix release`.
 # See `mix help release` for more information.
@@ -53,10 +53,10 @@ end)
 database_url = System.get_env("DATABASE_URL")
 
 [
-  {:admin, Admin.Repo},
+  {:admin, Legendary.Admin.Repo},
   {:app, App.Repo},
-  {:content, Content.Repo},
-  {:core, Core.Repo}
+  {:content, Legendary.Content.Repo},
+  {:core, Legendary.Core.Repo}
 ]
 |> Enum.map(fn {otp_app, repo} ->
   config otp_app, repo,
@@ -69,7 +69,7 @@ end)
 # If you are doing OTP releases, you need to instruct Phoenix
 # to start each relevant endpoint:
 #
-#     config :auth_web, AuthWeb.Endpoint, server: true
+#     config :auth_web, Legendary.AuthWeb.Endpoint, server: true
 #
 # Then you can assemble a release by calling `mix release`.
 # See `mix help release` for more information.
@@ -79,7 +79,7 @@ end)
 # To get SSL working, you will need to add the `https` key
 # to the previous section and set your `:url` port to 443:
 #
-#     config :content, Content.Endpoint,
+#     config :content, Legendary.Content.Endpoint,
 #       ...
 #       url: [host: "example.com", port: 443],
 #       https: [
@@ -103,7 +103,7 @@ end)
 # We also recommend setting `force_ssl` in your endpoint, ensuring
 # no data is ever sent via http, always redirecting to https:
 #
-#     config :content, Content.Endpoint,
+#     config :content, Legendary.Content.Endpoint,
 #       force_ssl: [hsts: true]
 #
 # Check `Plug.SSL` for all available options in `force_ssl`.

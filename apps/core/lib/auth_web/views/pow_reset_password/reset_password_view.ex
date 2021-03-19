@@ -1,5 +1,5 @@
-defmodule AuthWeb.PowResetPassword.ResetPasswordView do
-  use AuthWeb, :view
+defmodule Legendary.AuthWeb.PowResetPassword.ResetPasswordView do
+  use Legendary.AuthWeb, :view
 
-  import CoreWeb.Helpers
+  import Legendary.CoreWeb.Helpers
 end

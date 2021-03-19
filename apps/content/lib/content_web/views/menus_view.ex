@@ -1,3 +1,3 @@
-defmodule Content.MenusView do
-  use Content, :view
+defmodule Legendary.Content.MenusView do
+  use Legendary.Content, :view
 end

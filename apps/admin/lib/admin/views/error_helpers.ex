@@ -1,12 +1,12 @@
-defmodule Admin.ErrorHelpers do
+defmodule Legendary.Admin.ErrorHelpers do
   @moduledoc """
   Conveniences for translating and building error messages.
   """
 
   use Phoenix.HTML
 
-  defdelegate error_tag(form, field), to: CoreWeb.ErrorHelpers
-  defdelegate error_tag(form, field, opts), to: CoreWeb.ErrorHelpers
+  defdelegate error_tag(form, field), to: Legendary.CoreWeb.ErrorHelpers
+  defdelegate error_tag(form, field, opts), to: Legendary.CoreWeb.ErrorHelpers
 
   @doc """
   Translates an error message using gettext.
@@ -30,9 +30,9 @@ defmodule Admin.ErrorHelpers do
     # should be written to the errors.po file. The :count option is
     # set by Ecto and indicates we should also apply plural rules.
     if count = opts[:count] do
-      Gettext.dngettext(Admin.Gettext, "errors", msg, msg, count, opts)
+      Gettext.dngettext(Legendary.Admin.Gettext, "errors", msg, msg, count, opts)
     else
-      Gettext.dgettext(Admin.Gettext, "errors", msg, opts)
+      Gettext.dgettext(Legendary.Admin.Gettext, "errors", msg, opts)
     end
   end
 end

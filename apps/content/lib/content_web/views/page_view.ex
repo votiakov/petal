@@ -1,3 +1,3 @@
-defmodule Content.PageView do
-  use Content, :view
+defmodule Legendary.Content.PageView do
+  use Legendary.Content, :view
 end

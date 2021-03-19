@@ -1,3 +1,3 @@
-defmodule CoreWeb.LayoutView do
-  use CoreWeb, :view
+defmodule Legendary.CoreWeb.LayoutView do
+  use Legendary.CoreWeb, :view
 end

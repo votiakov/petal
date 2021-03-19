@@ -1,9 +1,9 @@
-defmodule Auth.UserTest do
-  use Core.DataCase
+defmodule Legendary.Auth.UserTest do
+  use Legendary.Core.DataCase
 
-  import Auth.User
+  import Legendary.Auth.User
 
-  alias Auth.User
+  alias Legendary.Auth.User
 
   describe "admin_changeset/2" do
     test "handles roles from text properly" do

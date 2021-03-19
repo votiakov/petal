@@ -1,9 +1,9 @@
-defmodule Content.Options do
+defmodule Legendary.Content.Options do
   @moduledoc """
   Query the option key-value pairs for the site.
   """
-  alias Content.Option
-  alias Content.Repo
+  alias Legendary.Content.Option
+  alias Legendary.Content.Repo
 
   def put(key, value) do
     %Option{}

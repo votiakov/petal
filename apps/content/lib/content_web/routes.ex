@@ -1,4 +1,4 @@
-defmodule Content.Routes do
+defmodule Legendary.Content.Routes do
   defmacro __using__(_opts \\ []) do
     quote do
       pipeline :feed do
@@ -8,21 +8,21 @@ defmodule Content.Routes do
         plug :put_secure_browser_headers
       end
 
-      scope "/", Content do
+      scope "/", Legendary.Content do
         pipe_through([:browser, :require_auth, :require_admin])
 
         put "/posts/preview", PostsController, :preview
         post "/posts/preview", PostsController, :preview
       end
 
-      scope "/", Content do
+      scope "/", Legendary.Content do
         pipe_through :feed # Use the default browser stack
 
         get "/category/:category/feed.rss", FeedsController, :index, as: :category_feed
         get "/feed.rss", FeedsController, :index, as: :index_feed
       end
 
-      scope "/", Content do
+      scope "/", Legendary.Content do
         pipe_through :browser # Use the default browser stack
 
         resources "/comments", CommentController, as: :comment, only: [:create, :delete, :update]

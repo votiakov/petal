@@ -1,4 +1,4 @@
-defmodule Core.Repo.Migrations.AddPowEmailConfirmationToUsers do
+defmodule Legendary.Core.Repo.Migrations.AddPowEmailConfirmationToUsers do
   use Ecto.Migration
 
   def change do

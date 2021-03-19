@@ -2,11 +2,11 @@ defmodule AppWeb.LayoutView do
   use AppWeb, :view
 
   def title(view_module, template, assigns) do
-    delegate_with_default(view_module, :title, [view_module, template, assigns], I18n.t!("en", "site.title"))
+    delegate_with_default(view_module, :title, [view_module, template, assigns], Legendary.I18n.t!("en", "site.title"))
   end
 
   def excerpt(view_module, template, assigns) do
-    delegate_with_default(view_module, :excerpt, [view_module, template, assigns], I18n.t!("en", "site.excerpt"))
+    delegate_with_default(view_module, :excerpt, [view_module, template, assigns], Legendary.I18n.t!("en", "site.excerpt"))
   end
 
   def feed_tag(conn, view_module, view_template, assigns) do

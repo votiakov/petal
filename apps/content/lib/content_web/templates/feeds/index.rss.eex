@@ -3,8 +3,8 @@
   <channel>
     <title><%= title(@view_module, @view_template, assigns) %></title>
     <description><%= excerpt(@view_module, @view_template, assigns) %></description>
-    <link><%= Content.Router.Helpers.url(CoreWeb.Endpoint) %></link>
-    <atom:link href="<%= Content.Router.Helpers.url(CoreWeb.Endpoint) %><%= @feed_url %>" rel="self" type="application/rss+xml" />
+    <link><%= Legendary.Content.Router.Helpers.url(Legendary.CoreWeb.Endpoint) %></link>
+    <atom:link href="<%= Legendary.Content.Router.Helpers.url(Legendary.CoreWeb.Endpoint) %><%= @feed_url %>" rel="self" type="application/rss+xml" />
 
 <%= for post <- @posts do %>
     <item>

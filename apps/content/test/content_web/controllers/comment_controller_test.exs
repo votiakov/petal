@@ -1,8 +1,8 @@
-defmodule Content.CommentControllerTest do
-  use Content.ConnCase
+defmodule Legendary.Content.CommentControllerTest do
+  use Legendary.Content.ConnCase
 
-  alias Content.Comments
-  alias Content.Posts
+  alias Legendary.Content.Comments
+  alias Legendary.Content.Posts
 
   @post_attrs %{id: 456, name: "blergh", status: "publish"}
   @create_attrs %{id: 123, content: "Hello world", post_id: 456}

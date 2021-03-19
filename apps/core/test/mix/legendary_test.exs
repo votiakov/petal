@@ -1,5 +1,5 @@
 defmodule Mix.LegendaryTest do
-  use Core.DataCase
+  use Legendary.Core.DataCase
 
   alias Mix.Phoenix.{Schema}
 

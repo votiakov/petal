@@ -1,7 +1,7 @@
-defmodule Content.SlugsTest do
-  use Content.DataCase
+defmodule Legendary.Content.SlugsTest do
+  use Legendary.Content.DataCase
 
-  alias Content.{Post, Posts, Repo, Slugs}
+  alias Legendary.Content.{Post, Posts, Repo, Slugs}
   alias Ecto.Changeset
 
   @create_attrs %{

@@ -9,7 +9,7 @@
   </div>
   <div class="Article-content <%= if @post.format, do: @post.format.slug %> e-content">
     <%= render "thumb.html", post: @post, thumbs: @thumbs %>
-    <%= @post |> Content.Post.content_page(@page) |> process_content |> raw %>
+    <%= @post |> Legendary.Content.Post.content_page(@page) |> process_content |> raw %>
   </div>
   <%= render "pagination.html", conn: @conn, post: @post, current_page: @page %>
 </article>

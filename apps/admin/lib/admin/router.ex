@@ -1,5 +1,5 @@
-defmodule Admin.Router do
-  use Admin, :router
+defmodule Legendary.Admin.Router do
+  use Legendary.Admin, :router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -10,12 +10,12 @@ defmodule Admin.Router do
   end
 
   pipeline :require_admin do
-    plug AuthWeb.Plugs.RequireAdmin
+    plug Legendary.AuthWeb.Plugs.RequireAdmin
   end
 
   pipeline :api do
     plug :accepts, ["json"]
   end
 
-  use Admin.Routes
+  use Legendary.Admin.Routes
 end

@@ -1,4 +1,4 @@
-defmodule Content.MixProject do
+defmodule Legendary.Content.MixProject do
   use Mix.Project
 
   def project do
@@ -25,7 +25,7 @@ defmodule Content.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {Content.Application, []},
+      mod: {Legendary.Content.Application, []},
       extra_applications: [:logger, :runtime_tools, :sitemap]
     ]
   end

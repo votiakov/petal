@@ -1,14 +1,14 @@
-defmodule Auth.UserAdmin do
+defmodule Legendary.Auth.UserAdmin do
   import Ecto.Query, only: [from: 2]
-  alias Auth.User
-  alias Core.Repo
+  alias Legendary.Auth.User
+  alias Legendary.Core.Repo
 
   def create_changeset(schema, attrs) do
-    Auth.User.admin_changeset(schema, attrs)
+    Legendary.Auth.User.admin_changeset(schema, attrs)
   end
 
   def update_changeset(schema, attrs) do
-    Auth.User.admin_changeset(schema, attrs)
+    Legendary.Auth.User.admin_changeset(schema, attrs)
   end
 
   def widgets(_schema, _conn) do

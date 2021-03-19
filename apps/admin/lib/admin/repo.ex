@@ -1,4 +1,4 @@
-defmodule Admin.Repo do
+defmodule Legendary.Admin.Repo do
   use Ecto.Repo,
     otp_app: :admin,
     adapter: Ecto.Adapters.Postgres

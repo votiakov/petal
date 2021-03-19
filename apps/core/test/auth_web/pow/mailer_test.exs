@@ -1,10 +1,10 @@
-defmodule AuthWeb.Pow.MailerTest do
+defmodule Legendary.AuthWeb.Pow.MailerTest do
   use ExUnit.Case
   use Bamboo.Test
 
-  import AuthWeb.Pow.Mailer
+  import Legendary.AuthWeb.Pow.Mailer
 
-  alias Auth.User
+  alias Legendary.Auth.User
 
   def hello_email do
     cast(%{

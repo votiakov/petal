@@ -1,4 +1,4 @@
-defmodule Content.Repo.Migrations.CreateSchema do
+defmodule Legendary.Content.Repo.Migrations.CreateSchema do
   use Ecto.Migration
 
   def change do

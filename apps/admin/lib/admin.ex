@@ -1,12 +1,12 @@
-defmodule Admin do
+defmodule Legendary.Admin do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, views, channels and so on.
 
   This can be used in your application as:
 
-      use Admin, :controller
-      use Admin, :view
+      use Legendary.Admin, :controller
+      use Legendary.Admin, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -19,11 +19,11 @@ defmodule Admin do
 
   def controller do
     quote do
-      use Phoenix.Controller, namespace: Admin
+      use Phoenix.Controller, namespace: Legendary.Admin
 
       import Plug.Conn
-      import Admin.Gettext
-      alias Admin.Router.Helpers, as: Routes
+      import Legendary.Admin.Gettext
+      alias Legendary.Admin.Router.Helpers, as: Routes
     end
   end
 
@@ -31,7 +31,7 @@ defmodule Admin do
     quote do
       use Phoenix.View,
         root: "lib/admin/templates",
-        namespace: Admin
+        namespace: Legendary.Admin
 
       # Import convenience functions from controllers
       import Phoenix.Controller,
@@ -54,7 +54,7 @@ defmodule Admin do
   def channel do
     quote do
       use Phoenix.Channel
-      import Admin.Gettext
+      import Legendary.Admin.Gettext
     end
   end
 
@@ -66,9 +66,9 @@ defmodule Admin do
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
 
-      import Admin.ErrorHelpers
-      import Admin.Gettext
-      alias Admin.Router.Helpers, as: Routes
+      import Legendary.Admin.ErrorHelpers
+      import Legendary.Admin.Gettext
+      alias Legendary.Admin.Router.Helpers, as: Routes
     end
   end
 

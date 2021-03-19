@@ -1,4 +1,4 @@
-defmodule Content.Term do
+defmodule Legendary.Content.Term do
   @moduledoc """
   Represents one 'term', i.e. a grouping under a taxonomy.
   """

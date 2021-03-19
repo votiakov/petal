@@ -1,7 +1,7 @@
-defmodule Content.PostsTest do
-  use Content.DataCase
+defmodule Legendary.Content.PostsTest do
+  use Legendary.Content.DataCase
 
-  alias Content.{Post, Posts, Repo}
+  alias Legendary.Content.{Post, Posts, Repo}
 
   setup do
     admin_only_post =

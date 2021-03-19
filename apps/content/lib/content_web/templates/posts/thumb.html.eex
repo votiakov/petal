@@ -1,6 +1,6 @@
 <%= case @thumbs[@post.id] do %>
-  <% thumb = %Content.Post{} -> %>
-    <%= if thumb |> Content.Attachment.vertical?() do %>
+  <% thumb = %Legendary.Content.Post{} -> %>
+    <%= if thumb |> Legendary.Content.Attachment.vertical?() do %>
       <div class="post-thumbnail post-thumbnail--vertical">
         <%= img_tag thumb.guid %>
       </div>

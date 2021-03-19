@@ -1,7 +1,7 @@
-defmodule Content.PostsViewTest do
-  use Content.ConnCase
+defmodule Legendary.Content.PostsViewTest do
+  use Legendary.Content.ConnCase
 
-  import Content.PostsView
+  import Legendary.Content.PostsView
   import Phoenix.HTML, only: [safe_to_string: 1]
 
   test "auto_paragraph_tags/1 with nil" do

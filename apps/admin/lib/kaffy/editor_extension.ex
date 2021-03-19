@@ -1,4 +1,4 @@
-defmodule Admin.Kaffy.EditorExtension do
+defmodule Legendary.Admin.Kaffy.EditorExtension do
   def stylesheets(_conn) do
     [
       {:safe, ~s(<link rel="stylesheet" href="/css/content-editor.css" />)},

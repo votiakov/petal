@@ -1,4 +1,4 @@
-defmodule Content.DataCase do
+defmodule Legendary.Content.DataCase do
   @moduledoc """
   This module defines the setup for tests requiring
   access to the application's data layer.
@@ -19,20 +19,20 @@ defmodule Content.DataCase do
 
   using do
     quote do
-      alias Content.Repo
+      alias Legendary.Content.Repo
 
       import Ecto
 
       import Ecto.Query
-      import Content.DataCase
+      import Legendary.Content.DataCase
     end
   end
 
   setup tags do
-    :ok = Sandbox.checkout(Content.Repo)
+    :ok = Sandbox.checkout(Legendary.Content.Repo)
 
     unless tags[:async] do
-      Sandbox.mode(Content.Repo, {:shared, self()})
+      Sandbox.mode(Legendary.Content.Repo, {:shared, self()})
     end
 
     :ok

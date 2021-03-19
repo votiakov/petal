@@ -1,5 +1,5 @@
-defmodule AuthWeb.ErrorView do
-  use AuthWeb, :view
+defmodule Legendary.AuthWeb.ErrorView do
+  use Legendary.AuthWeb, :view
 
   # If you want to customize a particular status code
   # for a certain format, you may uncomment below.
