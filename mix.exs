@@ -6,6 +6,7 @@ defmodule Legendary.Mixfile do
   def project do
     [
       name: "Legendary",
+      version: @version,
       apps_path: "apps",
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
