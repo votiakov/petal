@@ -28,7 +28,10 @@
   },
   "release": {
     "plugins": [
-      "@semantic-release/commit-analyzer",
+      "@semantic-release/commit-analyzer"
+    ],
+    "prepare": [
+      "@semantic-release/npm",
       [
         "@google/semantic-release-replace-plugin",
         {
@@ -72,10 +75,7 @@
             }
           ]
         }
-      ]
-    ],
-    "prepare": [
-      "@semantic-release/npm",
+      ],
       [
         "@semantic-release/exec",
         {
