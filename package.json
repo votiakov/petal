@@ -1,6 +1,6 @@
 {
   "name": "@mythic-insight/legendary",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "private": true,
   "description": "The Legendary Phoenix Boilerplate.",
   "main": "index.js",
@@ -34,7 +34,12 @@
         {
           "replacements": [
             {
-              "files": ["mix.exs", "apps/admin/mix.exs", "apps/content/mix.exs", "apps/core/mix.exs"],
+              "files": [
+                "mix.exs",
+                "apps/admin/mix.exs",
+                "apps/content/mix.exs",
+                "apps/core/mix.exs"
+              ],
               "from": "@version \".*\"",
               "to": "@version \"${nextRelease.version}\"",
               "results": [
@@ -55,7 +60,8 @@
                   "hasChanged": true,
                   "numMatches": 1,
                   "numReplacements": 1
-                },{
+                },
+                {
                   "file": "apps/core/mix.exs",
                   "hasChanged": true,
                   "numMatches": 1,
