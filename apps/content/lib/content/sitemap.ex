@@ -36,7 +36,7 @@ defmodule Legendary.Content.Sitemaps do
         if page_count > 1 do
           (2..page_count)
           |> Enum.each(fn page ->
-            add Helpers.paged_post_path(Endpoint, :show, post, page), priority: 0.5, changefreq: "hourly", expires: nil
+            add Helpers.posts_path(Endpoint, :show, post, page: page), priority: 0.5, changefreq: "hourly", expires: nil
           end)
         end
       end

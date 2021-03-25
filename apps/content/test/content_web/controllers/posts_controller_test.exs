@@ -154,7 +154,7 @@ defmodule Legendary.Content.PostsControllerTest do
     end
 
     test "shows the post with pagination", %{conn: conn, posts: posts} do
-      conn = get conn, Routes.paged_post_path(conn, :show, posts, "2")
+      conn = get conn, Routes.posts_path(conn, :show, posts, page: "2")
 
       assert html_response(conn, 200) =~ posts.title
     end

@@ -58,7 +58,7 @@ defmodule Legendary.Content.PostsController do
     conn |> index_posts(%{"id" => "blog", "page" => page_string})
   end
 
-  def show(conn, %{"id" => id, "page" => page_string}) do
+  def show(conn, %{"id" => id, "page" => page_string}) when is_binary(id) or is_integer(id) do
     post = Posts.get_post(id)
 
     if is_nil(post) do
@@ -66,6 +66,9 @@ defmodule Legendary.Content.PostsController do
     else
       conn |> show_one(post, page_string)
     end
+  end
+  def show(conn, %{"id" => id, "page" => page_string}) when is_list(id) do
+    show(conn, %{"id" => Enum.join(id, "/"), "page" => page_string})
   end
   def show(conn, %{"id" => id}), do: show(conn, %{"id" => id, "page" => "1"})
 
