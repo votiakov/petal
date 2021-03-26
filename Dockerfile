@@ -17,6 +17,8 @@ ENV PORT=4000
 
 WORKDIR /root/app
 
+# We load these things one by one so that we can load the deps first and
+#   cache those layers, before we do the app build itself
 ADD ./config /root/app/config
 ADD ./mix.exs /root/app/
 ADD ./mix.lock /root/app/
@@ -24,25 +26,32 @@ ADD ./apps/admin/mix.exs /root/app/apps/admin/
 ADD ./apps/app/mix.exs /root/app/apps/app/
 ADD ./apps/content/mix.exs /root/app/apps/content/
 ADD ./apps/core/mix.exs /root/app/apps/core/
+ADD ./deps /root/app/deps
+ADD ./_build /root/app/_build
 RUN mix deps.get
 RUN mix deps.compile
 
-ADD ./script /root/app/script
 ADD ./apps /root/app/apps
 
-RUN MAKE=cmake mix compile
+# Leave off here so that we can built assets and compile the elixir app in parallel
 
 FROM node:15.0
 
+# Build assets in a node container
 WORKDIR /root/app/apps/app/assets/
+ADD ./apps/app/assets/node_modules /root/app/apps/app/assets/node_modules
 COPY --from=0 /root/app/ /root/app/
 RUN npm install
 RUN npm run deploy
 
 FROM elixir1
 
-COPY --from=1 /root/app/apps/app/priv/static/ /root/app/apps/app/priv/static
+# Resume compilation of the elixir app
+ADD ./script /root/app/script
+RUN MAKE=cmake mix compile
 
+# Copy in the built assets & fingerprint them
+COPY --from=1 /root/app/apps/app/priv/static/ /root/app/apps/app/priv/static
 RUN mix phx.digest
 
 CMD ["mix", "phx.server"]

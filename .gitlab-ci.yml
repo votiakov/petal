@@ -1,14 +1,9 @@
 stages:
+  - application_dependencies
+  - asset_dependencies
   - test
   - deploy_tags
   - deploy
-
-cache:
-  paths:
-    - _build/
-    - deps/
-    - node_modules/
-    - apps/app/assets/node_modules/
 
 variables:
   POSTGRES_PASSWORD: "postgres"
@@ -17,35 +12,117 @@ variables:
   MIX_ENV: "test"
   DOCKER_TLS_CERTDIR: "/certs"
   DOCKER_HOST: tcp://docker:2376
+  # fetch & clean the repo rather than completely cloning (faster)
+  GIT_STRATEGY: fetch
 
+# Dependency stages-- fetch these first so that we can cache them and reuse them
+#   across jobs and pipelines. Note that elixir deps need to go first, because
+#   we need the phoenix and phoenix_html hex packages to install their JS.
+fetch_application_dependencies:
+  stage: application_dependencies
+  image: "elixir:1.10"
+  cache:
+    key:
+      files:
+        - mix.lock
+    paths:
+      - _build/
+      - deps/
+  script:
+    - mix local.hex --force
+    - mix local.rebar --force
+    - mix deps.get
+    - mix deps.compile
+  # Make results available to other jobs
+  artifacts:
+    paths:
+      - deps/phoenix
+      - deps/phoenix_html
+    exclude:
+      - deps/
+
+fetch_asset_dependencies:
+  stage: asset_dependencies
+  image: "node:15.0"
+  needs:
+    - fetch_application_dependencies
+  only:
+    - master
+  cache:
+    key:
+      files:
+        - apps/app/assets/package-lock.json
+    paths:
+      - apps/app/assets/node_modules/
+  script:
+    - cd apps/app/assets/ && npm install
+  # Make results available to other jobs
+  artifacts:
+    paths:
+      - apps/app/assets/node_modules
+    exclude:
+      - apps/app/assets/node_modules
+
+# Test stage. Runs various tests and speculatively builds docker image in
+#   parallel, in case the build passes.
 test:
   stage: test
-  needs: []
+  needs:
+    - fetch_application_dependencies
   image: "elixir:1.10"
   services:
   - name: postgres:12
+  cache:
+    key:
+      files:
+        - mix.lock
+    paths:
+      - _build/
+      - deps/
   script: script/cibuild
 
 build_image_for_commit:
   stage: test
-  needs: []
-  image: "docker:19.03.12"
+  needs:
+    - fetch_asset_dependencies
+    - fetch_application_dependencies
+  image: "docker:20.10"
   only:
     - master
   services:
-    - name: docker:19.03.12-dind
+    - name: docker:20.10-dind
+  cache:
+    key:
+      files:
+        - mix.lock
+    paths:
+      - _build/
+      - deps/
   script:
     - docker login "https://${CI_REGISTRY}" -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
     - docker pull $CI_REGISTRY_IMAGE:latest || true
-    - docker build --cache-from $CI_REGISTRY_IMAGE:latest -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA .
+    # This enables fast parallel builds
+    - export DOCKER_BUILDKIT=1
+    - docker build --cache-from $CI_REGISTRY_IMAGE:latest -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA --build-arg BUILDKIT_INLINE_CACHE=1 .
+    # Push the commit SHA tagged version to registry. We will later choose to tag that as stable
+    #   if everything passes.
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+    # This copies the elixir build artifacts for deps and app so that we can cache them
+    - docker cp `docker create $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA`:/root/app/_build/prod _build
 
+# If tests pass, tag the commit and update package versions
 deploy_to_tags:
   stage: deploy_tags
   needs: ['test']
   image: "node:15.0"
   only:
     - master
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - node_modules/
   script:
     - npm install
     - npx semantic-release --repository-url=$CI_REPOSITORY_URL
@@ -54,6 +131,8 @@ deploy_to_tags:
     reports:
       dotenv: build.env
 
+# If the tests passed, we take the image for this SHA and tag it with the version
+#   and latest, so we can signal that it is ready for prod
 deploy_commit_image_to_tag:
   stage: deploy
   needs:
@@ -65,6 +144,8 @@ deploy_commit_image_to_tag:
   image: "docker:19.03.12"
   services:
     - name: docker:19.03.12-dind
+  variables:
+    GIT_STRATEGY: none # this job does not need the project files, only docker
   script:
     - echo "BUILD_VERSION is ${BUILD_VERSION}"
     - docker login "https://${CI_REGISTRY}" -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
