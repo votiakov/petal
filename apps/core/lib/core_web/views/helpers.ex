@@ -1,6 +1,6 @@
 defmodule Legendary.CoreWeb.Helpers do
   @moduledoc """
-  HTML helpers for our styled (Fomantic UI) forms.
+  HTML helpers for our styled (Tailwind) forms.
   """
   use Phoenix.HTML
 

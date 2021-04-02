@@ -26,8 +26,10 @@ defmodule Legendary.Core.MixProject do
       homepage_url: "https://legendaryframework.org/",
       docs: [
         main: "overview",
-        extra_section: "GUIDES",
-        extras: extras()
+        extra_section: "Getting Started",
+        extras: extras(),
+        groups_for_extras: groups_for_extras(),
+        groups_for_modules: groups_for_modules(),
       ],
 
       # Hex
@@ -45,7 +47,70 @@ defmodule Legendary.Core.MixProject do
   end
 
   defp extras do
-    Path.wildcard("guides/**/*.md")
+    [
+      "guides/overview.md",
+      "guides/tutorial.md",
+      # "guides/tutorial.md": [filename: "tutorial", title: "Tutorial"],
+      "guides/features/admin.md",
+      "guides/features/auth.md",
+      "guides/features/background-jobs.md",
+      "guides/features/content-management.md",
+      "guides/features/devops-templates.md",
+      "guides/features/fluid-email-templates.md",
+      "guides/features/i18n.md",
+      "guides/features/tasks-and-scripts.md",
+    ]
+  end
+
+  defp groups_for_extras do
+    [
+      Guides: ~r{guides/[^\.]+.md},
+    ]
+  end
+
+  defp groups_for_modules do
+    [
+      "Auth": [
+        Legendary.Auth,
+        Legendary.AuthWeb,
+        ~r{Legendary\.Auth(Web)?\..+},
+        Legendary.CoreWeb.Router.PowExtensionRouter
+      ],
+      "Email": [
+        Legendary.CoreEmail,
+        Legendary.CoreMailer,
+        Legendary.CoreWeb.EmailHelpers,
+        Legendary.CoreWeb.CoreEmailView,
+      ],
+      "Internationalization": [
+        Legendary.I18n
+      ],
+      "Mix Tasks": [
+        Legendary.Mix,
+      ],
+      "View Helpers": [
+        Legendary.CoreWeb.ErrorHelpers,
+        Legendary.CoreWeb.Helpers,
+      ],
+      "Core Other": [
+        Legendary.Core,
+        Legendary.Core.MapUtils,
+        Legendary.Core.Repo,
+        Legendary.Core.SharedDBConnectionPool,
+        Mix.Legendary,
+      ],
+      "Web Other": [
+        Legendary.CoreWeb,
+        Legendary.CoreWeb.Endpoint,
+        Legendary.CoreWeb.ErrorView,
+        Legendary.CoreWeb.Gettext,
+        Legendary.CoreWeb.LayoutView,
+        Legendary.CoreWeb.Router,
+        Legendary.CoreWeb.Router.Helpers,
+        Legendary.CoreWeb.Telemetry,
+        Legendary.CoreWeb.UserSocket,
+      ]
+    ]
   end
 
   # Configuration for the OTP application.
