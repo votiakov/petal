@@ -5,7 +5,7 @@
         1..Legendary.Content.Post.content_page_count(@post),
         fn page ->
           if assigns[:current_page] == nil || assigns[:current_page] != page do
-            link page, to: Routes.paged_post_path(@conn, :show, @post, page)
+            link page, to: Routes.posts_path(@conn, :show, @post, page: page)
           else
             content_tag :span, page, class: "paginator-page"
           end

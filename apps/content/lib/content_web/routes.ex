@@ -33,7 +33,7 @@ defmodule Legendary.Content.Routes do
         get "/", PostsController, :index
         resources "/sitemap", SitemapController, only: [:index]
         get "/:id", PostsController, :show
-        get "/:id/:page", PostsController, :show, as: :paged_post
+        get "/*id", PostsController, :show, as: :nested_posts
       end
     end
   end
