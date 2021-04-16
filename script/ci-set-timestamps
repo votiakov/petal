@@ -1,6 +1,6 @@
 #!/bin/sh
 
-BUILD_TIMESTAMP=`date -d $CI_COMMIT_TIMESTAMP "+CCYYMMDDhhmm.SS"`
+BUILD_TIMESTAMP=`date -d $CI_COMMIT_TIMESTAMP +CCYYMMDDhhmm.SS`
 
 echo $BUILD_TIMESTAMP
 touch -t $BUILD_TIMESTAMP apps/**/*.ex apps/**/*.exs config/**/*.ex config/**/*.exs mix.exs
