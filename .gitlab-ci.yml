@@ -15,10 +15,9 @@ variables:
   # fetch & clean the repo rather than completely cloning (faster)
   GIT_STRATEGY: fetch
 
-# Dependency stages-- fetch these first so that we can cache them and reuse them
-#   across jobs and pipelines. Note that elixir deps need to go first, because
-#   we need the phoenix and phoenix_html hex packages to install their JS.
-fetch_application_dependencies:
+# Build the app once and cache it so that we can have fast compiles in test
+#   and Docker built steps
+prebuild:
   stage: prebuild
   image: "elixir:1.10"
   cache:
@@ -46,7 +45,7 @@ fetch_asset_dependencies:
   stage: asset_dependencies
   image: "node:15.0"
   needs:
-    - fetch_application_dependencies
+    - prebuild
   only:
     - master
   cache:
