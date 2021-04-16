@@ -1,7 +1,6 @@
 stages:
-  - application_dependencies
-  - asset_dependencies
   - prebuild
+  - asset_dependencies
   - test
   - deploy_tags
   - deploy
@@ -20,7 +19,7 @@ variables:
 #   across jobs and pipelines. Note that elixir deps need to go first, because
 #   we need the phoenix and phoenix_html hex packages to install their JS.
 fetch_application_dependencies:
-  stage: application_dependencies
+  stage: prebuild
   image: "elixir:1.10"
   cache:
     key:
@@ -34,6 +33,7 @@ fetch_application_dependencies:
     - mix local.rebar --force
     - mix deps.get
     - mix deps.compile
+    - mix compile
   # Make results available to other jobs
   artifacts:
     paths:
@@ -63,21 +63,6 @@ fetch_asset_dependencies:
       - apps/app/assets/node_modules
     exclude:
       - apps/app/assets/node_modules
-
-prebuild:
-  stage: prebuild
-  image: "elixir:1.10"
-  needs:
-    - fetch_application_dependencies
-  cache:
-    - key:
-        files:
-        - mix.lock
-      paths:
-        - _build/
-        - deps/
-  script:
-    - mix compile
 
 # Test stage. Runs various tests and speculatively builds docker image in
 #   parallel, in case the build passes.
@@ -125,7 +110,6 @@ build_image_for_commit:
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
     # This copies the elixir build artifacts for deps and app so that we can cache them
     - docker cp `docker create $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA`:/root/app/_build/prod _build
-    - la -la _build/
 
 # If tests pass, tag the commit and update package versions
 deploy_to_tags:
