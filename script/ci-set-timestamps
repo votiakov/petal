@@ -1,0 +1,5 @@
+#!/bin/sh
+
+BUILD_TIMESTAMP=`date -d $CI_COMMIT_TIMESTAMP "CCYYMMDDhhmm.SS"`
+
+touch -t $BUILD_TIMESTAMP apps/**/*.ex apps/**/*.exs config/**/*.ex config/**/*.exs mix.exs
