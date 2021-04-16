@@ -1,5 +1,5 @@
 stages:
-  - application_dependencies
+  - prebuild
   - asset_dependencies
   - test
   - deploy_tags
@@ -15,11 +15,10 @@ variables:
   # fetch & clean the repo rather than completely cloning (faster)
   GIT_STRATEGY: fetch
 
-# Dependency stages-- fetch these first so that we can cache them and reuse them
-#   across jobs and pipelines. Note that elixir deps need to go first, because
-#   we need the phoenix and phoenix_html hex packages to install their JS.
-fetch_application_dependencies:
-  stage: application_dependencies
+# Build the app once and cache it so that we can have fast compiles in test
+#   and Docker built steps
+prebuild:
+  stage: prebuild
   image: "elixir:1.10"
   cache:
     key:
@@ -33,6 +32,7 @@ fetch_application_dependencies:
     - mix local.rebar --force
     - mix deps.get
     - mix deps.compile
+    - mix compile
   # Make results available to other jobs
   artifacts:
     paths:
@@ -45,7 +45,7 @@ fetch_asset_dependencies:
   stage: asset_dependencies
   image: "node:15.0"
   needs:
-    - fetch_application_dependencies
+    - prebuild
   only:
     - master
   cache:
@@ -68,7 +68,7 @@ fetch_asset_dependencies:
 test:
   stage: test
   needs:
-    - fetch_application_dependencies
+    - prebuild
   image: "elixir:1.10"
   services:
   - name: postgres:12
@@ -85,7 +85,7 @@ build_image_for_commit:
   stage: test
   needs:
     - fetch_asset_dependencies
-    - fetch_application_dependencies
+    - prebuild
   image: "docker:20.10"
   only:
     - master
@@ -99,6 +99,7 @@ build_image_for_commit:
       - _build/
       - deps/
   script:
+    - ls -la _build
     - docker login "https://${CI_REGISTRY}" -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
     - docker pull $CI_REGISTRY_IMAGE:latest || true
     # This enables fast parallel builds
@@ -109,6 +110,7 @@ build_image_for_commit:
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
     # This copies the elixir build artifacts for deps and app so that we can cache them
     - docker cp `docker create $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA`:/root/app/_build/prod _build
+    - ls -la _build
 
 # If tests pass, tag the commit and update package versions
 deploy_to_tags:
