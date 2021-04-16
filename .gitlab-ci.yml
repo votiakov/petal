@@ -1,6 +1,7 @@
 stages:
   - application_dependencies
   - asset_dependencies
+  - prebuild
   - test
   - deploy_tags
   - deploy
@@ -63,12 +64,27 @@ fetch_asset_dependencies:
     exclude:
       - apps/app/assets/node_modules
 
+prebuild:
+  stage: prebuild
+  image: "elixir:1.10"
+  needs:
+    - fetch_application_dependencies
+  cache:
+    - key:
+        files:
+        - mix.lock
+      paths:
+        - _build/
+        - deps/
+  script:
+    - mix compile
+
 # Test stage. Runs various tests and speculatively builds docker image in
 #   parallel, in case the build passes.
 test:
   stage: test
   needs:
-    - fetch_application_dependencies
+    - prebuild
   image: "elixir:1.10"
   services:
   - name: postgres:12
@@ -85,7 +101,7 @@ build_image_for_commit:
   stage: test
   needs:
     - fetch_asset_dependencies
-    - fetch_application_dependencies
+    - prebuild
   image: "docker:20.10"
   only:
     - master
@@ -109,6 +125,7 @@ build_image_for_commit:
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
     # This copies the elixir build artifacts for deps and app so that we can cache them
     - docker cp `docker create $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA`:/root/app/_build/prod _build
+    - la -la _build/
 
 # If tests pass, tag the commit and update package versions
 deploy_to_tags:
