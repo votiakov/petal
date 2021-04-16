@@ -26,8 +26,6 @@ ADD ./apps/admin/mix.exs /root/app/apps/admin/
 ADD ./apps/app/mix.exs /root/app/apps/app/
 ADD ./apps/content/mix.exs /root/app/apps/content/
 ADD ./apps/core/mix.exs /root/app/apps/core/
-ADD ./deps /root/app/deps
-ADD ./_build /root/app/_build
 RUN mix deps.get
 RUN mix deps.compile
 

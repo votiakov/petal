@@ -1,6 +1,4 @@
 stages:
-  - prebuild
-  - asset_dependencies
   - test
   - deploy_tags
   - deploy
@@ -15,106 +13,31 @@ variables:
   # fetch & clean the repo rather than completely cloning (faster)
   GIT_STRATEGY: fetch
 
-# Build the app once and cache it so that we can have fast compiles in test
-#   and Docker built steps
-prebuild:
-  stage: prebuild
-  image: "elixir:1.10"
-  cache:
-    key:
-      files:
-        - mix.lock
-    paths:
-      - _build/
-      - deps/
-  script:
-    - script/ci-set-timestamps
-    - mix local.hex --force
-    - mix local.rebar --force
-    - mix deps.get
-    - mix deps.compile
-    - mix compile
-  # Make results available to other jobs
-  artifacts:
-    paths:
-      - deps/phoenix
-      - deps/phoenix_html
-    exclude:
-      - deps/
-
-fetch_asset_dependencies:
-  stage: asset_dependencies
-  image: "node:15.0"
-  needs:
-    - prebuild
-  only:
-    - master
-  cache:
-    key:
-      files:
-        - apps/app/assets/package-lock.json
-    paths:
-      - apps/app/assets/node_modules/
-  script:
-    - cd apps/app/assets/ && npm install
-  # Make results available to other jobs
-  artifacts:
-    paths:
-      - apps/app/assets/node_modules
-    exclude:
-      - apps/app/assets/node_modules
-
 # Test stage. Runs various tests and speculatively builds docker image in
 #   parallel, in case the build passes.
 test:
   stage: test
-  needs:
-    - prebuild
   image: "elixir:1.10"
   services:
   - name: postgres:12
-  cache:
-    key:
-      files:
-        - mix.lock
-    paths:
-      - _build/
-      - deps/
-  script:
-    - script/ci-set-timestamps
-    - script/cibuild
+  script: script/cibuild
 
 build_image_for_commit:
   stage: test
-  needs:
-    - fetch_asset_dependencies
-    - prebuild
   image: "docker:20.10"
   only:
     - master
   services:
     - name: docker:20.10-dind
-  cache:
-    key:
-      files:
-        - mix.lock
-    paths:
-      - _build/
-      - deps/
   script:
-    - script/ci-set-timestamps
-    - ls -la _build
     - docker login "https://${CI_REGISTRY}" -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
     - docker pull $CI_REGISTRY_IMAGE:latest || true
     # This enables fast parallel builds
     - export DOCKER_BUILDKIT=1
-    - docker build --cache-from $CI_REGISTRY_IMAGE:latest -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA --build-arg BUILDKIT_INLINE_CACHE=1 .
+    - docker build --cache-from $CI_REGISTRY_IMAGE:latest -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA .
     # Push the commit SHA tagged version to registry. We will later choose to tag that as stable
     #   if everything passes.
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
-    # This copies the elixir build artifacts for deps and app so that we can cache them
-    - docker cp `docker create $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA`:/root/app/_build/prod _build
-    - ls -la _build
 
 # If tests pass, tag the commit and update package versions
 deploy_to_tags:
