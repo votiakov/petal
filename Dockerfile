@@ -37,7 +37,6 @@ FROM node:15.0
 
 # Build assets in a node container
 WORKDIR /root/app/apps/app/assets/
-ADD ./apps/app/assets/node_modules /root/app/apps/app/assets/node_modules
 COPY --from=0 /root/app/ /root/app/
 RUN npm install
 RUN npm run deploy
