@@ -2,7 +2,6 @@ defmodule <%= inspect context.web_module %>.<%= inspect Module.concat(schema.web
   use <%= inspect context.web_module %>.ConnCase
 
   import Phoenix.LiveViewTest
-  import <%= inspect context.module %>Fixtures
 
   @create_attrs <%= inspect schema.params.create %>
   @update_attrs <%= inspect schema.params.update %>

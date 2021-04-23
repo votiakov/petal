@@ -44,7 +44,7 @@ defmodule App.MixProject do
       {:core, in_umbrella: true},
       {:ecto_sql, "~> 3.4"},
       {:excoveralls, "~> 0.10", only: [:dev, :test]},
-      {:phoenix, "~> 1.5.3"},
+      {:phoenix, "~> 1.5.8"},
       {:phoenix_ecto, "~> 4.0"},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},

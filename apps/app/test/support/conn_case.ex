@@ -1,4 +1,4 @@
-defmodule App.ConnCase do
+defmodule AppWeb.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -11,7 +11,7 @@ defmodule App.ConnCase do
   we enable the SQL sandbox, so changes done to the database
   are reverted at the end of every test. If you are using
   PostgreSQL, you can even run database tests asynchronously
-  by setting `use App.ConnCase, async: true`, although
+  by setting `use AppWeb.ConnCase, async: true`, although
   this option is not recommended for other databases.
   """
 
@@ -22,9 +22,9 @@ defmodule App.ConnCase do
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
-      import App.ConnCase
+      import AppWeb.ConnCase
 
-      alias App.Router.Helpers, as: Routes
+      alias AppWeb.Router.Helpers, as: Routes
 
       # The default endpoint for testing
       @endpoint AppWeb.Endpoint

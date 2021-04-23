@@ -1,8 +1,6 @@
 defmodule <%= inspect context.web_module %>.<%= inspect Module.concat(schema.web_namespace, schema.alias) %>ControllerTest do
   use <%= inspect context.web_module %>.ConnCase
 
-  import <%= inspect context.module %>Fixtures
-
   alias <%= inspect schema.module %>
 
   @create_attrs %{

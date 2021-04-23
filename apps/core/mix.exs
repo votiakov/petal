@@ -137,7 +137,7 @@ defmodule Legendary.Core.MixProject do
       {:ex_cldr, "~> 2.13.0"},
       {:ex_doc, "~> 0.24", only: :dev, runtime: false},
       {:excoveralls, "~> 0.10", only: [:dev, :test]},
-      {:phoenix, "~> 1.5.3"},
+      {:phoenix, "~> 1.5.8"},
       {:phoenix_ecto, "~> 4.1"},
       {:ecto_sql, "~> 3.4"},
       {:ex_prompt, "~> 0.1.5"},

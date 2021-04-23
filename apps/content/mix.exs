@@ -51,7 +51,7 @@ defmodule Legendary.Content.MixProject do
       {:meck, "~> 0.8.13", only: :test},
       {:neotomex, "~> 0.1.7"},
       {:oban, "~> 2.1"},
-      {:phoenix, "~> 1.5.3"},
+      {:phoenix, "~> 1.5.8"},
       {:phoenix_ecto, "~> 4.0"},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_html_sanitizer, "~> 1.0.0"},
