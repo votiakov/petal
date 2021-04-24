@@ -38,7 +38,6 @@ build_image_for_commit:
   services:
     - name: docker:20.10-dind
   script:
-    - script/ci/restore-timestamps
     - docker login "https://${CI_REGISTRY}" -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
     - docker pull $CI_REGISTRY_IMAGE:latest || true
     # This enables fast parallel builds
@@ -49,7 +48,6 @@ build_image_for_commit:
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
     # Pull out the built _build/prod directory so we can cache it!
     - docker cp `docker create $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA`:/root/app/_build/prod _build
-    - script/ci/restore-timestamps
 
 # If tests pass, tag the commit and update package versions
 deploy_to_tags:

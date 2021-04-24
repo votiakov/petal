@@ -28,6 +28,7 @@ ADD ./apps/content/mix.exs /root/app/apps/content/
 ADD ./apps/core/mix.exs /root/app/apps/core/
 ADD ./_build/ /root/app/_build/
 ADD ./deps/ /root/app/deps/
+RUN script/restore-timestamps
 RUN mix deps.get
 RUN mix deps.compile
 
@@ -54,5 +55,7 @@ RUN MAKE=cmake mix compile
 # Copy in the built assets & fingerprint them
 COPY --from=1 /root/app/apps/app/priv/static/ /root/app/apps/app/priv/static
 RUN mix phx.digest
+
+RUN script/restore-timestamps
 
 CMD ["mix", "phx.server"]
