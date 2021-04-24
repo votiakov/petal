@@ -42,6 +42,7 @@ build_image_for_commit:
     - docker pull $CI_REGISTRY_IMAGE:latest || true
     # This enables fast parallel builds
     - export DOCKER_BUILDKIT=1
+    - mkdir -p _build/prod
     - docker build --cache-from $CI_REGISTRY_IMAGE:latest -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA .
     # Push the commit SHA tagged version to registry. We will later choose to tag that as stable
     #   if everything passes.
