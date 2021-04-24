@@ -6,8 +6,12 @@ set -e
 mix local.hex --force
 mix local.rebar --force
 
+script/ci/restore-timestamps
+
 mix deps.get
 mix ecto.create
 mix ecto.migrate
 
 mix test
+
+script/ci/restore-timestamps
