@@ -1,0 +1,76 @@
+#!/usr/bin/env elixir
+
+defmodule TimestampRestorer do
+  @environment System.get_env("MIX_ENV", "dev")
+  @db_path "_build/#{@environment}/timestamp-database"
+
+  def sha_all do
+    timestamp_database = load_timestamp_database()
+
+    "**/*.{ex,exs,beam}"
+    |> Path.wildcard()
+    |> Enum.reduce(%{}, fn filename, acc ->
+      {sha, timestamp} = process(filename, timestamp_database)
+      Map.put(acc, sha, timestamp)
+    end)
+    |> write_timestamp_database()
+  end
+
+  defp load_timestamp_database() do
+    if File.exists?(@db_path) do
+      @db_path
+      |> File.read!()
+      |> String.split("\n")
+      |> Enum.reduce(%{}, fn line, acc ->
+        [sha, timestamp_string] = String.split(line, ":")
+        {timestamp, ""} = Integer.parse(timestamp_string)
+        Map.put(acc, sha, timestamp)
+      end)
+    else
+      %{}
+    end
+  end
+
+  defp write_timestamp_database(database) do
+    File.mkdir_p!(Path.dirname(@db_path))
+
+    database
+    |> Enum.map(fn {key, value} -> "#{key}:#{value}" end)
+    |> Enum.join("\n")
+    |> (& File.write!(@db_path, &1)).()
+  end
+
+  defp process(filename, timestamp_database) do
+    sha = sha(filename)
+    {:ok, %{mtime: new_timestamp}} = File.lstat(filename, time: :posix)
+
+    case Map.get(timestamp_database, sha) do
+      nil ->
+        :logger.debug("[NEW SHA  ] #{filename}: #{new_timestamp}")
+      timestamp when timestamp < new_timestamp ->
+        :logger.debug("[RESTORED ] #{filename}: #{timestamp}")
+        File.touch(filename, timestamp)
+      timestamp when timestamp >= new_timestamp ->
+        :logger.debug("[UNCHANGED] #{filename}: #{timestamp}")
+    end
+
+    {sha, new_timestamp}
+  end
+
+  defp sha(filename) do
+    hash_ref = :crypto.hash_init(:sha)
+
+    File.stream!(filename)
+    |> Enum.reduce(hash_ref, fn chunk, prev_ref->
+      new_ref = :crypto.hash_update(prev_ref, chunk)
+      new_ref
+    end)
+    |> :crypto.hash_final()
+    |> Base.encode16()
+    |> String.downcase()
+  end
+end
+
+{time, _result} = :timer.tc(TimestampRestorer, :sha_all, [])
+
+:logger.info("Restored timestamps in #{time / 1_000_000}s")

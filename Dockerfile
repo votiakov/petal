@@ -26,22 +26,26 @@ ADD ./apps/admin/mix.exs /root/app/apps/admin/
 ADD ./apps/app/mix.exs /root/app/apps/app/
 ADD ./apps/content/mix.exs /root/app/apps/content/
 ADD ./apps/core/mix.exs /root/app/apps/core/
+ADD ./_build/ /root/app/_build/
+ADD ./deps/ /root/app/deps/
 RUN mix deps.get
 RUN mix deps.compile
-
-ADD ./apps /root/app/apps
 
 # Leave off here so that we can built assets and compile the elixir app in parallel
 
 FROM node:15.0
 
 # Build assets in a node container
+ADD ./apps/app/assets/ /root/app/apps/app/assets/
+
 WORKDIR /root/app/apps/app/assets/
 COPY --from=0 /root/app/ /root/app/
 RUN npm install
 RUN npm run deploy
 
 FROM elixir1
+
+ADD ./apps /root/app/apps
 
 # Resume compilation of the elixir app
 ADD ./script /root/app/script
