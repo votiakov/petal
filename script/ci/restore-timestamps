@@ -32,6 +32,8 @@ defmodule TimestampRestorer do
   end
 
   defp write_timestamp_database(database) do
+    File.mkdir_p!(Path.dirname(@db_path))
+
     database
     |> Enum.map(fn {key, value} -> "#{key}:#{value}" end)
     |> Enum.join("\n")
