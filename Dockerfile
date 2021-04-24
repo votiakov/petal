@@ -26,8 +26,9 @@ ADD ./apps/admin/mix.exs /root/app/apps/admin/
 ADD ./apps/app/mix.exs /root/app/apps/app/
 ADD ./apps/content/mix.exs /root/app/apps/content/
 ADD ./apps/core/mix.exs /root/app/apps/core/
-ADD ./_build/ /root/app/_build/
+ADD ./_build/${MIX_ENV}/ /root/app/_build/${MIX_ENV}/
 ADD ./deps/ /root/app/deps/
+ADD ./script/ /root/app/script/
 RUN script/restore-timestamps
 RUN mix deps.get
 RUN mix deps.compile
@@ -49,7 +50,6 @@ FROM elixir1
 ADD ./apps /root/app/apps
 
 # Resume compilation of the elixir app
-ADD ./script /root/app/script
 RUN MAKE=cmake mix compile
 
 # Copy in the built assets & fingerprint them
