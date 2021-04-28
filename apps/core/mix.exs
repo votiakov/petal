@@ -30,6 +30,7 @@ defmodule Legendary.Core.MixProject do
         extras: extras(),
         groups_for_extras: groups_for_extras(),
         groups_for_modules: groups_for_modules(),
+        assets: "guides/assets",
       ],
 
       # Hex
