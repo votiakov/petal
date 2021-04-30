@@ -57,7 +57,7 @@ defmodule Legendary.Core.MixProject do
       "guides/features/background-jobs.md",
       "guides/features/content-management.md",
       "guides/features/devops-templates.md",
-      "guides/features/fluid-email-templates.md",
+      "guides/features/email.md",
       "guides/features/i18n.md",
       "guides/features/tasks-and-scripts.md",
     ]
