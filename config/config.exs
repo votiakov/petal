@@ -66,6 +66,13 @@ config :content,
     {"0 * * * *", Legendary.Content.Sitemaps},
   ]
 
+config :app,
+  Oban,
+  repo: App.Repo,
+  queues: [default: 10],
+  crontab: [
+  ]
+
 import_config "email_styles.exs"
 import_config "admin.exs"
 

@@ -44,6 +44,7 @@ defmodule App.MixProject do
       {:core, in_umbrella: true},
       {:ecto_sql, "~> 3.4"},
       {:excoveralls, "~> 0.10", only: [:dev, :test]},
+      {:oban, "~> 2.1"},
       {:phoenix, "~> 1.5.8"},
       {:phoenix_ecto, "~> 4.0"},
       {:phoenix_html, "~> 2.11"},

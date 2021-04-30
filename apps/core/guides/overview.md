@@ -66,3 +66,11 @@ need to configure a [CI variable](https://docs.gitlab.com/ee/ci/variables/) name
 `GITLAB_TOKEN`. This token should be a
 [personal access token](https://gitlab.com/-/profile/personal_access_tokens) with
 `read_repository, write_repository` permissions.
+
+## DevOps
+
+The preconfigured CI pipeline generates semantically versioned docker images that
+you can deploy in your choice of dockerized hosting. We also provide a manifest
+for Kubernetes that is automatically updated with each version (see infrastructure/
+for the generated result and infrastructure_templates/ for the templates used to
+generate the manifest).
