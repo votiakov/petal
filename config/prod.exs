@@ -11,6 +11,7 @@ use Mix.Config
 # before starting your production server.
 
 secret_key_base = System.get_env("SECRET_KEY_BASE")
+signing_salt = System.get_env("LIVE_VIEW_SIGNING_SALT")
 
 [
   {:admin, Legendary.Admin, false},
@@ -35,7 +36,7 @@ secret_key_base = System.get_env("SECRET_KEY_BASE")
     ],
     secret_key_base: secret_key_base,
     pubsub_server: App.PubSub,
-    live_view: [signing_salt: "g5ltUbnQ"],
+    live_view: [signing_salt: signing_salt],
     server: start_server
   ] ++ extra_opts
 end)
