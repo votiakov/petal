@@ -12,7 +12,7 @@ else
   export KERL_CONFIGURE_OPTIONS="--disable-hipe --with-ssl=$(brew --prefix openssl)"
 fi
 
-if ! asdf -v &> /dev/null
+if ! which asdf &> /dev/null
 then
   echo "WARNING: No asdf. Skipping erlang, elixir, node installation."
 else
@@ -27,4 +27,4 @@ else
   asdf install
 fi
 
-mix local.hex --force 
+mix local.hex --force

@@ -27,7 +27,7 @@ Since Legendary is both a template and a framework, you can simply clone the rep
 to start using it. It's a fully functional Phoenix app as-is. To start a new project:
 
 ```sh
-git clone git@gitlab.com:mythic-insight/legendary.git <project_name>
+git clone https://gitlab.com/mythic-insight/legendary.git <project_name>
 ```
 
 In order to start the server, run `script/server`. Any dependencies required

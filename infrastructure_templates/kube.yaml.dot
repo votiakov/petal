@@ -34,6 +34,11 @@ spec:
                 secretKeyRef:
                   name: legendary
                   key: secret-key-base
+            - name: LIVE_VIEW_SIGNING_SALT
+              valueFrom:
+                secretKeyRef:
+                  name: legendary
+                  key: live-view-signing-salt
 ---
 apiVersion: v1
 kind: Service
