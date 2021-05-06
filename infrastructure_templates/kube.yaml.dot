@@ -34,7 +34,6 @@ spec:
                 secretKeyRef:
                   name: legendary
                   key: secret-key-base
-                        - name: SECRET_KEY_BASE
             - name: LIVE_VIEW_SIGNING_SALT
               valueFrom:
                 secretKeyRef:
