@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: registry.gitlab.com/mythic-insight/legendary:2.4.0
+          image: registry.gitlab.com/mythic-insight/legendary:2.4.1
           ports:
             - containerPort: 4000
           env:
@@ -34,6 +34,11 @@ spec:
                 secretKeyRef:
                   name: legendary
                   key: secret-key-base
+            - name: LIVE_VIEW_SIGNING_SALT
+              valueFrom:
+                secretKeyRef:
+                  name: legendary
+                  key: live-view-signing-salt
 ---
 apiVersion: v1
 kind: Service
