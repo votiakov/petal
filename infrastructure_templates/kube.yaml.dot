@@ -51,7 +51,7 @@ spec:
                 secretKeyRef:
                   name: legendary
                   key: smtp-username
-            - name: SMTP_HOST
+            - name: SMTP_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: legendary
