@@ -65,6 +65,20 @@ database_url = System.get_env("DATABASE_URL")
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 end)
 
+config :core, Legendary.CoreMailer,
+  adapter: Bamboo.SMTPAdapter,
+  server: {:system, "SMTP_HOST"},
+  hostname: {:system, "HOSTNAME"},
+  port: 25,
+  username: {:system, "SMTP_USERNAME"},
+  password: {:system, "SMTP_PASSWORD"},
+  tls: :if_available,
+  allowed_tls_versions: [:"tlsv1", :"tlsv1.1", :"tlsv1.2"],
+  ssl: false,
+  retries: 1,
+  no_mx_lookups: false,
+  auth: :always
+
 # ## Using releases (Elixir v1.9+)
 #
 # If you are doing OTP releases, you need to instruct Phoenix
