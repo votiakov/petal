@@ -20,10 +20,34 @@ spec:
     spec:
       containers:
         - name: app
-          image: registry.gitlab.com/mythic-insight/legendary:2.4.1
+          image: registry.gitlab.com/mythic-insight/legendary:2.4.2
+          command: ["elixir"]
+          args:
+            - "--name"
+            - "$(NAME)@$(POD_IP)"
+            - "--cookie"
+            - "$(SECRET_KEY_BASE)"
+            - "-S"
+            - "mix"
+            - "phx.server"
           ports:
             - containerPort: 4000
+            - containerPort: 4369
           env:
+            - name: HOSTNAME
+              value: legendaryframework.org
+            - name: EMAIL_FROM
+              value: no-reply@legendaryframework.org
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: NAME
+              value: legendary-doc-site
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
             - name: DATABASE_URL
               valueFrom:
                 secretKeyRef:
@@ -39,6 +63,36 @@ spec:
                 secretKeyRef:
                   name: legendary
                   key: live-view-signing-salt
+            - name: SMTP_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: legendary
+                  key: smtp-host
+            - name: SMTP_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: legendary
+                  key: smtp-username
+            - name: SMTP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: legendary
+                  key: smtp-password
+            - name: SMTP_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: legendary
+                  key: smtp-host
+            - name: SMTP_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: legendary
+                  key: smtp-username
+            - name: SMTP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: legendary
+                  key: smtp-password
 ---
 apiVersion: v1
 kind: Service
@@ -77,3 +131,27 @@ spec:
   - hosts:
     - legendary-demo.mythicinsight.com
     secretName: legendary-demo-cert
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  namespace: legendary
+  name: pod-watcher
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["list"]
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  namespace: legendary
+  name: pod-watcher-binding
+subjects:
+- kind: ServiceAccount
+  namespace: legendary
+  name: default
+roleRef:
+  kind: Role
+  name: pod-watcher
+  apiGroup: rbac.authorization.k8s.io
