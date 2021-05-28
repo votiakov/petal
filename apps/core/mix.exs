@@ -120,7 +120,7 @@ defmodule Legendary.Core.MixProject do
   def application do
     [
       mod: {Legendary.Core.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:bamboo, :bamboo_smtp, :logger, :mnesia, :runtime_tools]
     ]
   end
 
@@ -134,6 +134,7 @@ defmodule Legendary.Core.MixProject do
   defp deps do
     [
       {:bamboo, "~> 1.5"},
+      {:bamboo_smtp, "~> 3.0"},
       {:credo, "~> 1.4", only: [:dev, :test], runtime: false},
       {:ex_cldr, "~> 2.13.0"},
       {:ex_doc, "~> 0.24", only: :dev, runtime: false},
@@ -153,6 +154,7 @@ defmodule Legendary.Core.MixProject do
       {:telemetry_poller, "~> 0.4"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
+      {:libcluster, "~> 3.3"},
       {:plug_cowboy, "~> 2.0"},
     ]
   end

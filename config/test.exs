@@ -41,3 +41,10 @@ config :core, Legendary.CoreMailer, adapter: Bamboo.TestAdapter
 config :content, Oban, crontab: false, queues: false, plugins: false
 
 config :logger, level: :warn
+
+config :libcluster,
+  topologies: [
+    # erlang_hosts: [
+    #   strategy: Legendary.Core.Cluster.EmptyClusterStrategy
+    # ]
+  ]

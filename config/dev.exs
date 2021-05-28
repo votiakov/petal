@@ -58,6 +58,13 @@ end)
 
 config :core, Legendary.CoreMailer, adapter: Bamboo.LocalAdapter
 
+config :libcluster,
+  topologies: [
+    local_epmd: [
+      strategy: Elixir.Cluster.Strategy.LocalEpmd
+    ]
+  ]
+
 # ## SSL Support
 #
 # In order to use HTTPS in development, a self-signed

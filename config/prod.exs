@@ -79,6 +79,20 @@ config :core, Legendary.CoreMailer,
   no_mx_lookups: false,
   auth: :always
 
+config :core, email_from: System.get_env("EMAIL_FROM")
+
+config :libcluster,
+  topologies: [
+    kubernetes: [
+      strategy: Elixir.Cluster.Strategy.Kubernetes,
+      config: [
+        mode: :ip,
+        kubernetes_ip_lookup_mode: :pods,
+        kubernetes_node_basename: System.get_env("NAME", "legendary"),
+        kubernetes_selector: "app=#{System.get_env("NAME", "legendary")}",
+        kubernetes_namespace: System.get_env("NAMESPACE", "legendary"),
+        polling_interval: 10_000]]]
+
 # ## Using releases (Elixir v1.9+)
 #
 # If you are doing OTP releases, you need to instruct Phoenix

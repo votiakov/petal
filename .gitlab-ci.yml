@@ -17,7 +17,7 @@ variables:
 #   parallel, in case the build passes.
 test:
   stage: test
-  image: "elixir:1.10"
+  image: "elixir:1.10.4-alpine"
   cache:
     paths:
       - _build/
@@ -48,12 +48,14 @@ build_image_for_commit:
     #   if everything passes.
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
     # Pull out the built _build/prod directory so we can cache it!
-    - docker cp `docker create $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA`:/root/app/_build/prod _build
+    - CONTAINER_HANDLE=`docker create $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA`
+    - docker cp $CONTAINER_HANDLE:/root/app/_build/prod _build
+    - docker cp $CONTAINER_HANDLE:/root/app/deps deps
 
 # If tests pass, tag the commit and update package versions
 deploy_to_tags:
   stage: deploy_tags
-  needs: ['test']
+  needs: ['test', 'build_image_for_commit']
   image: "node:15.0"
   only:
     - master
@@ -64,6 +66,10 @@ deploy_to_tags:
     paths:
       - node_modules/
   script:
+    - export GIT_AUTHOR_NAME=$GITLAB_USER_NAME
+    - export GIT_AUTHOR_EMAIL=$GITLAB_USER_EMAIL
+    - export GIT_COMMITTER_NAME=$GITLAB_USER_NAME
+    - export GIT_COMMITTER_EMAIL=$GITLAB_USER_EMAIL
     - npm install
     - npx semantic-release --repository-url=$CI_REPOSITORY_URL
     - script/generate-build-version

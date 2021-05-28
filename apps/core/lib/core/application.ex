@@ -6,7 +6,11 @@ defmodule Legendary.Core.Application do
   use Application
 
   def start(_type, _args) do
+    topologies = Application.get_env(:libcluster, :topologies)
+
     children = [
+      {Cluster.Supervisor, [topologies, [name: Legendary.Core.ClusterSupervisor]]},
+      Legendary.Auth.MnesiaClusterSupervisor,
       # Start the Ecto repository
       Legendary.Core.Repo,
       # Start the Telemetry supervisor

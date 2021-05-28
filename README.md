@@ -55,3 +55,12 @@ The CI script will automatically tag successful builds. To do this, you will
 need to configure a [CI variable](-/settings/ci_cd) named `GITLAB_TOKEN`. This
 token should be a [personal access token](/-/profile/personal_access_tokens) with
 `read_repository, write_repository` permissions.
+
+
+# Support
+
+Want to support development? Chip in on buymeacoffee:
+
+<a href="https://www.buymeacoffee.com/prehnra" target="_blank">
+  <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" >
+</a>
