@@ -60,8 +60,8 @@ config :core, Legendary.CoreMailer, adapter: Bamboo.LocalAdapter
 
 config :libcluster,
   topologies: [
-    local_epmd: [
-      strategy: Elixir.Cluster.Strategy.LocalEpmd
+    erlang_hosts: [
+      strategy: Elixir.Cluster.Strategy.ErlangHosts,
     ]
   ]
 
