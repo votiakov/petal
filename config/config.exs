@@ -43,7 +43,8 @@ config :core, :pow,
   controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks,
   mailer_backend: Legendary.AuthWeb.Pow.Mailer,
   web_mailer_module: Legendary.AuthWeb,
-  web_module: Legendary.AuthWeb
+  web_module: Legendary.AuthWeb,
+  cache_store_backend: Pow.Store.Backend.MnesiaCache
 
 config :core, email_from: "example@example.org"
 
@@ -72,6 +73,8 @@ config :app,
   queues: [default: 10],
   crontab: [
   ]
+
+config :mnesia, dir: to_charlist(Path.expand("./priv/mnesia"))
 
 import_config "email_styles.exs"
 import_config "admin.exs"

@@ -9,6 +9,8 @@ RUN mix local.hex --force \
   && mix local.rebar --force
 
 EXPOSE 4000
+# Default EPMD port
+EXPOSE 4369
 
 ARG MIX_ENV=prod
 RUN echo ${MIX_ENV}
@@ -58,4 +60,6 @@ RUN mix phx.digest
 
 RUN script/restore-timestamps
 
-CMD ["mix", "phx.server"]
+RUN mkdir -p /root/app/priv/
+
+CMD elixir --name ${NAME:=legendary}@$(hostname -f) -S mix phx.server
