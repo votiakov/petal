@@ -12,6 +12,7 @@ defmodule Legendary.I18n do
       path
       |> Path.basename()
       |> Path.rootname()
+      |> String.to_atom()
 
     locale locale, path
   end)
