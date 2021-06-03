@@ -149,7 +149,7 @@ defmodule Legendary.Core.MixProject do
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_dashboard, "~> 0.2.0"},
       {:phoenix_pubsub, "~> 2.0"},
-      {:pow, "~> 1.0.20"},
+      {:pow, "~> 1.0.23"},
       {:telemetry_metrics, "~> 0.4"},
       {:telemetry_poller, "~> 0.4"},
       {:gettext, "~> 0.11"},
