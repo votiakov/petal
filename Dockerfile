@@ -1,4 +1,4 @@
-FROM elixir:1.10.4-alpine AS elixir1
+FROM elixir:1.10.4-alpine AS elixir-builder
 
 RUN apk add make gcc libc-dev
 
@@ -47,7 +47,7 @@ COPY --from=0 /root/app/ /root/app/
 RUN npm install
 RUN npm run deploy
 
-FROM elixir1
+FROM elixir-builder
 
 ADD ./apps /root/app/apps
 
