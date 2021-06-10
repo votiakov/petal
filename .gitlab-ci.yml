@@ -15,9 +15,8 @@ variables:
 
 # Test stage. Runs various tests and speculatively builds docker image in
 #   parallel, in case the build passes.
-test:
+.test_template: &test_template
   stage: test
-  image: "elixir:1.10.4-alpine"
   cache:
     paths:
       - _build/
@@ -25,6 +24,18 @@ test:
   services:
   - name: postgres:12
   script: script/cibuild
+
+test:
+  <<: *test_template
+  image: "elixir:1.10.4-alpine"
+
+test_1.11.4:
+  <<: *test_template
+  image: "elixir:1.11.4-alpine"
+
+test_1.12.1:
+  <<: *test_template
+  image: "elixir:1.12.1-alpine"
 
 build_image_for_commit:
   stage: test
@@ -37,20 +48,11 @@ build_image_for_commit:
       - deps/
   services:
     - name: docker:20.10-dind
+  before_script:
+    - apk add git
+    - script/ci-docker-prebuild
   script:
-    - docker login "https://${CI_REGISTRY}" -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
-    - docker pull $CI_REGISTRY_IMAGE:latest || true
-    # This enables fast parallel builds
-    - export DOCKER_BUILDKIT=1
-    - mkdir -p _build/prod
-    - docker build --cache-from $CI_REGISTRY_IMAGE:latest -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA .
-    # Push the commit SHA tagged version to registry. We will later choose to tag that as stable
-    #   if everything passes.
-    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
-    # Pull out the built _build/prod directory so we can cache it!
-    - CONTAINER_HANDLE=`docker create $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA`
-    - docker cp $CONTAINER_HANDLE:/root/app/_build/prod _build
-    - docker cp $CONTAINER_HANDLE:/root/app/deps deps
+    - script/ci-docker-build
 
 # If tests pass, tag the commit and update package versions
 deploy_to_tags:
@@ -92,13 +94,16 @@ deploy_commit_image_to_tag:
     - name: docker:19.03.12-dind
   variables:
     GIT_STRATEGY: none # this job does not need the project files, only docker
+  parallel:
+    matrix:
+      - IMAGE_TYPE: ["", "-elixir-builder", "-asset-builder"]
   script:
     - echo "BUILD_VERSION is ${BUILD_VERSION}"
     - docker login "https://${CI_REGISTRY}" -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
     # Run the docker pull, but retry if it doesn't work at first because layers may be
     # still be loading to storage
-    - for i in 1 2 3 4 5; do docker pull $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA && break || sleep 15; done
-    - docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA $CI_REGISTRY_IMAGE:$BUILD_VERSION
-    - docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA $CI_REGISTRY_IMAGE:latest
-    - docker push $CI_REGISTRY_IMAGE:$BUILD_VERSION
-    - docker push $CI_REGISTRY_IMAGE:latest
+    - for i in 1 2 3 4 5; do docker pull $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA$IMAGE_TYPE && break || sleep 15; done
+    - docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA$IMAGE_TYPE $CI_REGISTRY_IMAGE:$BUILD_VERSION$IMAGE_TYPE
+    - docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA$IMAGE_TYPE $CI_REGISTRY_IMAGE:latest$IMAGE_TYPE
+    - docker push $CI_REGISTRY_IMAGE:$BUILD_VERSION$IMAGE_TYPE
+    - docker push $CI_REGISTRY_IMAGE:latest$IMAGE_TYPE
