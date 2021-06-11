@@ -57,6 +57,7 @@ defmodule AppWeb.Router do
     pow_extension_routes()
   end
 
+  use Legendary.Core.Routes
   use Legendary.Admin.Routes
   use Legendary.Content.Routes
 end
