@@ -58,6 +58,7 @@ defmodule Legendary.Core.MixProject do
       "guides/features/content-management.md",
       "guides/features/devops-templates.md",
       "guides/features/email.md",
+      "guides/features/feature-flags.md",
       "guides/features/i18n.md",
       "guides/features/tasks-and-scripts.md",
     ]
@@ -139,6 +140,8 @@ defmodule Legendary.Core.MixProject do
       {:ex_cldr, "~> 2.13.0"},
       {:ex_doc, "~> 0.24", only: :dev, runtime: false},
       {:excoveralls, "~> 0.10", only: [:dev, :test]},
+      {:fun_with_flags, "~> 1.6.0"},
+      {:fun_with_flags_ui, "~> 0.7.2"},
       {:phoenix, "~> 1.5.8"},
       {:phoenix_ecto, "~> 4.1"},
       {:ecto_sql, "~> 3.4"},

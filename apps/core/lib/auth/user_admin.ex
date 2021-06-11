@@ -3,6 +3,12 @@ defmodule Legendary.Auth.UserAdmin do
   alias Legendary.Auth.User
   alias Legendary.Core.Repo
 
+  def custom_links(_schema) do
+    [
+      %{name: "Feature Flags", url: "/admin/feature-flags", order: 2, location: :top, icon: "flag"},
+    ]
+  end
+
   def create_changeset(schema, attrs) do
     Legendary.Auth.User.admin_changeset(schema, attrs)
   end

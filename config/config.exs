@@ -76,6 +76,24 @@ config :app,
 
 config :mnesia, dir: to_charlist(Path.expand("./priv/mnesia"))
 
+# Feature flags
+
+config :fun_with_flags, :cache,
+  enabled: true,
+  ttl: 300 # seconds
+
+config :fun_with_flags, :persistence,
+  adapter: FunWithFlags.Store.Persistent.Ecto,
+  repo: Legendary.Core.Repo
+
+config :fun_with_flags, :cache_bust_notifications,
+  enabled: true,
+  adapter: FunWithFlags.Notifications.PhoenixPubSub,
+  client: App.PubSub
+
+# Notifications can also be disabled, which will also remove the Redis/Redix dependency
+config :fun_with_flags, :cache_bust_notifications, [enabled: false]
+
 import_config "email_styles.exs"
 import_config "admin.exs"
 
