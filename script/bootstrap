@@ -6,10 +6,10 @@ set -e
 if ! brew -v &> /dev/null
 then
   echo "WARNING: Cannot find brew. Skipping brewfile installation."
-  export KERL_CONFIGURE_OPTIONS="--disable-hipe"
+  export KERL_CONFIGURE_OPTIONS="$KERL_CONFIGURE_OPTIONS --disable-hipe"
 else
   brew bundle
-  export KERL_CONFIGURE_OPTIONS="--disable-hipe --with-ssl=$(brew --prefix openssl)"
+  export KERL_CONFIGURE_OPTIONS="$KERL_CONFIGURE_OPTIONS --disable-hipe --with-ssl=$(brew --prefix openssl)"
 fi
 
 if ! which asdf &> /dev/null
