@@ -18,6 +18,7 @@ variables:
 .test_template: &test_template
   stage: test
   cache:
+    key: $CI_JOB_NAME
     paths:
       - _build/
       - deps/
@@ -42,10 +43,6 @@ build_image_for_commit:
   image: "docker:20.10"
   only:
     - master
-  cache:
-    paths:
-      - _build/
-      - deps/
   services:
     - name: docker:20.10-dind
   before_script:
