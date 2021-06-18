@@ -74,7 +74,7 @@ config :app,
   crontab: [
   ]
 
-config :mnesia, dir: to_charlist(Path.expand("./priv/mnesia"))
+config :mnesia, dir: to_charlist(Path.expand("./priv/mnesia@#{Kernel.node}"))
 
 # Feature flags
 

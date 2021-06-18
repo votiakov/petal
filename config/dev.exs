@@ -15,7 +15,7 @@ use Mix.Config
 ]
 |> Enum.map(fn {otp_app, module} ->
   config otp_app, Module.concat(module, "Endpoint"),
-    http: [port: 4000],
+    http: [port: String.to_integer(System.get_env("PORT") || "4000")],
     debug_errors: true,
     code_reloader: true,
     check_origin: false,
@@ -29,13 +29,13 @@ use Mix.Config
       ]
     ]
 
-  config otp_app, Module.concat(module, "Endpoint"),
+  config otp_app, AppWeb.Endpoint,
     live_reload: [
       patterns: [
         ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
         ~r"priv/gettext/.*(po)$",
-        ~r"lib/app/(live|views)/.*(ex)$",
-        ~r"lib/app/templates/.*(eex)$"
+        ~r"(live|views)/.*(ex)$",
+        ~r"templates/.*(eex)$"
       ]
     ]
 end)
@@ -61,7 +61,7 @@ config :core, Legendary.CoreMailer, adapter: Bamboo.LocalAdapter
 config :libcluster,
   topologies: [
     erlang_hosts: [
-      strategy: Elixir.Cluster.Strategy.ErlangHosts,
+      strategy: Elixir.Cluster.Strategy.Gossip,
     ]
   ]
 
