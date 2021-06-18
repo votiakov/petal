@@ -34,8 +34,8 @@ node_modules
 /priv/static/
 
 # Mnesia DBs
-/apps/*/priv/mnesia/
-/priv/mnesia/
+/apps/*/priv/mnesia*
+/priv/mnesia*
 
 # Lock file for Brew, since the versions aren't really stable & isolated anyway
 Brewfile.lock.json
