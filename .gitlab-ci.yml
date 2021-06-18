@@ -62,6 +62,7 @@ deploy_to_tags:
     key:
       files:
         - package-lock.json
+        - package.json
     paths:
       - node_modules/
   script:
