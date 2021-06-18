@@ -70,6 +70,8 @@ deploy_to_tags:
     - export GIT_AUTHOR_EMAIL=$GITLAB_USER_EMAIL
     - export GIT_COMMITTER_NAME=$GITLAB_USER_NAME
     - export GIT_COMMITTER_EMAIL=$GITLAB_USER_EMAIL
+    - git config user.email $GITLAB_USER_EMAIL
+    - git config user.name $GITLAB_USER_NAME
     - npm install --no-save
     - git status
     - npx semantic-release --repository-url=$CI_REPOSITORY_URL
