@@ -14,6 +14,7 @@ import "../css/app.css"
 //
 import "phoenix_html"
 import "alpinejs"
+import "./live"
 import { ready } from "./utils"
 
 function togglePasswordFieldVisibility()
@@ -38,7 +39,7 @@ const toggleSidebar = (event) => {
 }
 
 ready(() => {
-  document.getElementById('nav-toggle').onclick = function(){
+  (document.getElementById('nav-toggle') ||{}).onclick = function(){
     document.getElementById("nav-content").classList.toggle("hidden");
   }
 

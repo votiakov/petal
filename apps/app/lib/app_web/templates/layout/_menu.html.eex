@@ -1,3 +1,5 @@
+<% conn_or_socket = if assigns[:conn], do: assigns[:conn], else: @socket %>
+
 <nav class="flex items-center justify-between flex-wrap bg-grey-dark p-6 w-full z-10 bg-gray-800">
   <div class="flex items-center flex-no-shrink text-white mr-6">
     <a class="text-white no-underline hover:text-white hover:no-underline" href="/">
@@ -13,23 +15,23 @@
 
   <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block pt-6 lg:pt-0" id="nav-content">
     <ul class="list-reset lg:flex justify-end flex-1 items-center">
-      <%= if has_role?(@conn, :admin) do %>
+      <%= if has_role?(conn_or_socket, :admin) do %>
         <li class="mr-3">
           <a class="inline-block py-2 px-4 text-white no-underline" href="/admin">Admin</a>
         </li>
       <% end %>
-      <%= if Pow.Plug.current_user(@conn) do %>
+      <%= if current_user(conn_or_socket) do %>
         <li class="mr-3">
-          <%= link "Sign Out", to: Routes.pow_session_path(@conn, :delete), method: :delete, class: "inline-block text-white  no-underline hover:text-white hover:text-underline py-2 px-4" %>
+          <%= link "Sign Out", to: Routes.pow_session_path(conn_or_socket, :delete), method: :delete, class: "inline-block text-white  no-underline hover:text-white hover:text-underline py-2 px-4" %>
         </li>
       <% else %>
         <li class="mr-3">
-          <%= link to: Routes.pow_session_path(@conn, :new), class: "inline-block text-white  no-underline hover:text-white hover:text-underline py-2 px-4" do %>
+          <%= link to: Routes.pow_session_path(conn_or_socket, :new), class: "inline-block text-white  no-underline hover:text-white hover:text-underline py-2 px-4" do %>
             Log In
           <% end %>
         </li>
         <li class="mr-3">
-          <%= link to: Routes.pow_registration_path(@conn, :new), class: "inline-block text-white  no-underline hover:text-white hover:text-underline py-2 px-4" do %>
+          <%= link to: Routes.pow_registration_path(conn_or_socket, :new), class: "inline-block text-white  no-underline hover:text-white hover:text-underline py-2 px-4" do %>
             Sign Up
           <% end %>
         </li>
