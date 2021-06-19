@@ -75,7 +75,7 @@ deploy_to_tags:
     - git config user.name $GITLAB_USER_NAME
     - npm install --no-save
     - git status
-    - npx semantic-release --repository-url=$CI_REPOSITORY_URL --branches master
+    - npx semantic-release --repository-url=$CI_REPOSITORY_URL --branches=master
     - script/generate-build-version
   artifacts:
     reports:

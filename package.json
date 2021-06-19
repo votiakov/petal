@@ -28,6 +28,7 @@
     "semantic-release": "^17.4.4"
   },
   "release": {
+    "branches": ["master"],
     "plugins": [
       "@semantic-release/commit-analyzer"
     ],
