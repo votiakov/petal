@@ -28,7 +28,7 @@
     "semantic-release": "^17.4.4"
   },
   "release": {
-    "branches": ["master"],
+    "branch": "master",
     "plugins": [
       "@semantic-release/commit-analyzer"
     ],
