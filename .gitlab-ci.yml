@@ -74,8 +74,6 @@ deploy_to_tags:
     - git config user.email $GITLAB_USER_EMAIL
     - git config user.name $GITLAB_USER_NAME
     - npm install --no-save
-    - git status
-    - script/env-ci
     - npx semantic-release --repository-url=$CI_REPOSITORY_URL
     - script/generate-build-version
   artifacts:
