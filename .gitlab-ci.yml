@@ -55,7 +55,7 @@ build_image_for_commit:
 deploy_to_tags:
   stage: deploy_tags
   needs: ['test', 'build_image_for_commit']
-  image: "node:15.0"
+  image: "node:16"
   only:
     - master
   cache:
