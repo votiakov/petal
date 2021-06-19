@@ -150,7 +150,7 @@ defmodule Legendary.Core.MixProject do
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_live_dashboard, "~> 0.2.0"},
+      {:phoenix_live_dashboard, "~> 0.4.0"},
       {:phoenix_pubsub, "~> 2.0"},
       {:pow, "~> 1.0.23"},
       {:telemetry_metrics, "~> 0.4"},

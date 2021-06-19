@@ -3,8 +3,6 @@ defmodule Legendary.Content.FeedsController do
 
   alias Legendary.Content.{Posts}
 
-  plug :put_layout, false when action in [:preview]
-
   def index(conn, params) do
     category = params |> Map.get("category")
     posts =  Posts.list_posts(params)

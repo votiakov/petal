@@ -7,11 +7,8 @@ defmodule Legendary.CoreWeb.Helpers do
   import Phoenix.Controller, only: [get_flash: 2]
   import Legendary.CoreWeb.ErrorHelpers
 
-  def has_role?(conn = %Plug.Conn{}, role) do
-    conn
-    |> Pow.Plug.current_user()
-    |> Legendary.Auth.Roles.has_role?(role)
-  end
+  defdelegate current_user(a), to: Legendary.AuthWeb.Helpers
+  defdelegate has_role?(a, b), to: Legendary.AuthWeb.Helpers
 
   def changeset_error_block(changeset) do
     ~E"""

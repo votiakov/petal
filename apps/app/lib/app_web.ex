@@ -27,6 +27,27 @@ defmodule AppWeb do
     end
   end
 
+  def live_view do
+    quote do
+      use Phoenix.LiveView,
+        layout: {AppWeb.LayoutView, "live.html"}
+
+      import AppWeb.LiveHelpers
+
+      unquote(view_helpers())
+    end
+  end
+
+  def live_component do
+    quote do
+      use Phoenix.LiveComponent
+
+      import AppWeb.LiveHelpers
+
+      unquote(view_helpers())
+    end
+  end
+
   def view do
     quote do
       use Phoenix.View,
@@ -48,6 +69,7 @@ defmodule AppWeb do
 
       import Plug.Conn
       import Phoenix.Controller
+      import Phoenix.LiveView.Router
     end
   end
 
@@ -66,9 +88,10 @@ defmodule AppWeb do
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
 
-      import Legendary.CoreWeb.Helpers
       import AppWeb.ErrorHelpers
       import AppWeb.Gettext
+      import Legendary.CoreWeb.Helpers
+      import Phoenix.LiveView.Helpers
       alias AppWeb.Router.Helpers, as: Routes
     end
   end
