@@ -129,18 +129,18 @@ deploy_commit_image_to_tag:
 
 npm:
   extends: .dependabot-gitlab
-  only:
-    variables:
-      - $PACKAGE_MANAGER_SET =~ /(\bnpm|yarn\b)/
+  # only:
+  #   variables:
+  #     - $PACKAGE_MANAGER_SET =~ /(\bnpm|yarn\b)/
 
 mix:
   extends: .dependabot-gitlab
-  only:
-    variables:
-      - $PACKAGE_MANAGER_SET =~ /\bmix\b/
+  # only:
+  #   variables:
+  #     - $PACKAGE_MANAGER_SET =~ /\bmix\b/
 
 docker:
   extends: .dependabot-gitlab
-  only:
-    variables:
-      - $PACKAGE_MANAGER_SET =~ /\bdocker\b/
+  # only:
+  #   variables:
+  #     - $PACKAGE_MANAGER_SET =~ /\bdocker\b/
