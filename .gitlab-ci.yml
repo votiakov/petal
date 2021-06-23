@@ -123,68 +123,68 @@ deploy_commit_image_to_tag:
     - cd /home/dependabot/app
   script:
     - bundle exec rake "dependabot:update[$CI_PROJECT_PATH,$PACKAGE_MANAGER,$DIRECTORY]"
-  # only:
-  #   - schedules
+  only:
+    - schedules
 
 npm-release-tools:
   extends: .dependabot_gitlab
   variables:
     DIRECTORY: "/"
     PACKAGE_MANAGER: javascript
-  # only:
-  #   variables:
-  #     - $PACKAGE_MANAGER_SET =~ /(\bnpm|yarn\b)/
+  only:
+    variables:
+      - $PACKAGE_MANAGER_SET =~ /(\bnpm|yarn\b)/
 
 npm-assets:
   extends: .dependabot_gitlab
   variables:
     DIRECTORY: "/apps/app/assets"
     PACKAGE_MANAGER: javascript
-  # only:
-  #   variables:
-  #     - $PACKAGE_MANAGER_SET =~ /(\bnpm|yarn\b)/
+  only:
+    variables:
+      - $PACKAGE_MANAGER_SET =~ /(\bnpm|yarn\b)/
 
 mix-admin:
   extends: .dependabot_gitlab
   variables:
     DIRECTORY: "/apps/admin"
     PACKAGE_MANAGER: "elixir:hex"
-  # only:
-  #   variables:
-  #     - $PACKAGE_MANAGER_SET =~ /\bmix\b/
+  only:
+    variables:
+      - $PACKAGE_MANAGER_SET =~ /\bmix\b/
 
 mix-app:
   extends: .dependabot_gitlab
   variables:
     DIRECTORY: "/apps/app"
     PACKAGE_MANAGER: "elixir:hex"
-  # only:
-  #   variables:
-  #     - $PACKAGE_MANAGER_SET =~ /\bmix\b/
+  only:
+    variables:
+      - $PACKAGE_MANAGER_SET =~ /\bmix\b/
 
 mix-core:
   extends: .dependabot_gitlab
   variables:
     DIRECTORY: "/apps/core"
     PACKAGE_MANAGER: "elixir:hex"
-  # only:
-  #   variables:
-  #     - $PACKAGE_MANAGER_SET =~ /\bmix\b/
+  only:
+    variables:
+      - $PACKAGE_MANAGER_SET =~ /\bmix\b/
 
 mix-content:
   extends: .dependabot_gitlab
   variables:
     DIRECTORY: "/apps/content"
     PACKAGE_MANAGER: "elixir:hex"
-  # only:
-  #   variables:
-  #     - $PACKAGE_MANAGER_SET =~ /\bmix\b/
+  only:
+    variables:
+      - $PACKAGE_MANAGER_SET =~ /\bmix\b/
 
 docker:
   extends: .dependabot_gitlab
   variables:
     DIRECTORY: "/"
     PACKAGE_MANAGER: docker
-  # only:
-  #   variables:
-  #     - $PACKAGE_MANAGER_SET =~ /\bdocker\b/
+  only:
+    variables:
+      - $PACKAGE_MANAGER_SET =~ /\bdocker\b/
