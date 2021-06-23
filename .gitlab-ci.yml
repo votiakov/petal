@@ -109,7 +109,7 @@ deploy_commit_image_to_tag:
     - docker push $CI_REGISTRY_IMAGE:$BUILD_VERSION$IMAGE_TYPE
     - docker push $CI_REGISTRY_IMAGE:latest$IMAGE_TYPE
 
-.dependabot-gitlab:
+.dependabot_gitlab: &dependabot_gitlab
   image:
     name: docker.io/andrcuns/dependabot-gitlab:0.4.3
     entrypoint: [""]
@@ -128,19 +128,19 @@ deploy_commit_image_to_tag:
   #   - schedules
 
 npm:
-  extends: .dependabot-gitlab
+  <<: *dependabot_gitlab
   # only:
   #   variables:
   #     - $PACKAGE_MANAGER_SET =~ /(\bnpm|yarn\b)/
 
 mix:
-  extends: .dependabot-gitlab
+  <<: *dependabot_gitlab
   # only:
   #   variables:
   #     - $PACKAGE_MANAGER_SET =~ /\bmix\b/
 
 docker:
-  extends: .dependabot-gitlab
+  <<: *dependabot_gitlab
   # only:
   #   variables:
   #     - $PACKAGE_MANAGER_SET =~ /\bdocker\b/
