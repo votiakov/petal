@@ -123,24 +123,62 @@ deploy_commit_image_to_tag:
   before_script:
     - cd /home/dependabot/app
   script:
-    - bundle exec rake "dependabot:update[$PROJECT_PATH,$PACKAGE_MANAGER,$DIRECTORY]"
+    - bundle exec rake "dependabot:update[$CI_PROJECT_PATH,$PACKAGE_MANAGER,$DIRECTORY]"
   # only:
   #   - schedules
 
-npm:
+npm-release-tools:
   <<: *dependabot_gitlab
+  variables:
+    DIRECTORY: "/"
   # only:
   #   variables:
   #     - $PACKAGE_MANAGER_SET =~ /(\bnpm|yarn\b)/
 
-mix:
+npm-assets:
   <<: *dependabot_gitlab
+  variables:
+    DIRECTORY: "/apps/app/assets"
+  # only:
+  #   variables:
+  #     - $PACKAGE_MANAGER_SET =~ /(\bnpm|yarn\b)/
+
+mix-admin:
+  <<: *dependabot_gitlab
+  variables:
+    DIRECTORY: "/apps/admin"
+  # only:
+  #   variables:
+  #     - $PACKAGE_MANAGER_SET =~ /\bmix\b/
+
+mix-app:
+  <<: *dependabot_gitlab
+  variables:
+    DIRECTORY: "/apps/app"
+  # only:
+  #   variables:
+  #     - $PACKAGE_MANAGER_SET =~ /\bmix\b/
+
+mix-core:
+  <<: *dependabot_gitlab
+  variables:
+    DIRECTORY: "/apps/core"
+  # only:
+  #   variables:
+  #     - $PACKAGE_MANAGER_SET =~ /\bmix\b/
+
+mix-content:
+  <<: *dependabot_gitlab
+  variables:
+    DIRECTORY: "/apps/content"
   # only:
   #   variables:
   #     - $PACKAGE_MANAGER_SET =~ /\bmix\b/
 
 docker:
   <<: *dependabot_gitlab
+  variables:
+    DIRECTORY: "/"
   # only:
   #   variables:
   #     - $PACKAGE_MANAGER_SET =~ /\bdocker\b/
