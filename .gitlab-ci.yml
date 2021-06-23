@@ -127,7 +127,7 @@ deploy_commit_image_to_tag:
   #   - schedules
 
 npm-release-tools:
-  <<: *dependabot_gitlab
+  extends: .dependabot_gitlab
   variables:
     DIRECTORY: "/"
     PACKAGE_MANAGER: javascript
@@ -136,7 +136,7 @@ npm-release-tools:
   #     - $PACKAGE_MANAGER_SET =~ /(\bnpm|yarn\b)/
 
 npm-assets:
-  <<: *dependabot_gitlab
+  extends: .dependabot_gitlab
   variables:
     DIRECTORY: "/apps/app/assets"
     PACKAGE_MANAGER: javascript
@@ -145,7 +145,7 @@ npm-assets:
   #     - $PACKAGE_MANAGER_SET =~ /(\bnpm|yarn\b)/
 
 mix-admin:
-  <<: *dependabot_gitlab
+  extends: .dependabot_gitlab
   variables:
     DIRECTORY: "/apps/admin"
     PACKAGE_MANAGER: "elixir:hex"
@@ -154,7 +154,7 @@ mix-admin:
   #     - $PACKAGE_MANAGER_SET =~ /\bmix\b/
 
 mix-app:
-  <<: *dependabot_gitlab
+  extends: .dependabot_gitlab
   variables:
     DIRECTORY: "/apps/app"
     PACKAGE_MANAGER: "elixir:hex"
@@ -163,7 +163,7 @@ mix-app:
   #     - $PACKAGE_MANAGER_SET =~ /\bmix\b/
 
 mix-core:
-  <<: *dependabot_gitlab
+  extends: .dependabot_gitlab
   variables:
     DIRECTORY: "/apps/core"
     PACKAGE_MANAGER: "elixir:hex"
@@ -172,7 +172,7 @@ mix-core:
   #     - $PACKAGE_MANAGER_SET =~ /\bmix\b/
 
 mix-content:
-  <<: *dependabot_gitlab
+  extends: .dependabot_gitlab
   variables:
     DIRECTORY: "/apps/content"
     PACKAGE_MANAGER: "elixir:hex"
@@ -181,7 +181,7 @@ mix-content:
   #     - $PACKAGE_MANAGER_SET =~ /\bmix\b/
 
 docker:
-  <<: *dependabot_gitlab
+  extends: .dependabot_gitlab
   variables:
     DIRECTORY: "/"
     PACKAGE_MANAGER: docker
