@@ -1,0 +1,30 @@
+version: 2
+updates:
+- package-ecosystem: docker
+  directory: "/"
+  schedule:
+      interval: "daily"
+- package-ecosystem: mix
+  directory: "/apps/admin"
+  schedule:
+      interval: "daily"
+- package-ecosystem: mix
+  directory: "/apps/app"
+  schedule:
+      interval: "daily"
+- package-ecosystem: mix
+  directory: "/apps/content"
+  schedule:
+      interval: "daily"
+- package-ecosystem: mix
+  directory: "/apps/core"
+  schedule:
+      interval: "daily"
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+      interval: "daily"
+- package-ecosystem: npm
+  directory: "/apps/app/assets"
+  schedule:
+      interval: "daily"
