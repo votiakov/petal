@@ -108,3 +108,83 @@ deploy_commit_image_to_tag:
     - docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA$IMAGE_TYPE $CI_REGISTRY_IMAGE:latest$IMAGE_TYPE
     - docker push $CI_REGISTRY_IMAGE:$BUILD_VERSION$IMAGE_TYPE
     - docker push $CI_REGISTRY_IMAGE:latest$IMAGE_TYPE
+
+.dependabot_gitlab: &dependabot_gitlab
+  image:
+    name: docker.io/andrcuns/dependabot-gitlab:0.4.3
+    entrypoint: [""]
+  variables:
+    GIT_STRATEGY: none
+    RAILS_ENV: production
+    SETTINGS__STANDALONE: "true"
+    SETTINGS__GITLAB_URL: $CI_SERVER_URL
+    SETTINGS__GITLAB_ACCESS_TOKEN: $GITLAB_TOKEN
+  before_script:
+    - cd /home/dependabot/app
+  script:
+    - bundle exec rake "dependabot:update[$CI_PROJECT_PATH,$PACKAGE_MANAGER,$DIRECTORY]"
+  only:
+    - schedules
+
+npm-release-tools:
+  extends: .dependabot_gitlab
+  variables:
+    DIRECTORY: "/"
+    PACKAGE_MANAGER: javascript
+  only:
+    variables:
+      - $PACKAGE_MANAGER_SET =~ /(\bnpm|yarn\b)/
+
+npm-assets:
+  extends: .dependabot_gitlab
+  variables:
+    DIRECTORY: "/apps/app/assets"
+    PACKAGE_MANAGER: javascript
+  only:
+    variables:
+      - $PACKAGE_MANAGER_SET =~ /(\bnpm|yarn\b)/
+
+mix-admin:
+  extends: .dependabot_gitlab
+  variables:
+    DIRECTORY: "/apps/admin"
+    PACKAGE_MANAGER: "elixir:hex"
+  only:
+    variables:
+      - $PACKAGE_MANAGER_SET =~ /\bmix\b/
+
+mix-app:
+  extends: .dependabot_gitlab
+  variables:
+    DIRECTORY: "/apps/app"
+    PACKAGE_MANAGER: "elixir:hex"
+  only:
+    variables:
+      - $PACKAGE_MANAGER_SET =~ /\bmix\b/
+
+mix-core:
+  extends: .dependabot_gitlab
+  variables:
+    DIRECTORY: "/apps/core"
+    PACKAGE_MANAGER: "elixir:hex"
+  only:
+    variables:
+      - $PACKAGE_MANAGER_SET =~ /\bmix\b/
+
+mix-content:
+  extends: .dependabot_gitlab
+  variables:
+    DIRECTORY: "/apps/content"
+    PACKAGE_MANAGER: "elixir:hex"
+  only:
+    variables:
+      - $PACKAGE_MANAGER_SET =~ /\bmix\b/
+
+docker:
+  extends: .dependabot_gitlab
+  variables:
+    DIRECTORY: "/"
+    PACKAGE_MANAGER: docker
+  only:
+    variables:
+      - $PACKAGE_MANAGER_SET =~ /\bdocker\b/
