@@ -54,7 +54,7 @@ defmodule Legendary.Content.MixProject do
       {:phoenix, "~> 1.5.8"},
       {:phoenix_ecto, "~> 4.0"},
       {:phoenix_html, "~> 2.11"},
-      {:phoenix_html_sanitizer, "~> 1.0.0"},
+      {:phoenix_html_sanitizer, "~> 1.1.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_dashboard, "~> 0.4.0"},
       {:php_serializer, "~> 0.9.0"},
