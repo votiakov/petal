@@ -1,4 +1,4 @@
-FROM elixir:1.10.4-alpine AS elixir-builder
+FROM elixir:1.12.1-alpine AS elixir-builder
 
 RUN mix local.hex --force \
   && mix local.rebar --force
