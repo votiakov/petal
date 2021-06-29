@@ -2,7 +2,17 @@ module.exports = {
   future: {
     removeDeprecatedGapUtilities: true,
   },
-  purge: [],
+  purge: {
+    enabled: true,
+    layers: ['base', 'components', 'utilities'],
+    content: [
+      '../../../**/views/*.ex',
+      '../../../**/*.html.eex',
+      '../../../**/*.html.leex',
+      '../../../**/*.html.heex',
+      './js/**/*.js'
+    ]
+  },
   theme: {
     extend: {},
   },
