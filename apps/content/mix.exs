@@ -57,7 +57,7 @@ defmodule Legendary.Content.MixProject do
       {:phoenix_html_sanitizer, "~> 1.1.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_dashboard, "~> 0.4.0"},
-      {:php_serializer, "~> 0.9.0"},
+      {:php_serializer, "~> 2.0.0"},
       {:plug_cowboy, "~> 2.0"},
       {:sitemap, "~> 1.1"},
       {:slugger, "~> 0.3"},
