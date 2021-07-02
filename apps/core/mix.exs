@@ -1,7 +1,7 @@
 defmodule Legendary.Core.MixProject do
   use Mix.Project
 
-  @version "2.9.0"
+  @version "2.11.1"
 
   def project do
     [
@@ -145,7 +145,7 @@ defmodule Legendary.Core.MixProject do
       {:phoenix, "~> 1.5.8"},
       {:phoenix_ecto, "~> 4.1"},
       {:ecto_sql, "~> 3.4"},
-      {:ex_prompt, "~> 0.1.5"},
+      {:ex_prompt, "~> 0.2.0"},
       {:linguist, "0.3.1"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.11"},

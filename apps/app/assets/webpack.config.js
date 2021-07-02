@@ -2,7 +2,7 @@ const path = require('path');
 const glob = require('glob');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const nodeModulesPath = path.resolve(__dirname, 'node_modules')
@@ -14,7 +14,7 @@ module.exports = (env, options) => {
     optimization: {
       minimizer: [
         new TerserPlugin({ cache: true, parallel: true, sourceMap: devMode }),
-        new OptimizeCSSAssetsPlugin({})
+        new CssMinimizerPlugin(),
       ]
     },
     mode: options.mode,
@@ -63,7 +63,7 @@ module.exports = (env, options) => {
         {
           test: /\.css$/,
           use: [
-            {loader: MiniCssExtractPlugin.loader, options: {sourceMap: true}},
+            {loader: MiniCssExtractPlugin.loader},
             {loader: 'css-loader', options: {sourceMap: true}},
             {loader: 'postcss-loader', options: {sourceMap: true}},
           ],
@@ -75,12 +75,12 @@ module.exports = (env, options) => {
         filename: 'css/[name].css',
         chunkFilename: '[id].css',
       }),
-      new CopyWebpackPlugin([
+      new CopyWebpackPlugin({patterns: [
         {
           from: path.resolve(__dirname, 'static'),
           to: path.resolve(__dirname, '../priv/static'),
         },
-      ]),
+      ]}),
     ],
     resolve: {
       alias: {

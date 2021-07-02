@@ -24,7 +24,8 @@ use Mix.Config
         "node_modules/webpack/bin/webpack.js",
         "--mode",
         "development",
-        "--watch-stdin",
+        "--watch",
+        "--watch-options-stdin",
         cd: Path.expand("../apps/#{otp_app}/assets", __DIR__)
       ]
     ]
