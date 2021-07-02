@@ -42,7 +42,7 @@ defmodule Legendary.Content.MixProject do
   defp deps do
     [
       {:core, in_umbrella: true},
-      {:earmark, "1.4.3"},
+      {:earmark, "1.4.15"},
       {:excoveralls, "~> 0.10", only: [:dev, :test]},
       {:floki, ">= 0.30.0"},
       {:gettext, "~> 0.11"},

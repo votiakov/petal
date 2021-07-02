@@ -42,7 +42,7 @@ defmodule Legendary.Content do
 
       def process_content(text) do
         text
-        |> Earmark.as_html!(encode: false)
+        |> Earmark.as_html!()
       end
 
       # Include shared imports and aliases for views
