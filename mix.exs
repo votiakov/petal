@@ -1,7 +1,7 @@
 defmodule Legendary.Mixfile do
   use Mix.Project
 
-  @version "2.11.3"
+  @version "2.11.4"
 
   def project do
     [
