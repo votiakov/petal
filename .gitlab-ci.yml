@@ -41,8 +41,10 @@ test_1.12.1:
 build_image_for_commit:
   stage: test
   image: "docker:20.10"
-  only:
-    - master
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - changes:
+        - Dockerfile
   services:
     - name: docker:20.10-dind
   before_script:
