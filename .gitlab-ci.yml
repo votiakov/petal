@@ -42,9 +42,12 @@ build_image_for_commit:
   stage: test
   image: "docker:20.10"
   rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-    - changes:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      when: on_success
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes:
         - Dockerfile
+      when: on_success
   services:
     - name: docker:20.10-dind
   before_script:
