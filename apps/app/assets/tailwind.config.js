@@ -1,10 +1,15 @@
+const yargsParser = require('yargs-parser');
+const cliArgs = yargsParser(process.argv);
+
+const mode = process.env.NODE_ENV || cliArgs.mode || 'development';
+
 module.exports = {
   future: {
     removeDeprecatedGapUtilities: true,
     purgeLayersByDefault: true,
   },
   purge: {
-    enabled: true,
+    enabled: mode == 'production',
     layers: ['base', 'components', 'utilities'],
     content: [
       '../../../**/views/*.ex',
