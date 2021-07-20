@@ -4,7 +4,10 @@ pre-commit:
     credo:
       runner: mix credo diff master
     stylelint:
+      root: "apps/app/assets/"
       glob: "*.{css}"
-      runner: (cd apps/app/assets/; npx stylelint {staged_files})
+      runner: npx stylelint {staged_files}
     prettier:
-      runner: (cd apps/app/assets/; npx prettier --check **/*.js)
+      root: "apps/app/assets/"
+      glob: "*.{js}"
+      runner: npx prettier --check {staged_files}
