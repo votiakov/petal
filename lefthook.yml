@@ -2,9 +2,9 @@ pre-commit:
   parallel: true
   commands:
     credo:
-      glob: "*.{ex,exs,eex,leex,heex}"
-      runner: mix credo diff master {files}
+      runner: mix credo diff master
     stylelint:
-      root: "apps/app/assets/"
       glob: "*.{css}"
-      runner: npx stylelint {files}
+      runner: (cd apps/app/assets/; npx stylelint {staged_files})
+    prettier:
+      runner: (cd apps/app/assets/; npx prettier --check **/*.js)
