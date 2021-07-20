@@ -1,0 +1,10 @@
+pre-commit:
+  parallel: true
+  commands:
+    credo:
+      glob: "*.{ex,exs,eex,leex,heex}"
+      runner: mix credo diff master {files}
+    stylelint:
+      root: "apps/app/assets/"
+      glob: "*.{css}"
+      runner: npx stylelint {files}
