@@ -57,6 +57,7 @@ stylelint:
   image: "node:16"
   script:
     - cd apps/app/assets/
+    - npm install
     - npx stylelint **/*.css
 
 prettier:
@@ -64,6 +65,7 @@ prettier:
   image: "node:16"
   script:
     - cd apps/app/assets/
+    - npm install
     - npx prettier --check **/*.js
 
 build_image_for_commit:
