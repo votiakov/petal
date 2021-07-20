@@ -87,11 +87,12 @@ defmodule Legendary.Content.PostsController do
               end
 
             # The static page we're looking for is missing, so this is just a 404
+            # credo:disable-for-next-line
             raise Phoenix.Router.NoRouteError.exception(conn: conn, router: router)
           _ ->
             # We aren't missing the static page, we're missing a partial. This is probably
             # a developer error, so bubble it up
-            raise e
+            reraise e, System.stacktrace
         end
     end
   end

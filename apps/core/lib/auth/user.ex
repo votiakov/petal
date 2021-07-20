@@ -40,7 +40,7 @@ defmodule Legendary.Auth.User do
     |> pow_extension_changeset(attrs)
   end
 
-  def reset_password_changeset(user = %Legendary.Auth.User{}, params) do
+  def reset_password_changeset(%Legendary.Auth.User{} = user, params) do
     user
     |> new_password_changeset(params, @pow_config)
     |> Changeset.validate_required([:password])

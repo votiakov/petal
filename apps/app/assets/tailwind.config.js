@@ -1,7 +1,7 @@
-const yargsParser = require('yargs-parser');
+const yargsParser = require("yargs-parser");
 const cliArgs = yargsParser(process.argv);
 
-const mode = process.env.NODE_ENV || cliArgs.mode || 'development';
+const mode = process.env.NODE_ENV || cliArgs.mode || "development";
 
 module.exports = {
   future: {
@@ -9,21 +9,21 @@ module.exports = {
     purgeLayersByDefault: true,
   },
   purge: {
-    enabled: mode == 'production',
-    layers: ['base', 'components', 'utilities'],
+    enabled: mode == "production",
+    layers: ["base", "components", "utilities"],
     content: [
-      '../../../**/views/*.ex',
-      '../../../**/*.html.eex',
-      '../../../**/*.html.leex',
-      '../../../**/*.html.heex',
-      './js/**/*.js'
-    ]
+      "../../../**/views/*.ex",
+      "../../../**/*.html.eex",
+      "../../../**/*.html.leex",
+      "../../../**/*.html.heex",
+      "./js/**/*.js",
+    ],
   },
   theme: {
     extend: {},
   },
   variants: {
-    backgroundColor: ['responsive', 'hover', 'focus', 'checked'],
+    backgroundColor: ["responsive", "hover", "focus", "checked"],
   },
   plugins: [],
-}
+};

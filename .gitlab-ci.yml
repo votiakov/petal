@@ -38,6 +38,36 @@ test_1.12.1:
   <<: *test_template
   image: "elixir:1.12.1-alpine"
 
+credo:
+  stage: test
+  image: "elixir:1.12.1-alpine"
+  cache:
+    key: "test_1.12.1"
+    paths:
+      - _build/
+      - deps/
+  script:
+    - mix local.hex --force
+    - mix local.rebar --force
+    - mix deps.get
+    - mix credo --all
+
+stylelint:
+  stage: test
+  image: "node:16"
+  script:
+    - cd apps/app/assets/
+    - npm install
+    - npx stylelint **/*.css
+
+prettier:
+  stage: test
+  image: "node:16"
+  script:
+    - cd apps/app/assets/
+    - npm install
+    - npx prettier --check **/*.js
+
 build_image_for_commit:
   stage: test
   image: "docker:20.10"

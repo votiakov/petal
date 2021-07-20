@@ -1,7 +1,7 @@
 // We need to import the CSS so that webpack will load it.
 // The MiniCssExtractPlugin is used to separate it out into
 // its own CSS file.
-import "../css/app.css"
+import "../css/app.css";
 
 // webpack automatically bundles all modules in your
 // entry points. Those entry points can be configured
@@ -12,48 +12,46 @@ import "../css/app.css"
 //     import {Socket} from "phoenix"
 //     import socket from "./socket"
 //
-import "phoenix_html"
-import "alpinejs"
-import "./live"
-import { ready } from "./utils"
+import "phoenix_html";
+import "alpinejs";
+import "./live";
+import { ready } from "./utils";
 
-function togglePasswordFieldVisibility()
-{
-  const passwordFields = document.querySelectorAll('[name="user[password]"]')
+var bloop;
+
+function togglePasswordFieldVisibility() {
+  const passwordFields = document.querySelectorAll('[name="user[password]"]');
   passwordFields.forEach((el) => {
-    if (el.type == 'password')
-    {
-      el.type = 'text'
+    if (el.type == "password") {
+      el.type = "text";
+    } else {
+      el.type = "password";
     }
-    else
-    {
-      el.type = 'password'
-    }
-  })
+  });
 }
 
 const toggleSidebar = (event) => {
-  document.querySelectorAll('.sidebar').forEach((el) => {
-    el.classList.toggle('visible')
-  })
-}
+  document.querySelectorAll(".sidebar").forEach((el) => {
+    el.classList.toggle("visible");
+  });
+};
 
 ready(() => {
-  (document.getElementById('nav-toggle') ||{}).onclick = function(){
+  (document.getElementById("nav-toggle") || {}).onclick = function () {
     document.getElementById("nav-content").classList.toggle("hidden");
-  }
+  };
 
-  document.querySelectorAll('.js-passwordRevealer').forEach((el) => {
-    el.addEventListener('click', togglePasswordFieldVisibility)
-  })
+  document.querySelectorAll(".js-passwordRevealer").forEach((el) => {
+    el.addEventListener("click", togglePasswordFieldVisibility);
+  });
 
-  document.querySelectorAll('.js-SidebarOpener').forEach((el) => {
-    el.addEventListener('click', toggleSidebar)
-  })
+  document.querySelectorAll(".js-SidebarOpener").forEach((el) => {
+    el.addEventListener("click", toggleSidebar);
+  });
 
-  document.querySelectorAll('.js-flash-closer').forEach((el) => {
-    el.addEventListener('click', () => {
-      el.closest('.js-flash').remove()
-    })
-  })
-})
+  document.querySelectorAll(".js-flash-closer").forEach((el) => {
+    el.addEventListener("click", () => {
+      el.closest(".js-flash").remove();
+    });
+  });
+});

@@ -1,4 +1,8 @@
 defmodule Mix.Legendary do
+  @moduledoc """
+  Parent module for all Legendary framework mix tasks. Provides some helpers
+  used by tasks and generators.
+  """
   alias Mix.Phoenix.{Schema}
 
   @doc false
