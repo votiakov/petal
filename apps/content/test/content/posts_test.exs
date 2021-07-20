@@ -52,7 +52,7 @@ defmodule Legendary.Content.PostsTest do
   test "delete_posts/1", %{public_post: post} do
     assert Enum.count(Posts.list_posts()) == 1
     assert {:ok, _} = Posts.delete_posts(post)
-    assert Enum.count(Posts.list_posts()) == 0
+    assert Enum.empty?(Posts.list_posts())
   end
 
   test "change_posts/1", %{public_post: post} do

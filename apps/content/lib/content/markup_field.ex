@@ -1,4 +1,8 @@
 defmodule Legendary.Content.MarkupField do
+  @moduledoc """
+  Custom field type definition for markdown fields. Currently uses simplemde
+  to provide a markdown editing GUI.
+  """
   use Ecto.Type
   def type, do: :string
 

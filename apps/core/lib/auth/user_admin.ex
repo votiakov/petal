@@ -1,9 +1,15 @@
 defmodule Legendary.Auth.UserAdmin do
+  @moduledoc """
+  Custom admin login for user records.
+  """
   import Ecto.Query, only: [from: 2]
   alias Legendary.Auth.User
   alias Legendary.Core.Repo
 
   def custom_links(_schema) do
+    # We add the funwithflags admin URL under this custom admin because kaffy
+    #   doesn't have global custom links that work in this way and user is the
+    #   closest fit.
     [
       %{name: "Feature Flags", url: "/admin/feature-flags", order: 2, location: :top, icon: "flag"},
     ]

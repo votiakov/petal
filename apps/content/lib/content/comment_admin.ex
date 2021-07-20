@@ -1,4 +1,8 @@
 defmodule Legendary.Content.CommentAdmin do
+  @moduledoc """
+  Custom admin logic for blog post comments.
+  """
+
   def index(_) do
     [
       id: nil,

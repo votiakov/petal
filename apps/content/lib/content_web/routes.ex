@@ -1,4 +1,8 @@
 defmodule Legendary.Content.Routes do
+  @moduledoc """
+  Routes for the content engine, including blog posts, feeds, and pages.
+  """
+
   defmacro __using__(_opts \\ []) do
     quote do
       pipeline :feed do
