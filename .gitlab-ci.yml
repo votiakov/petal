@@ -41,7 +41,16 @@ test_1.12.1:
 credo:
   stage: test
   image: "elixir:1.12.1-alpine"
-  script: mix credo diff master --all
+  cache:
+    key: "test_1.12.1"
+    paths:
+      - _build/
+      - deps/
+  script:
+    - mix local.hex --force
+    - mix local.rebar --force
+    - mix deps.get
+    - mix credo diff master --all
 
 build_image_for_commit:
   stage: test
