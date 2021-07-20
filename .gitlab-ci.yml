@@ -38,6 +38,11 @@ test_1.12.1:
   <<: *test_template
   image: "elixir:1.12.1-alpine"
 
+credo:
+  stage: test
+  image: "elixir:1.12.1-alpine"
+  script: mix credo diff master --all
+
 build_image_for_commit:
   stage: test
   image: "docker:20.10"
