@@ -52,7 +52,7 @@ credo:
     - mix local.hex --force
     - mix local.rebar --force
     - mix deps.get
-    - mix credo diff $CI_DEFAULT_BRANCH --all
+    - mix credo diff origin/$CI_DEFAULT_BRANCH --all
 
 build_image_for_commit:
   stage: test
