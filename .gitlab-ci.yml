@@ -46,13 +46,11 @@ credo:
     paths:
       - _build/
       - deps/
-  variables:
-    GIT_STRATEGY: clone
   script:
     - mix local.hex --force
     - mix local.rebar --force
     - mix deps.get
-    - mix credo diff origin/$CI_DEFAULT_BRANCH --all
+    - mix credo --all
 
 build_image_for_commit:
   stage: test
