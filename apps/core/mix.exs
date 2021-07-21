@@ -61,6 +61,7 @@ defmodule Legendary.Core.MixProject do
       "guides/features/feature-flags.md",
       "guides/features/i18n.md",
       "guides/features/tasks-and-scripts.md",
+      "guides/features/linters.md",
     ]
   end
 
