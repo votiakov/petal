@@ -119,8 +119,8 @@ defmodule Legendary.CoreWeb.Helpers do
   defp default_classes_for_type(type) when type in [:date_select, :time_select, :datetime_select] do
     "bg-white shadow rounded p-3"
   end
-  defp default_classes_for_type(:checkbox), do: "appearance-none h-10 w-10 bg-white checked:bg-gray-500 rounded shadow focus:outline-none focus:shadow-outline text-white text-xl font-bold mb-2"
-  defp default_classes_for_type(_), do: "px-4 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full"
+  defp default_classes_for_type(:checkbox), do: "appearance-none h-10 w-10 bg-white checked:bg-gray-500 rounded shadow focus:outline-none focus:ring text-white text-xl font-bold mb-2"
+  defp default_classes_for_type(_), do: "px-4 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
 
   def styled_button(text) do
     ~E"""
