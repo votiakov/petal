@@ -1,0 +1,30 @@
+#!/usr/bin/env elixir
+
+Mix.install([
+  {:jason, "~> 1.0"}
+])
+
+%{"source_files" => data} =
+  "cover/excoveralls.json"
+  |> File.read!()
+  |> Jason.decode!()
+
+{total_covered, total_total} =
+  data
+  |> Enum.reduce({0,0}, fn %{"coverage" => cover}, {covered, total} ->
+    file_covered =
+      cover
+      |> Enum.reduce(0, &(if is_integer(&1) && &1 > 0, do: &2 + 1, else: &2))
+
+    file_total =
+      cover
+      |> Enum.reduce(0, &(if is_nil(&1), do: &2, else: &2 + 1))
+
+    {covered + file_covered, total + file_total}
+  end)
+
+ratio =
+  (total_covered / total_total)
+  |> Float.round(3)
+
+File.write!("metrics.txt", "coverage #{ratio}")
