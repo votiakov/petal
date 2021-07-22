@@ -12,6 +12,6 @@ mix deps.get
 mix ecto.create
 mix ecto.migrate
 
-mix coveralls.json
+mix coveralls.json --umbrella
 
 script/restore-timestamps
