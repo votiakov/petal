@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: registry.gitlab.com/mythic-insight/legendary:3.0.2
+          image: registry.gitlab.com/mythic-insight/legendary:3.0.3
           command: ["elixir"]
           args:
             - "--name"
