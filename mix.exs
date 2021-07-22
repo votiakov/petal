@@ -11,9 +11,9 @@ defmodule Legendary.Mixfile do
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      aliases: aliases(),
       test_coverage: [tool: ExCoveralls],
-      preferred_cli_env: [coveralls: :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test],
+      aliases: aliases(),
+      preferred_cli_env: [coveralls: :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test, "coveralls.json": :test],
     ]
   end
 
@@ -24,10 +24,8 @@ defmodule Legendary.Mixfile do
   defp aliases do
     [
       "deps.get": ["cmd mix deps.get"],
-      "coveralls.html": ["cmd mix coveralls.html"],
       "ecto.migrate": ["cmd mix ecto.migrate"],
-      "npm.install": ["cmd mix npm.install"],
-      test: ["cmd mix test"]
+      "npm.install": ["cmd mix npm.install"]
     ]
   end
 end
