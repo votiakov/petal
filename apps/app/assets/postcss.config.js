@@ -5,7 +5,7 @@ module.exports = {
     }),
     require("tailwindcss"),
     require("autoprefixer"),
-    require("csswring")(),
+    require("postcss-clean")(),
     require("postcss-color-function")(),
   ],
 };
