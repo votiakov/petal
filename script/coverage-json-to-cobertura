@@ -69,8 +69,8 @@ files =
   end)
 
 source =
-  if System.get_env("CI_BUILDS_DIR") do
-    "#{System.get_env("CI_BUILDS_DIR")}/#{System.get_env("PROJECT_FULL_PATH")}"
+  if System.get_env("CI_PROJECT_NAME") do
+    "#{System.get_env("CI_BUILDS_DIR")}/#{System.get_env("CI_PROJECT_NAMESPACE")}/#{System.get_env("CI_PROJECT_NAME")}"
   else
     File.cwd!
   end
