@@ -14,7 +14,7 @@ const requestPreview = (plainText, previewContainer) => {
     previewContainer.innerHTML = event.target.responseText;
   });
 
-  request.open("POST", "/pages/posts/preview", true);
+  request.open("POST", "/posts/preview", true);
 
   request.send(formData);
 };
