@@ -40,7 +40,8 @@ test:
   script:
     - script/cibuild covered
   artifacts:
-    coverage_json: cover/excoveralls.json
+    paths:
+      - cover/excoveralls.json
 
 credo:
   stage: test
