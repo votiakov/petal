@@ -96,6 +96,7 @@ report_coverage:
   needs: ['test']
   image: "elixir:1.12.1-alpine"
   script:
+    - mix local.hex --force
     - script/coverage-json-to-metrics
     - script/coverage-json-to-cobertura
   artifacts:
