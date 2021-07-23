@@ -68,6 +68,14 @@ files =
     }
   end)
 
+source =
+  if System.get_env("CI_BUILDS_DIR") do
+    "#{System.get_env("CI_BUILDS_DIR")}/#{System.get_env("PROJECT_FULL_PATH")}"
+  else
+    File.cwd!
+  end
+
+
 buffer =
   XmlBuilder.document([
     XmlBuilder.doctype(
@@ -80,6 +88,17 @@ buffer =
         "line-rate" => ratio,
       },
       [
+        {
+          :sources,
+          %{},
+          [
+            {
+              :source,
+              %{},
+              source
+            }
+          ]
+        },
         {
           :packages,
           %{},
