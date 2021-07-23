@@ -61,7 +61,7 @@ files =
       [
         {
           :lines,
-          %{},
+          %{"lines" => file_total},
           lines
         }
       ]
