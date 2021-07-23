@@ -4,7 +4,7 @@ defmodule Legendary.Content.TermRelationship do
   """
   use Ecto.Schema
   import Ecto.Changeset
-  alias Legendary.Content.{Post}
+  alias Legendary.Content.Post
 
   @primary_key {:object_id, :integer, []}
   @primary_key {:term_taxonomy_id, :integer, []}

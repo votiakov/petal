@@ -26,7 +26,7 @@ variables:
   - name: postgres:12
   script: script/cibuild
 
-test:
+test_1.10.4:
   <<: *test_template
   image: "elixir:1.10.4-alpine"
 
@@ -34,9 +34,14 @@ test_1.11.4:
   <<: *test_template
   image: "elixir:1.11.4-alpine"
 
-test_1.12.1:
+test:
   <<: *test_template
   image: "elixir:1.12.1-alpine"
+  script:
+    - script/cibuild covered
+  artifacts:
+    paths:
+      - cover/excoveralls.json
 
 credo:
   stage: test
@@ -85,6 +90,19 @@ build_image_for_commit:
     - script/ci-docker-prebuild
   script:
     - script/ci-docker-build
+
+report_coverage:
+  stage: deploy_tags
+  needs: ['test']
+  image: "elixir:1.12.1-alpine"
+  script:
+    - mix local.hex --force
+    - script/coverage-json-to-metrics
+    - script/coverage-json-to-cobertura
+  artifacts:
+    reports:
+      metrics: metrics.txt
+      cobertura: cover/cobertura.xml
 
 # If tests pass, tag the commit and update package versions
 deploy_to_tags:

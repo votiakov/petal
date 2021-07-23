@@ -44,3 +44,6 @@ config/*.secret.exs
 
 # Temporary CI build file
 build.env
+
+# CI metrics file
+metrics.txt

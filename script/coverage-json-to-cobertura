@@ -1,0 +1,124 @@
+#!/usr/bin/env elixir
+
+Mix.install([
+  {:jason, "~> 1.0"},
+  {:xml_builder, "~> 2.1"}
+])
+
+%{"source_files" => data} =
+  "cover/excoveralls.json"
+  |> File.read!()
+  |> Jason.decode!()
+
+{total_covered, total_total} =
+  data
+  |> Enum.reduce({0,0}, fn %{"coverage" => cover}, {covered, total} ->
+    file_covered =
+      cover
+      |> Enum.reduce(0, &(if is_integer(&1) && &1 > 0, do: &2 + 1, else: &2))
+
+    file_total =
+      cover
+      |> Enum.reduce(0, &(if is_nil(&1), do: &2, else: &2 + 1))
+
+    {covered + file_covered, total + file_total}
+  end)
+
+ratio = total_covered / total_total
+
+files =
+  data
+  |> Enum.map(fn %{"coverage" => cover, "name" => name} ->
+    file_covered =
+      cover
+      |> Enum.reduce(0, &(if is_integer(&1) && &1 > 0, do: &2 + 1, else: &2))
+
+    file_total =
+      cover
+      |> Enum.reduce(0, &(if is_nil(&1), do: &2, else: &2 + 1))
+
+    lines =
+      cover
+      |> Enum.with_index
+      |> Enum.map(fn
+        {nil, _index} ->
+          nil
+        {line, index} ->
+          {:line, %{"number" => index, "hits" => line}, []}
+      end)
+      |> Enum.reject(&is_nil/1)
+
+    ratio =
+      if file_total == 0 do
+        1.0
+      else
+        file_covered / file_total
+      end
+
+    {
+      :class,
+      %{"filename" => name, "line-rate" => ratio},
+      [
+        {
+          :lines,
+          %{},
+          lines
+        }
+      ]
+    }
+  end)
+
+source =
+  if System.get_env("CI_PROJECT_NAME") do
+    "#{System.get_env("CI_BUILDS_DIR")}/#{System.get_env("CI_PROJECT_NAMESPACE")}/#{System.get_env("CI_PROJECT_NAME")}"
+  else
+    File.cwd!
+  end
+
+
+buffer =
+  XmlBuilder.document([
+    XmlBuilder.doctype(
+      "coverage",
+      system: ["http://cobertura.sourceforge.net/xml/coverage-03.dtd"]
+    ),
+    {
+      :coverage,
+      %{
+        "line-rate" => ratio,
+      },
+      [
+        {
+          :sources,
+          %{},
+          [
+            {
+              :source,
+              %{},
+              source
+            }
+          ]
+        },
+        {
+          :packages,
+          %{},
+          [
+            {
+              :package,
+              %{"name" => "", "line-rate" => ratio},
+              [
+                {
+                  :classes,
+                  %{},
+                  files
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ])
+  |> XmlBuilder.generate
+
+File.write!("cover/cobertura.xml", buffer)
