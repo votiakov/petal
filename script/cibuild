@@ -12,6 +12,10 @@ mix deps.get
 mix ecto.create
 mix ecto.migrate
 
-mix coveralls.json --umbrella
+if [ $1 == 'covered' ]; then
+  mix coveralls.json --umbrella
+else
+  mix test
+fi;
 
 script/restore-timestamps

@@ -38,13 +38,9 @@ test:
   <<: *test_template
   image: "elixir:1.12.1-alpine"
   script:
-    - script/cibuild
-    - script/coverage-json-to-metrics
-    - script/coverage-json-to-cobertura
+    - script/cibuild covered
   artifacts:
-    reports:
-      metrics: metrics.txt
-      cobertura: cover/cobertura.xml
+    coverage_json: cover/excoveralls.json
 
 credo:
   stage: test
@@ -93,6 +89,18 @@ build_image_for_commit:
     - script/ci-docker-prebuild
   script:
     - script/ci-docker-build
+
+report_coverage:
+  stage: deploy_tags
+  needs: ['test']
+  image: "elixir:1.12.1-alpine"
+  script:
+    - script/coverage-json-to-metrics
+    - script/coverage-json-to-cobertura
+  artifacts:
+    reports:
+      metrics: metrics.txt
+      cobertura: cover/cobertura.xml
 
 # If tests pass, tag the commit and update package versions
 deploy_to_tags:
