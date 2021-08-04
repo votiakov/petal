@@ -139,7 +139,7 @@ defmodule Legendary.Core.MixProject do
       {:bamboo_smtp, "~> 3.0"},
       {:credo, "~> 1.4", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
-      {:ex_cldr, "~> 2.13.0"},
+      {:ex_cldr, "~> 2.23.0"},
       {:ex_doc, "~> 0.24", only: :dev, runtime: false},
       {:excoveralls, "~> 0.10", only: [:dev, :test]},
       {:fun_with_flags, "~> 1.6.0"},
