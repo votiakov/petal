@@ -4,10 +4,6 @@ defmodule AppWeb.LiveHelpers do
   """
   import Phoenix.LiveView
 
-  alias Legendary.Auth.User
-  alias Pow.Store.CredentialsCache
-  alias AppWeb.Pow.Routes
-
   def assign_defaults(socket, session) do
     assign_new(socket, :current_user, fn -> get_user(socket, session) end)
   end
@@ -16,7 +12,7 @@ defmodule AppWeb.LiveHelpers do
     if socket.assigns.current_user do
       socket
     else
-      redirect(socket, to: Routes.after_sign_out_path(%Plug.Conn{}))
+      redirect(socket, to: "/")
     end
   end
 
