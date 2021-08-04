@@ -13,6 +13,10 @@ defmodule Legendary.Mixfile do
       deps: deps(),
       test_coverage: [tool: ExCoveralls],
       aliases: aliases(),
+      dialyzer: [
+        plt_add_apps: [:mix],
+        ignore_warnings: ".dialyzer_ignore.exs"
+      ],
       preferred_cli_env: [
         coveralls: :test,
         "coveralls.detail": :test,
