@@ -24,8 +24,14 @@ defmodule AuthWeb.Pow.ControllerCallbacks do
   end
 
   def before_respond(Pow.Phoenix.SessionController, :delete, {:ok, conn}, config) do
-    live_socket_id = Conn.get_session(conn, :live_socket_id)
-    AppWeb.Endpoint.broadcast(live_socket_id, "disconnect", %{})
+    case Conn.get_session(conn, :live_socket_id) do
+      nil ->
+        nil
+      live_socket_id ->
+        %{private: %{phoenix_endpoint: endpoint}} = conn
+
+        apply(endpoint, :broadcast, [live_socket_id, "disconnect", %{}])
+    end
 
     conn =
       conn
