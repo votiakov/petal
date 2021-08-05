@@ -1,5 +1,7 @@
 FROM elixir:1.10.4-alpine AS elixir-builder
 
+RUN apk add git
+
 RUN mix local.hex --force \
   && mix local.rebar --force
 
