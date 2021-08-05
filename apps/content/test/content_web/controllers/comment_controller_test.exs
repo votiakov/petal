@@ -24,7 +24,7 @@ defmodule Legendary.Content.CommentControllerTest do
       post = fixture(:post)
       conn = post conn, Routes.comment_path(conn, :create), comment: @create_attrs
 
-      assert %{id: id} = redirected_params(conn)
+      assert %{id: _} = redirected_params(conn)
       assert redirected_to(conn) == Routes.posts_path(conn, :show, post)
     end
 

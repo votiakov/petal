@@ -24,7 +24,9 @@ variables:
       - deps/
   services:
   - name: postgres:12
-  script: script/cibuild
+  script:
+    - apk add git
+    - script/cibuild
 
 test_1.10.4:
   <<: *test_template
@@ -38,6 +40,7 @@ test:
   <<: *test_template
   image: "elixir:1.12.1-alpine"
   script:
+    - apk add git
     - script/cibuild covered
   artifacts:
     paths:
@@ -52,9 +55,11 @@ credo:
       - _build/
       - deps/
   script:
+    - apk add git
     - mix local.hex --force
     - mix local.rebar --force
     - mix deps.get
+    - mix deps.compile
     - mix credo --all
 
 stylelint:
