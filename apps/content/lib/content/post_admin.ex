@@ -1,4 +1,8 @@
 defmodule Legendary.Content.PostAdmin do
+  @moduledoc """
+  Custom admin logic for content posts and pages.
+  """
+
   import Ecto.Query, only: [from: 2]
 
   def singular_name(_) do

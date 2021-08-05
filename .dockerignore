@@ -2,3 +2,4 @@ cover
 .elixir_ls
 *.dump
 .journal-*
+.git

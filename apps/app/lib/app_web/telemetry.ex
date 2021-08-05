@@ -1,4 +1,8 @@
 defmodule AppWeb.Telemetry do
+  @moduledoc """
+  Collect metrics on your app.
+  """
+
   use Supervisor
   import Telemetry.Metrics
 

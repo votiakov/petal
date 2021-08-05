@@ -18,7 +18,11 @@ defmodule Legendary.Core.SharedDBConnectionPool do
 
   def child_spec({mod, opts}) do
     opts = Keyword.put_new(opts, :name, key(opts))
-    Supervisor.Spec.worker(Legendary.Core.SharedDBConnectionPool, [{mod, opts}])
+
+    %{
+      id: __MODULE__,
+      start: {Legendary.Core.SharedDBConnectionPool, :start_link, [{mod, opts}]}
+    }
   end
 
   defp key(opts) do

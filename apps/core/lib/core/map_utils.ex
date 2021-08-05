@@ -7,7 +7,7 @@ defmodule Legendary.Core.MapUtils do
     Map.merge(base, override, &deep_value/3)
   end
 
-  defp deep_value(_key, base = %{}, override = %{}) do
+  defp deep_value(_key, %{} = base, %{} = override) do
     deep_merge(base, override)
   end
 

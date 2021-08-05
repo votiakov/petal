@@ -57,7 +57,7 @@
 
 .hljs {
   @apply mt-6 mb-12 border-l-4 border-indigo-900 font-mono;
-  --background-color: theme("colors.indigo.100");
+  --background-color: theme("colors.indigo.100"); /* stylelint-disable-line custom-property-empty-line-before */
   --attribute-color: theme("colors.orange.700");
   --section-color: theme("colors.teal.700");
   --string-color: theme("colors.green.700");

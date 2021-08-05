@@ -26,6 +26,7 @@ use Mix.Config
         "development",
         "--watch",
         "--watch-options-stdin",
+        "--progress",
         cd: Path.expand("../apps/#{otp_app}/assets", __DIR__)
       ]
     ]

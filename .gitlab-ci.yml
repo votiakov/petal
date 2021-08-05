@@ -26,7 +26,7 @@ variables:
   - name: postgres:12
   script: script/cibuild
 
-test:
+test_1.10.4:
   <<: *test_template
   image: "elixir:1.10.4-alpine"
 
@@ -34,15 +34,55 @@ test_1.11.4:
   <<: *test_template
   image: "elixir:1.11.4-alpine"
 
-test_1.12.1:
+test:
   <<: *test_template
   image: "elixir:1.12.1-alpine"
+  script:
+    - script/cibuild covered
+  artifacts:
+    paths:
+      - cover/excoveralls.json
+
+credo:
+  stage: test
+  image: "elixir:1.12.1-alpine"
+  cache:
+    key: "test_1.12.1"
+    paths:
+      - _build/
+      - deps/
+  script:
+    - mix local.hex --force
+    - mix local.rebar --force
+    - mix deps.get
+    - mix credo --all
+
+stylelint:
+  stage: test
+  image: "node:16"
+  script:
+    - cd apps/app/assets/
+    - npm install
+    - npx stylelint **/*.css
+
+prettier:
+  stage: test
+  image: "node:16"
+  script:
+    - cd apps/app/assets/
+    - npm install
+    - npx prettier --check **/*.js
 
 build_image_for_commit:
   stage: test
   image: "docker:20.10"
-  only:
-    - master
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      when: on_success
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes:
+        - Dockerfile
+      when: on_success
   services:
     - name: docker:20.10-dind
   before_script:
@@ -50,6 +90,19 @@ build_image_for_commit:
     - script/ci-docker-prebuild
   script:
     - script/ci-docker-build
+
+report_coverage:
+  stage: deploy_tags
+  needs: ['test']
+  image: "elixir:1.12.1-alpine"
+  script:
+    - mix local.hex --force
+    - script/coverage-json-to-metrics
+    - script/coverage-json-to-cobertura
+  artifacts:
+    reports:
+      metrics: metrics.txt
+      cobertura: cover/cobertura.xml
 
 # If tests pass, tag the commit and update package versions
 deploy_to_tags:

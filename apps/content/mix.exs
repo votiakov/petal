@@ -1,7 +1,7 @@
 defmodule Legendary.Content.MixProject do
   use Mix.Project
 
-  @version "2.10.0"
+  @version "3.1.2"
 
   def project do
     [
@@ -42,7 +42,7 @@ defmodule Legendary.Content.MixProject do
   defp deps do
     [
       {:core, in_umbrella: true},
-      {:earmark, "1.4.3"},
+      {:earmark, "1.4.15"},
       {:excoveralls, "~> 0.10", only: [:dev, :test]},
       {:floki, ">= 0.30.0"},
       {:gettext, "~> 0.11"},
@@ -57,7 +57,7 @@ defmodule Legendary.Content.MixProject do
       {:phoenix_html_sanitizer, "~> 1.1.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_dashboard, "~> 0.4.0"},
-      {:php_serializer, "~> 0.9.0"},
+      {:php_serializer, "~> 2.0.0"},
       {:plug_cowboy, "~> 2.0"},
       {:sitemap, "~> 1.1"},
       {:slugger, "~> 0.3"},

@@ -1,4 +1,4 @@
-FROM elixir:1.10.4-alpine AS elixir-builder
+FROM elixir:1.12.2-alpine AS elixir-builder
 
 RUN apk add git
 
@@ -29,7 +29,7 @@ RUN mix deps.get
 
 # Leave off here so that we can built assets and compile the elixir app in parallel
 
-FROM node:16.3.0 AS asset-builder
+FROM node:16.6.0 AS asset-builder
 
 # Build assets in a node container
 ADD ./apps/app/assets/ /root/app/apps/app/assets/

@@ -1,4 +1,9 @@
 defmodule Legendary.Auth.MnesiaClusterSupervisor do
+  @moduledoc """
+  Manages the cache in Mnesia for Pow. This allows users to remain logged in
+  even if their traffic is hitting different nodes in the cluster.
+  """
+
   use Supervisor
 
   def start_link(init_arg) do

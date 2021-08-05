@@ -301,7 +301,7 @@ We also need to filter the items shown based on the current user. In inventory.e
 ```elixir
 def list_items(user_id) do
   Item
-  |> where(owner_id: user_id)
+  |> where(owner_id: ^user_id)
   |> Repo.all()
 end
 ```

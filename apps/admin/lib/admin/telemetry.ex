@@ -1,4 +1,8 @@
 defmodule Legendary.Admin.Telemetry do
+  @moduledoc """
+  Collect metrics from the admin app.
+  """
+
   use Supervisor
   import Telemetry.Metrics
 

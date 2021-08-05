@@ -1,7 +1,7 @@
 defmodule Legendary.Core.MixProject do
   use Mix.Project
 
-  @version "2.10.0"
+  @version "3.1.2"
 
   def project do
     [
@@ -61,6 +61,7 @@ defmodule Legendary.Core.MixProject do
       "guides/features/feature-flags.md",
       "guides/features/i18n.md",
       "guides/features/tasks-and-scripts.md",
+      "guides/features/linters.md",
     ]
   end
 
@@ -137,6 +138,7 @@ defmodule Legendary.Core.MixProject do
       {:bamboo, "~> 1.5"},
       {:bamboo_smtp, "~> 3.0"},
       {:credo, "~> 1.4", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
       {:ex_cldr, "~> 2.23.0"},
       {:ex_doc, "~> 0.24", only: :dev, runtime: false},
       {:excoveralls, "~> 0.10", only: [:dev, :test]},
@@ -145,7 +147,7 @@ defmodule Legendary.Core.MixProject do
       {:phoenix, "~> 1.5.8"},
       {:phoenix_ecto, "~> 4.1"},
       {:ecto_sql, "~> 3.4"},
-      {:ex_prompt, "~> 0.1.5"},
+      {:ex_prompt, "~> 0.2.0"},
       {:linguist, git: "https://github.com/change/linguist.git", ref: "d67b60fd597bfe894c69773efd05ad690dad8663"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.11"},
