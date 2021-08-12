@@ -146,7 +146,7 @@ defmodule Legendary.Core.MixProject do
       {:fun_with_flags_ui, "~> 0.7.2"},
       {:phoenix, "~> 1.5.8"},
       {:phoenix_ecto, "~> 4.1"},
-      {:ecto_sql, "~> 3.4"},
+      {:ecto_sql, "~> 3.6"},
       {:ex_prompt, "~> 0.2.0"},
       {:linguist, git: "https://github.com/change/linguist.git", ref: "d67b60fd597bfe894c69773efd05ad690dad8663"},
       {:postgrex, ">= 0.0.0"},

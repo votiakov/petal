@@ -51,6 +51,10 @@ defmodule AppWeb.Router do
     forward "/sent_emails", Bamboo.SentEmailViewerPlug
   end
 
+  if Mix.env() == :e2e do
+    forward("/end-to-end", Legendary.CoreWeb.Plug.TestEndToEnd, otp_app: :app)
+  end
+
   scope "/" do
     pipe_through :browser
 

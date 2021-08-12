@@ -13,6 +13,9 @@ variables:
   # fetch & clean the repo rather than completely cloning (faster)
   GIT_STRATEGY: fetch
 
+include:
+- .gitlab/ci/.cypress.yml
+
 # Test stage. Runs various tests and speculatively builds docker image in
 #   parallel, in case the build passes.
 .test_template: &test_template
