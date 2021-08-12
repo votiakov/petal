@@ -42,7 +42,7 @@ defmodule App.MixProject do
       {:admin, in_umbrella: true},
       {:content, in_umbrella: true},
       {:core, in_umbrella: true},
-      {:ecto_sql, "~> 3.4"},
+      {:ecto_sql, "~> 3.6"},
       {:excoveralls, "~> 0.10", only: [:dev, :test]},
       {:floki, ">= 0.30.0"},
       {:oban, "~> 2.1"},

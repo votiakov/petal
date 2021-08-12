@@ -1,0 +1,24 @@
+cypress:
+  stage: test
+  image: cypress/browsers:node14.17.0-chrome91-ff89
+  variables:
+    MIX_ENV: e2e
+  cache:
+    key: $CI_JOB_NAME
+    paths:
+      - _build/
+      - deps/
+      - node_modules/
+      - .npm/
+  artifacts:
+    when: always
+    paths:
+      - apps/*/cypress/videos/**/*.mp4
+      - apps/*/cypress/screenshots/**/*.png
+    expire_in: 1 day
+  services:
+  - name: postgres:12
+  before_script:
+    - script/cypress/prepare
+  script:
+    - npm run test:integration

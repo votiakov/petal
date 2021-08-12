@@ -47,3 +47,7 @@ build.env
 
 # CI metrics file
 metrics.txt
+
+# Cypress Artifacts
+
+/apps/*/cypress/videos/
