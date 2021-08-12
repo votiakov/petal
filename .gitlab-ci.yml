@@ -115,7 +115,15 @@ report_coverage:
 # If tests pass, tag the commit and update package versions
 deploy_to_tags:
   stage: deploy_tags
-  needs: ['test', 'build_image_for_commit']
+  needs:
+    - test
+    - test_1.10.4
+    - test_1.11.4
+    - build_image_for_commit
+    - cypress
+    - credo
+    - prettier
+    - stylelint
   image: "node:16"
   only:
     - master
