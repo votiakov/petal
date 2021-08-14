@@ -114,10 +114,20 @@ defmodule Legendary.Content.PostsController do
         {:ok, decoded} = post.content |> Base.decode64
 
         conn
-        |> put_resp_content_type(post.mime_type, "binary")
+        |> put_resp_content_type(post.mime_type, charset(post.mime_type))
         |> send_resp(conn.status || 200, decoded)
       _ ->
         render(conn, template, post: post, page: page, thumbs: thumbs)
     end
   end
+
+  defp charset(mime_type) do
+    do_charset(String.split(mime_type, "/"))
+  end
+
+  defp do_charset(["application", _]), do: "binary"
+  defp do_charset(["video", _]), do: "binary"
+  defp do_charset(["audio", _]), do: "binary"
+  defp do_charset(["image", _]), do: "binary"
+  defp do_charset(_), do: "utf-8"
 end
