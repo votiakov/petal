@@ -16,6 +16,8 @@ defmodule Legendary.Core.SharedDBConnectionPool do
     end
   end
 
+  defdelegate checkout(pool, caller, opts), to: ConnectionPool
+
   def child_spec({mod, opts}) do
     opts = Keyword.put_new(opts, :name, key(opts))
 

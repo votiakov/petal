@@ -13,7 +13,7 @@
         </div>
       </div>
       <div>
-        <%= sanitize comment.content |> auto_paragraph_tags |> elem(1) |> IO.iodata_to_binary() %>
+        <%= HtmlSanitizeEx.basic_html(comment.content |> auto_paragraph_tags |> elem(1) |> IO.iodata_to_binary()) %>
       </div>
     </div>
   <% end) %>
