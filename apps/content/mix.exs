@@ -48,7 +48,7 @@ defmodule Legendary.Content.MixProject do
       {:gettext, "~> 0.11"},
       {:html_sanitize_ex, "~> 1.4.1"},
       {:jason, "~> 1.0"},
-      {:mime, "~> 1.6.0"},
+      {:mime, "~> 2.0.1"},
       {:mock, "~> 0.3.0", only: :test},
       {:meck, "~> 0.8.13", only: :test},
       {:neotomex, "~> 0.1.7"},
