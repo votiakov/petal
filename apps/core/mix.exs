@@ -149,7 +149,7 @@ defmodule Legendary.Core.MixProject do
       {:phoenix_ecto, "~> 4.3"},
       {:ecto_sql, "~> 3.6"},
       {:ex_prompt, "~> 0.2.0"},
-      {:linguist, git: "https://github.com/change/linguist.git", ref: "d67b60fd597bfe894c69773efd05ad690dad8663"},
+      {:linguist, "~> 0.3.2"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 3.0"},
       {:phoenix_live_reload, "~> 1.3", only: :dev},
