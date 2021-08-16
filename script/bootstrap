@@ -10,6 +10,11 @@ then
 else
   brew bundle
   export KERL_CONFIGURE_OPTIONS="$KERL_CONFIGURE_OPTIONS --disable-hipe --with-ssl=$(brew --prefix openssl)"
+
+  if ! which asdf &> /dev/null
+  then
+    brew install asdf
+  fi
 fi
 
 if ! which asdf &> /dev/null
