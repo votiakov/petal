@@ -28,6 +28,22 @@ defmodule Legendary.CoreWeb.ConnCase do
 
       # The default endpoint for testing
       @endpoint Legendary.CoreWeb.Endpoint
+
+      def setup_pow(conn) do
+        conn
+        |> Pow.Plug.put_config(current_user_assigns_key: :current_user)
+      end
+
+      def setup_user(conn, attrs \\ []) do
+        user =
+          attrs
+          |> Enum.into(%{})
+          |> (& struct(Legendary.Auth.User, &1)).()
+
+        conn
+        |> setup_pow()
+        |> Pow.Plug.assign_current_user(user, [])
+      end
     end
   end
 

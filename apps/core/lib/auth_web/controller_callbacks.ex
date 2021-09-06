@@ -1,4 +1,4 @@
-defmodule AuthWeb.Pow.ControllerCallbacks do
+defmodule Legendary.AuthWeb.Pow.ControllerCallbacks do
   @moduledoc """
   Hook into Pow Controllers to provide additional framework feature. In particular,
   we disconnect any active live views when a user logs out. This will cause the
@@ -36,6 +36,7 @@ defmodule AuthWeb.Pow.ControllerCallbacks do
     conn =
       conn
       |> Conn.delete_session(:live_socket_id)
+      |> Conn.delete_session(:current_user_id)
 
     ControllerCallbacks.before_respond(
       Pow.Phoenix.SessionController,

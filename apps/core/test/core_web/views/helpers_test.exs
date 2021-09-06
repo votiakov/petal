@@ -1,5 +1,5 @@
 defmodule Legendary.CoreWeb.HelpersTest do
-  use Legendary.CoreWeb.ConnCase
+  use Legendary.CoreWeb.ConnCase, async: true
 
   import Legendary.CoreWeb.Helpers
   import Ecto.Changeset,
@@ -33,6 +33,17 @@ defmodule Legendary.CoreWeb.HelpersTest do
       |> apply_action(:update)
 
     changeset
+  end
+
+  describe "current_user?/1" do
+    test "returns nil for a conn with no user", %{conn: conn}, do: refute conn |> setup_pow() |> current_user()
+    test "returns a user for a conn with a user", %{conn: conn} do
+      conn =
+        conn
+        |> setup_user(id: 456)
+
+      assert current_user(conn).id == 456
+    end
   end
 
   describe "has_role?/2" do
@@ -103,6 +114,87 @@ defmodule Legendary.CoreWeb.HelpersTest do
 
     assert markup =~ "<select"
     assert markup =~ "<label"
+  end
+
+  test "styled_input for date_select" do
+    markup =
+      form()
+      |> styled_input(:no_error_field, type: :date_select)
+      |> safe_to_string()
+
+    assert markup =~ "<select"
+  end
+
+  describe "styled_button/1" do
+    test "makes a button with content" do
+      markup =
+        styled_button("Push Me")
+        |> safe_to_string()
+
+      assert markup =~ ">Push Me"
+      assert markup =~ "<button"
+    end
+  end
+
+  describe "styled_button_link/2" do
+    test "makes a link with content and attributes" do
+      markup =
+        styled_button_link("Push Me", to: "#anchor")
+        |> safe_to_string()
+
+      assert markup =~ ">Push Me"
+      assert markup =~ "<a"
+      assert markup =~ ~s(href="#anchor")
+    end
+  end
+
+  describe "paginator/3" do
+    def reflector(range, current), do: {range, current}
+
+    test "works with only one page" do
+      assert paginator(1..1, 1, &reflector/2) == [{1..1, 1}]
+    end
+
+    test "works with two pages" do
+      assert paginator(1..2, 1, &reflector/2) == [{1..2, 1}, {1..2, 2}]
+    end
+
+    test "works with three pages" do
+      assert paginator(1..3, 3, &reflector/2) == [{1..3, 1}, {1..3, 2}, {1..3, 3}]
+    end
+
+    test "works with many pages" do
+      assert paginator(1..10, 7, &reflector/2) == [{1..10, 1}, {1..10, 6}, {1..10, 7}, {1..10, 8}, {1..10, 10}]
+    end
+  end
+
+  describe "group_rounding_class/3" do
+    test "handles the only element", do: assert group_rounding_class(1..1, 1) == "rounded-l rounded-r"
+    test "handles the first element", do: assert group_rounding_class(1..2, 1) == "rounded-l"
+    test "handles the last element", do: assert group_rounding_class(1..2, 2) == "rounded-r"
+    test "handles middle elements", do: assert group_rounding_class(1..3, 2) == ""
+    test "handles custom classes", do: assert group_rounding_class(1..3, 1, ["custom", "", ""]) == "custom"
+  end
+
+  describe "floating_form/3" do
+    test "includes title and content" do
+      markup =
+        floating_form("Test Title", %{action: "test"}, do: "Test Content")
+        |> safe_to_string()
+
+      assert markup =~ "Test Title"
+      assert markup =~ "Test Content"
+    end
+  end
+
+  describe "floating_page_wrapper/1" do
+    test "includes content" do
+      markup =
+        floating_page_wrapper(do: "Test Content")
+        |> safe_to_string()
+
+      assert markup =~ "Test Content"
+    end
   end
 
   test "pow_extension_enabled?/1" do

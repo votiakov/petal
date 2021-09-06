@@ -21,6 +21,7 @@ defmodule Legendary.Content.Sitemaps do
     generate()
   end
 
+  @spec generate :: :ok
   def generate do
     create do
       add "", priority: 0.5, changefreq: "hourly", expires: nil
