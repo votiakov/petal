@@ -9,10 +9,11 @@ defmodule AppWeb.LiveHelpers do
   end
 
   def require_auth(socket) do
-    if socket.assigns.current_user do
-      socket
-    else
-      redirect(socket, to: "/")
+    case socket.assigns do
+      %{current_user: user} when not is_nil(user) ->
+        socket
+      _ ->
+        redirect(socket, to: "/")
     end
   end
 

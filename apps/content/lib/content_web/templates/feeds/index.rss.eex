@@ -7,6 +7,7 @@
     <atom:link href="<%= Legendary.Content.Router.Helpers.url(Legendary.CoreWeb.Endpoint) %><%= @feed_url %>" rel="self" type="application/rss+xml" />
 
 <%= for post <- @posts do %>
+  <%= if unauthenticated_post?(post) do %>
     <item>
       <title><%= post.title |> HtmlSanitizeEx.strip_tags() %></title>
       <description>
@@ -19,6 +20,7 @@
       %></pubDate>
       <guid isPermaLink="true"><%= post.guid %></guid>
     </item>
+  <% end %>
 <% end %>
   </channel>
 </rss>

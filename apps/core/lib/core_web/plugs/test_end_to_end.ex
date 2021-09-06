@@ -16,8 +16,12 @@ defmodule Legendary.CoreWeb.Plug.TestEndToEnd do
       send_resp(conn, 200, "connection has already been checked out")
     else
       {:ok, _pid} = Agent.start_link(&checkout_shared_db_conn/0, name: :db_owner_agent)
-      {:ok, _} = load_test_seeds(conn)
-      send_resp(conn, 200, "connection checked out")
+      case load_test_seeds(conn) do
+        {:ok, _} ->
+          send_resp(conn, 200, "connection checked out")
+        {:error, msg} ->
+          send_resp(conn, 500, msg)
+      end
     end
   end
 
@@ -40,7 +44,10 @@ defmodule Legendary.CoreWeb.Plug.TestEndToEnd do
     Ecto.Repo.all_running()
     |> Enum.map(fn repo ->
       :ok = Ecto.Adapters.SQL.Sandbox.checkout(repo, ownership_timeout: :infinity)
-      :ok = Ecto.Adapters.SQL.Sandbox.mode(repo, {:shared, self()})
+      case Ecto.Adapters.SQL.Sandbox.mode(repo, {:shared, self()}) do
+        :ok -> :ok
+        :already_shared -> :ok
+      end
     end)
   end
 
@@ -59,14 +66,16 @@ defmodule Legendary.CoreWeb.Plug.TestEndToEnd do
          {:app, {:ok, app}} <- {:app, Map.fetch(conn.body_params, "app")},
          true <- String.match?(seed_set, @valid_seed_set_characters),
          true <- String.match?(app, @valid_app_characters) do
-        seed_path = "apps/#{app}/test/seed_sets/#{seed_set}.exs"
+
+        project_base = Path.expand(Path.join(__DIR__, "../../../../.."))
+        seed_path = Path.join(project_base, "apps/#{app}/test/seed_sets/#{seed_set}.exs")
 
         try do
           {result, _} = Code.eval_file(seed_path)
           {:ok, result}
         rescue
           e in Code.LoadError ->
-            {:error, "could not load a seed set at #{seed_path}: #{e}"}
+            {:error, e.message}
         end
     else
       {:app, :error} -> {:error, "app parameter is required if seed set is set"}

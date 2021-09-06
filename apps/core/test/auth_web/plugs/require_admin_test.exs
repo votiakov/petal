@@ -1,5 +1,5 @@
 defmodule Legendary.AuthWeb.Plugs.RequireAdminTest do
-  use Legendary.CoreWeb.ConnCase
+  use Legendary.CoreWeb.ConnCase, async: true
 
   alias Legendary.AuthWeb.Plugs.RequireAdmin
   alias Legendary.Auth.User

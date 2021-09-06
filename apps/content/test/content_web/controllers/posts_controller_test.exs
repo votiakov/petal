@@ -1,7 +1,7 @@
 defmodule Legendary.Content.PostsControllerTest do
   use Legendary.Content.ConnCase
 
-  alias Legendary.Content.{Comment, Options, Posts, Repo, Term, TermRelationship, TermTaxonomy}
+  alias Legendary.Content.{Comment, Options, Post, Posts, Repo, Term, TermRelationship, TermTaxonomy}
 
   @create_attrs %{
     id: 123,
@@ -161,6 +161,21 @@ defmodule Legendary.Content.PostsControllerTest do
 
     test "show a static page", %{conn: conn} do
       conn = get conn, Routes.posts_path(conn, :show, "index")
+
+      assert html_response(conn, 200)
+    end
+
+    test "shows the post if the id has slashes", %{conn: conn} do
+      %Post{
+        name: "a/b/c",
+        content: "slashed id",
+        status: "publish",
+        type: "post",
+        date: ~N[2020-01-01T00:00:00]
+      }
+      |> Repo.insert!()
+
+      conn = get conn, Routes.nested_posts_path(conn, :show, ["a", "b", "c"])
 
       assert html_response(conn, 200)
     end

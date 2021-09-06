@@ -31,4 +31,8 @@ defmodule Legendary.CoreWeb.Router do
       live_dashboard "/dashboard", metrics: Legendary.CoreWeb.Telemetry
     end
   end
+
+  if Mix.env() in [:e2e, :test] do
+    forward("/end-to-end", Legendary.CoreWeb.Plug.TestEndToEnd, otp_app: :app)
+  end
 end

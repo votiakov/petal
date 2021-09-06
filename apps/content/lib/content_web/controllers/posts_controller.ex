@@ -67,9 +67,7 @@ defmodule Legendary.Content.PostsController do
       conn |> show_one(post, page_string)
     end
   end
-  def show(conn, %{"id" => id, "page" => page_string}) when is_list(id) do
-    show(conn, %{"id" => Enum.join(id, "/"), "page" => page_string})
-  end
+  def show(conn, %{"id" => id} = params) when is_list(id), do: show(conn, Map.merge(params, %{"id" => Enum.join(id, "/")}))
   def show(conn, %{"id" => id}), do: show(conn, %{"id" => id, "page" => "1"})
 
   defp try_static_post(conn, id) do

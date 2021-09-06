@@ -9,11 +9,13 @@ defmodule Mix.Tasks.Legendary.CreateAdmin do
   alias Ecto.Changeset
 
   @shortdoc "Create an admin user."
-  def run(_) do
+  def run(args) do
     Application.ensure_all_started(:core)
 
-    email = ExPrompt.string_required("Email: ")
-    password = ExPrompt.password("Password: ")
+    {switches, _, _} = OptionParser.parse(args, strict: [email: :string, password: :string])
+
+    email = Keyword.get_lazy(switches, :email, fn -> ExPrompt.string_required("Email: ") end)
+    password = Keyword.get_lazy(switches, :password, fn -> ExPrompt.password("Password: ") end)
 
    params = %{
       email: email,
@@ -27,7 +29,7 @@ defmodule Mix.Tasks.Legendary.CreateAdmin do
     |> Repo.insert!()
   end
 
-  def maybe_confirm_email(changeset) do
+  defp maybe_confirm_email(changeset) do
     field_list = User.__schema__(:fields)
 
     case  Enum.any?(field_list, &(&1 == :email_confirmed_at)) do
