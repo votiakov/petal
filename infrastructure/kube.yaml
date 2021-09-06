@@ -78,21 +78,6 @@ spec:
                 secretKeyRef:
                   name: legendary
                   key: smtp-password
-            - name: SMTP_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: legendary
-                  key: smtp-host
-            - name: SMTP_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: legendary
-                  key: smtp-username
-            - name: SMTP_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: legendary
-                  key: smtp-password
 ---
 apiVersion: v1
 kind: Service
