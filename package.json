@@ -1,6 +1,6 @@
 {
   "name": "@mythic-insight/legendary",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "private": true,
   "description": "The Legendary Phoenix Boilerplate.",
   "main": "index.js",
@@ -21,16 +21,16 @@
   },
   "homepage": "https://gitlab.com/mythic-insight/legendary#readme",
   "devDependencies": {
-    "@google/semantic-release-replace-plugin": "^1.0.2",
+    "@google/semantic-release-replace-plugin": "^1.1.0",
     "@semantic-release/commit-analyzer": "^8.0.1",
     "@semantic-release/exec": "^5.0.0",
     "@semantic-release/git": "^9.0.1",
     "@semantic-release/npm": "^7.1.3",
-    "cypress": "^8.2.0",
+    "cypress": "^8.3.1",
     "dot": "^1.1.3",
     "http-proxy": "^1.18.1",
-    "semantic-release": "^17.4.4",
-    "start-server-and-test": "^1.13.1"
+    "semantic-release": "^17.4.7",
+    "start-server-and-test": "^1.14.0"
   },
   "release": {
     "branch": "master",

@@ -116,15 +116,17 @@ defmodule Legendary.Content.Post do
 
   def maybe_put_guid(changeset) do
     import Legendary.Content.Router.Helpers, only: [url: 1, posts_url: 3]
-    slug = changeset |> get_field(:name)
+    guid = changeset |> get_field(:guid)
 
-    case slug do
-      nil -> changeset
-      _ ->
+    case guid do
+      nil ->
         base = url(Legendary.CoreWeb.Endpoint)
+        slug = changeset |> get_field(:name)
 
         changeset
         |> put_default(:guid, posts_url(URI.merge(base, "/pages"), :show, slug))
+      _ ->
+        changeset
     end
   end
 end
