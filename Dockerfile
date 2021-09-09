@@ -1,4 +1,4 @@
-FROM elixir:1.12.2-alpine AS elixir-builder
+FROM elixir:1.12.3-alpine AS elixir-builder
 
 RUN apk add git
 
