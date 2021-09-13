@@ -29,7 +29,7 @@ RUN mix deps.get
 
 # Leave off here so that we can built assets and compile the elixir app in parallel
 
-FROM node:16.8.0 AS asset-builder
+FROM node:16.9.1 AS asset-builder
 
 # Build assets in a node container
 ADD ./apps/app/assets/ /root/app/apps/app/assets/
