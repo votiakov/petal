@@ -180,7 +180,7 @@ deploy_commit_image_to_tag:
 
 .dependabot_gitlab: &dependabot_gitlab
   image:
-    name: docker.io/andrcuns/dependabot-gitlab:0.4.3
+    name: docker.io/andrcuns/dependabot-gitlab:0.9.7
     entrypoint: [""]
   variables:
     GIT_STRATEGY: none
