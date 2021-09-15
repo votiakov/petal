@@ -214,6 +214,7 @@ npm-assets:
       - $PACKAGE_MANAGER_SET =~ /(\bnpm|yarn\b)/
 
 mix-admin:
+  timeout: 3 hours 30 minutes # hopefully temporary hack because hex runs slowly in docker right now
   extends: .dependabot_gitlab
   variables:
     DIRECTORY: "/apps/admin"
@@ -223,6 +224,7 @@ mix-admin:
       - $PACKAGE_MANAGER_SET =~ /\bmix\b/
 
 mix-app:
+  timeout: 3 hours 30 minutes # hopefully temporary hack because hex runs slowly in docker right now
   extends: .dependabot_gitlab
   variables:
     DIRECTORY: "/apps/app"
@@ -232,6 +234,7 @@ mix-app:
       - $PACKAGE_MANAGER_SET =~ /\bmix\b/
 
 mix-core:
+  timeout: 3 hours 30 minutes # hopefully temporary hack because hex runs slowly in docker right now
   extends: .dependabot_gitlab
   variables:
     DIRECTORY: "/apps/core"
@@ -241,6 +244,7 @@ mix-core:
       - $PACKAGE_MANAGER_SET =~ /\bmix\b/
 
 mix-content:
+  timeout: 3 hours 30 minutes # hopefully temporary hack because hex runs slowly in docker right now
   extends: .dependabot_gitlab
   variables:
     DIRECTORY: "/apps/content"
