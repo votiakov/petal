@@ -1,7 +1,7 @@
 defmodule Legendary.Admin.MixProject do
   use Mix.Project
 
-  @version "4.0.4"
+  @version "4.0.5"
 
   def project do
     [
