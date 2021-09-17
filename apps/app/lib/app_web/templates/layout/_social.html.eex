@@ -1,0 +1,28 @@
+<%= live_title_tag title(@view_module, @view_template, assigns) %>
+
+<%= tag :meta, itemprop: "name", content: title(@view_module, @view_template, assigns) %>
+<%= tag :meta, itemprop: "description", content: excerpt(@view_module, @view_template, assigns) %>
+<%= tag :meta, name: "description", content: excerpt(@view_module, @view_template, assigns) %>
+
+<!-- Twitter Card -->
+<%= tag :meta, name: "twitter:card", content: "summary_large_image" %>
+<%= tag :meta, name: "twitter:title", content: title(@view_module, @view_template, assigns) %>
+<%= tag :meta, name: "twitter:description", content: excerpt(@view_module, @view_template, assigns) %>
+<!-- <meta name="twitter:site" content="@site_handle"> -->
+<!-- <meta name="twitter:creator" content="@author_handle"> -->
+
+<!-- Facebook / Open Graph -->
+<%= tag :meta, property: "og:title", content: title(@view_module, @view_template, assigns) %>
+<%= tag :meta, property: "og:type", content: "article" %>
+<%= tag :meta, property: "og:description", content: excerpt(@view_module, @view_template, assigns) %>
+<%= tag :meta, property: "og:site_name", content: Legendary.I18n.t!("en", "site.title") %>
+<%= modified_tag(@view_module, @view_template, assigns) %>
+<%= published_tag(@view_module, @view_template, assigns) %>
+<!-- <meta property="article:section" content="Article Section" /> -->
+<!-- <meta property="article:tag" content="Article Tag" /> -->
+<!-- <meta property="fb:admins" content="Facebook numberic ID" /> -->
+
+<!-- Preview Images -->
+<!-- <meta itemprop="image" content="http://www.example.com/image.jpg"> -->
+<!-- <meta name="twitter:image:src" content="http://www.example.com/image.jpg"> -->
+<!-- <meta property="og:image" content="http://example.com/image.jpg" /> -->
