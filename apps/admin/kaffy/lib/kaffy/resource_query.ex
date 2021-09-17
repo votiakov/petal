@@ -2,6 +2,7 @@ defmodule Kaffy.ResourceQuery do
   @moduledoc false
 
   import Ecto.Query
+  import Ecto.Query.API, only: [field: 2]
 
   def list_resource(conn, resource, params \\ %{}) do
     per_page = Map.get(params, "limit", "100") |> String.to_integer()
