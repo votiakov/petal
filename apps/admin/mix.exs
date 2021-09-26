@@ -43,17 +43,17 @@ defmodule Legendary.Admin.MixProject do
   defp deps do
     [
       {:core, in_umbrella: true},
-      {:ecto_sql, "~> 3.4"},
+      {:ecto_sql, "~> 3.7"},
       {:excoveralls, "~> 0.10", only: [:dev, :test]},
       {:kaffy, path: "kaffy"},
       {:phoenix, "~> 1.5.9"},
-      {:phoenix_ecto, "~> 4.3"},
-      {:phoenix_html, "~> 3.0"},
+      {:phoenix_ecto, "~> 4.4"},
+      {:phoenix_html, "~> 3.0.4", override: true},
       {:phoenix_live_reload, "~> 1.3", only: :dev},
       {:phoenix_live_dashboard, "~> 0.5.0"},
       {:postgrex, ">= 0.0.0"},
       {:telemetry_metrics, "~> 0.4"},
-      {:telemetry_poller, "~> 0.4"},
+      {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"}

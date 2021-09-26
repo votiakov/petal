@@ -18,7 +18,7 @@ WORKDIR /root/app
 
 # We load these things one by one so that we can load the deps first and
 #   cache those layers, before we do the app build itself
-ADD ./priv/ ./
+ADD ./priv ./priv
 ADD ./mix.exs ./mix.lock ./
 ADD ./config ./config
 ADD ./apps/admin/mix.exs ./apps/admin/
