@@ -3,3 +3,5 @@ cover
 *.dump
 .journal-*
 .git
+
+.priv/mnesia*
