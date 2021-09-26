@@ -19,7 +19,6 @@ docker build \
   -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA-asset-builder .
 
 docker build \
-  --target asset-builder \
   --cache-from $CI_REGISTRY_IMAGE:$PARENT_COMMIT-elixir-builder \
   --cache-from $CI_REGISTRY_IMAGE:latest-elixir-builder \
   --cache-from $CI_REGISTRY_IMAGE:$PARENT_COMMIT-asset-builder \
