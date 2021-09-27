@@ -1,6 +1,8 @@
 defmodule Legendary.Content.LayoutView do
   use Legendary.Content, :view
 
+  def feed_tag(conn, assigns), do: feed_tag(conn, view_module(conn), view_template(conn), assigns)
+
   def feed_tag(conn, view_module, view_template, assigns) do
     ~E"""
     <link
@@ -11,6 +13,8 @@ defmodule Legendary.Content.LayoutView do
     />
     """
   end
+
+  def title(conn, assigns), do: title(view_module(conn), view_template(conn), assigns)
 
   def title(Legendary.Content.PostsView, "index.html", assigns) do
     "Page #{assigns.page} | #{title(nil, nil, nil)}"
@@ -25,6 +29,8 @@ defmodule Legendary.Content.LayoutView do
   end
 
   def title(_, _, _), do: Legendary.I18n.t! "en", "site.title"
+
+  def excerpt(conn, assigns), do: excerpt(view_module(conn), view_template(conn), assigns)
 
   def excerpt(Legendary.Content.PostsView, "show.html", assigns) do
     assigns.post.excerpt

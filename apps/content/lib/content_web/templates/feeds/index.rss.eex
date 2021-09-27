@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title><%= title(@view_module, @view_template, assigns) %></title>
-    <description><%= excerpt(@view_module, @view_template, assigns) %></description>
+    <title><%= title(@conn, assigns) %></title>
+    <description><%= excerpt(@conn, assigns) %></description>
     <link><%= Legendary.Content.Router.Helpers.url(Legendary.CoreWeb.Endpoint) %></link>
     <atom:link href="<%= Legendary.Content.Router.Helpers.url(Legendary.CoreWeb.Endpoint) %><%= @feed_url %>" rel="self" type="application/rss+xml" />
 

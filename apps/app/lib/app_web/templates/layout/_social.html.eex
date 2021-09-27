@@ -1,23 +1,23 @@
-<%= live_title_tag title(@view_module, @view_template, assigns) %>
+<%= live_title_tag title(@conn, assigns) %>
 
-<%= tag :meta, itemprop: "name", content: title(@view_module, @view_template, assigns) %>
-<%= tag :meta, itemprop: "description", content: excerpt(@view_module, @view_template, assigns) %>
-<%= tag :meta, name: "description", content: excerpt(@view_module, @view_template, assigns) %>
+<%= tag :meta, itemprop: "name", content: title(@conn, assigns) %>
+<%= tag :meta, itemprop: "description", content: excerpt(@conn, assigns) %>
+<%= tag :meta, name: "description", content: excerpt(@conn, assigns) %>
 
 <!-- Twitter Card -->
 <%= tag :meta, name: "twitter:card", content: "summary_large_image" %>
-<%= tag :meta, name: "twitter:title", content: title(@view_module, @view_template, assigns) %>
-<%= tag :meta, name: "twitter:description", content: excerpt(@view_module, @view_template, assigns) %>
+<%= tag :meta, name: "twitter:title", content: title(@conn, assigns) %>
+<%= tag :meta, name: "twitter:description", content: excerpt(@conn, assigns) %>
 <!-- <meta name="twitter:site" content="@site_handle"> -->
 <!-- <meta name="twitter:creator" content="@author_handle"> -->
 
 <!-- Facebook / Open Graph -->
-<%= tag :meta, property: "og:title", content: title(@view_module, @view_template, assigns) %>
+<%= tag :meta, property: "og:title", content: title(@conn, assigns) %>
 <%= tag :meta, property: "og:type", content: "article" %>
-<%= tag :meta, property: "og:description", content: excerpt(@view_module, @view_template, assigns) %>
+<%= tag :meta, property: "og:description", content: excerpt(@conn, assigns) %>
 <%= tag :meta, property: "og:site_name", content: Legendary.I18n.t!("en", "site.title") %>
-<%= modified_tag(@view_module, @view_template, assigns) %>
-<%= published_tag(@view_module, @view_template, assigns) %>
+<%= modified_tag(@conn, assigns) %>
+<%= published_tag(@conn, assigns) %>
 <!-- <meta property="article:section" content="Article Section" /> -->
 <!-- <meta property="article:tag" content="Article Tag" /> -->
 <!-- <meta property="fb:admins" content="Facebook numberic ID" /> -->
