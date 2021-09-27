@@ -53,7 +53,7 @@ defmodule Legendary.Content.MixProject do
       {:meck, "~> 0.8.13", only: :test},
       {:neotomex, "~> 0.1.7"},
       {:oban, "~> 2.9"},
-      {:phoenix, "~> 1.5.9"},
+      {:phoenix, "~> 1.6.0"},
       {:phoenix_ecto, "~> 4.4"},
       {:ecto_sql, "~> 3.7"},
       {:phoenix_html, "~> 3.0.4", override: true},

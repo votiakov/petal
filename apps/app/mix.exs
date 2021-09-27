@@ -46,7 +46,7 @@ defmodule App.MixProject do
       {:excoveralls, "~> 0.10", only: [:dev, :test]},
       {:floki, ">= 0.30.0"},
       {:oban, "~> 2.9"},
-      {:phoenix, "~> 1.5.9"},
+      {:phoenix, "~> 1.6.0"},
       {:phoenix_ecto, "~> 4.4"},
       {:phoenix_html, "~> 3.0.4", override: true},
       {:phoenix_live_reload, "~> 1.3", only: :dev},
