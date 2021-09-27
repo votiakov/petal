@@ -4,28 +4,28 @@ export DOCKER_BUILDKIT=1
 
 docker build \
   --target elixir-builder \
-  --cache-from $CI_REGISTRY_IMAGE:$PARENT_COMMIT-elixir-builder \
-  --cache-from $CI_REGISTRY_IMAGE:latest-elixir-builder \
-  --build-arg BUILDKIT_INLINE_CACHE=1 \
+  # --cache-from $CI_REGISTRY_IMAGE:$PARENT_COMMIT-elixir-builder \
+  # --cache-from $CI_REGISTRY_IMAGE:latest-elixir-builder \
+  # --build-arg BUILDKIT_INLINE_CACHE=1 \
   -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA-elixir-builder .
 
 docker build \
   --target asset-builder \
-  --cache-from $CI_REGISTRY_IMAGE:$PARENT_COMMIT-elixir-builder \
-  --cache-from $CI_REGISTRY_IMAGE:latest-elixir-builder \
-  --cache-from $CI_REGISTRY_IMAGE:$PARENT_COMMIT-asset-builder \
-  --cache-from $CI_REGISTRY_IMAGE:latest-asset-builder \
-  --build-arg BUILDKIT_INLINE_CACHE=1 \
+  # --cache-from $CI_REGISTRY_IMAGE:$PARENT_COMMIT-elixir-builder \
+  # --cache-from $CI_REGISTRY_IMAGE:latest-elixir-builder \
+  # --cache-from $CI_REGISTRY_IMAGE:$PARENT_COMMIT-asset-builder \
+  # --cache-from $CI_REGISTRY_IMAGE:latest-asset-builder \
+  # --build-arg BUILDKIT_INLINE_CACHE=1 \
   -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA-asset-builder .
 
 docker build \
-  --cache-from $CI_REGISTRY_IMAGE:$PARENT_COMMIT-elixir-builder \
-  --cache-from $CI_REGISTRY_IMAGE:latest-elixir-builder \
-  --cache-from $CI_REGISTRY_IMAGE:$PARENT_COMMIT-asset-builder \
-  --cache-from $CI_REGISTRY_IMAGE:latest-asset-builder \
-  --cache-from $CI_REGISTRY_IMAGE:$PARENT_COMMIT \
-  --cache-from $CI_REGISTRY_IMAGE:latest \
-  --build-arg BUILDKIT_INLINE_CACHE=1 \
+  # --cache-from $CI_REGISTRY_IMAGE:$PARENT_COMMIT-elixir-builder \
+  # --cache-from $CI_REGISTRY_IMAGE:latest-elixir-builder \
+  # --cache-from $CI_REGISTRY_IMAGE:$PARENT_COMMIT-asset-builder \
+  # --cache-from $CI_REGISTRY_IMAGE:latest-asset-builder \
+  # --cache-from $CI_REGISTRY_IMAGE:$PARENT_COMMIT \
+  # --cache-from $CI_REGISTRY_IMAGE:latest \
+  # --build-arg BUILDKIT_INLINE_CACHE=1 \
   -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA .
 
 # Push the commit SHA tagged version to registry. We will later choose to tag that as stable
